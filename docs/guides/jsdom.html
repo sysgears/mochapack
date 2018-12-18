@@ -1,0 +1,359 @@
+
+<!DOCTYPE HTML>
+<html lang="" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>JSDOM · mochapack</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.2">
+        
+        
+        
+    
+    <link rel="stylesheet" href="../../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-anchors/plugin.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-prism/prism.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="code-coverage.html" />
+    
+    
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        <li class="header">Table of Contents</li>
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="../../">
+            
+                <a href="../../">
+            
+                    
+                    Introduction
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="../installation/setup.html">
+            
+                <a href="../installation/setup.html">
+            
+                    
+                    Installation
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.2.1" data-path="../installation/cli-usage.html">
+            
+                <a href="../installation/cli-usage.html">
+            
+                    
+                    CLI Usage
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.2" data-path="../installation/webpack-configuration.html">
+            
+                <a href="../installation/webpack-configuration.html">
+            
+                    
+                    Webpack Configuration
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" >
+            
+                <span>
+            
+                    
+                    Guides
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter active" data-level="1.3.1" data-path="jsdom.html">
+            
+                <a href="jsdom.html">
+            
+                    
+                    JSDOM
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2" data-path="code-coverage.html">
+            
+                <a href="code-coverage.html">
+            
+                    
+                    Code coverage
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.3" data-path="ide-integration.html">
+            
+                <a href="ide-integration.html">
+            
+                    
+                    IDE Integration
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4" data-path="../../CONTRIBUTING.html">
+            
+                <a href="../../CONTRIBUTING.html">
+            
+                    
+                    Contributing Guide
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            Published with GitBook
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href="../.." >JSDOM</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+                                <section class="normal markdown-section">
+                                
+                                <h1 id="using-mochapack-with-jsdom"><a name="using-mochapack-with-jsdom" class="plugin-anchor" href="#using-mochapack-with-jsdom"><i class="fa fa-link" aria-hidden="true"></i></a>Using mochapack with jsdom</h1>
+<p><a href="https://github.com/tmpvar/jsdom" target="_blank">jsdom</a> is a JavaScript based headless browser that can be used to create a realistic testing environment.</p>
+<p>For the best experience with jsdom, it is recommended that you load a document into the global
+scope <em>before</em> running everything else. This can be done in four simple steps.</p>
+<p>First of all you need to install jsdom (<em>Note:</em> This guide uses jsdom in version 9.9.1.)</p>
+<pre class="language-"><code class="lang-bash">$ <span class="token function">npm</span> <span class="token function">install</span> jsdom --save-dev
+</code></pre>
+<p>Then create a helper script to prepare the jsdom environment, e.g. <code>setup.js</code>.</p>
+<p><strong>setup.js</strong></p>
+<pre class="language-"><code class="lang-js"><span class="token keyword">const</span> jsdom <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">&apos;jsdom&apos;</span><span class="token punctuation">)</span><span class="token punctuation">.</span>jsdom<span class="token punctuation">;</span>
+
+global<span class="token punctuation">.</span>document <span class="token operator">=</span> <span class="token function">jsdom</span><span class="token punctuation">(</span><span class="token string">&apos;&apos;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+global<span class="token punctuation">.</span>window <span class="token operator">=</span> document<span class="token punctuation">.</span>defaultView<span class="token punctuation">;</span>
+window<span class="token punctuation">.</span>console <span class="token operator">=</span> global<span class="token punctuation">.</span>console<span class="token punctuation">;</span>
+
+Object<span class="token punctuation">.</span><span class="token function">keys</span><span class="token punctuation">(</span>document<span class="token punctuation">.</span>defaultView<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">forEach</span><span class="token punctuation">(</span><span class="token punctuation">(</span>property<span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token keyword">typeof</span> global<span class="token punctuation">[</span>property<span class="token punctuation">]</span> <span class="token operator">===</span> <span class="token string">&apos;undefined&apos;</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    global<span class="token punctuation">[</span>property<span class="token punctuation">]</span> <span class="token operator">=</span> document<span class="token punctuation">.</span>defaultView<span class="token punctuation">[</span>property<span class="token punctuation">]</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+global<span class="token punctuation">.</span>navigator <span class="token operator">=</span> <span class="token punctuation">{</span>
+  userAgent<span class="token punctuation">:</span> <span class="token string">&apos;node.js&apos;</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+</code></pre>
+<p>As next you need to make sure that the compile <code>target</code> in your Webpack configuration is <code>node</code>.
+This makes sure that Node can interpret Webpack&apos;s code properly and that you have access to node features like <code>fs</code>, <code>global</code>, <code>process</code>, etc.</p>
+<p><strong>webpack-config.test.js</strong></p>
+<pre class="language-"><code class="lang-js"><span class="token keyword">var</span> nodeExternals <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">&apos;webpack-node-externals&apos;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+module<span class="token punctuation">.</span>exports <span class="token operator">=</span> <span class="token punctuation">{</span>
+  target<span class="token punctuation">:</span> <span class="token string">&apos;node&apos;</span><span class="token punctuation">,</span> <span class="token comment">// webpack should emit node.js compatible code</span>
+  externals<span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token function">nodeExternals</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token comment">// in order to ignore all modules in node_modules folder from bundling</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+</code></pre>
+<p>And finally use it with the command line using the <code>--require</code> and <code>--webpack-config</code> option:</p>
+<pre class="language-"><code class="lang-bash">$ mochapack --require setup.js --webpack-config webpack-config.test.js
+</code></pre>
+<h2 id="nodejs-compatibility"><a name="nodejs-compatibility" class="plugin-anchor" href="#nodejs-compatibility"><i class="fa fa-link" aria-hidden="true"></i></a>Node.js Compatibility</h2>
+<p>jsdom requires Node 4 or above. If you are stuck using an older version of Node, you
+may want to try using a browser-based test runner such as <a href="https://github.com/webpack/karma-webpack" target="_blank">Karma Webpack</a>.</p>
+
+                                
+                                </section>
+                            
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                
+                <a href="code-coverage.html" class="navigation navigation-next navigation-unique" aria-label="Next page: Code coverage">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"JSDOM","level":"1.3.1","depth":2,"next":{"title":"Code coverage","level":"1.3.2","depth":2,"path":"docs/guides/code-coverage.md","ref":"docs/guides/code-coverage.md","articles":[]},"previous":{"title":"Guides","level":"1.3","depth":1,"ref":"","articles":[{"title":"JSDOM","level":"1.3.1","depth":2,"path":"docs/guides/jsdom.md","ref":"docs/guides/jsdom.md","articles":[]},{"title":"Code coverage","level":"1.3.2","depth":2,"path":"docs/guides/code-coverage.md","ref":"docs/guides/code-coverage.md","articles":[]},{"title":"IDE Integration","level":"1.3.3","depth":2,"path":"docs/guides/ide-integration.md","ref":"docs/guides/ide-integration.md","articles":[]}]},"dir":"ltr"},"config":{"plugins":["edit-link","-search","github","anchors","prism","-highlight"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"edit-link":{"label":"Edit This Page","base":"https://github.com/sysgears/mochapack/tree/master"},"github":{"url":"https://github.com/sysgears/mochapack"},"anchors":{},"prism":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"mochapack","gitbook":"3.2.2","description":"mocha cli with webpack support"},"file":{"path":"docs/guides/jsdom.md","mtime":"2018-12-18T08:33:28.688Z","type":"markdown"},"gitbook":{"version":"3.2.2","time":"2018-12-18T08:56:01.772Z"},"basePath":"../..","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <script src="../../gitbook/gitbook.js"></script>
+    <script src="../../gitbook/theme.js"></script>
+    
+        
+        <script src="../../gitbook/gitbook-plugin-edit-link/plugin.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-github/plugin.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-sharing/buttons.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+

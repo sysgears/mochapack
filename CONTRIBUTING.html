@@ -1,0 +1,402 @@
+
+<!DOCTYPE HTML>
+<html lang="" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>Contributing Guide · mochapack</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.2">
+        
+        
+        
+    
+    <link rel="stylesheet" href="gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="gitbook/gitbook-plugin-anchors/plugin.css">
+                
+            
+                
+                <link rel="stylesheet" href="gitbook/gitbook-plugin-prism/prism.css">
+                
+            
+                
+                <link rel="stylesheet" href="gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    
+    <link rel="prev" href="docs/guides/ide-integration.html" />
+    
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        <li class="header">Table of Contents</li>
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="./">
+            
+                <a href="./">
+            
+                    
+                    Introduction
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="docs/installation/setup.html">
+            
+                <a href="docs/installation/setup.html">
+            
+                    
+                    Installation
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.2.1" data-path="docs/installation/cli-usage.html">
+            
+                <a href="docs/installation/cli-usage.html">
+            
+                    
+                    CLI Usage
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.2" data-path="docs/installation/webpack-configuration.html">
+            
+                <a href="docs/installation/webpack-configuration.html">
+            
+                    
+                    Webpack Configuration
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" >
+            
+                <span>
+            
+                    
+                    Guides
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.1" data-path="docs/guides/jsdom.html">
+            
+                <a href="docs/guides/jsdom.html">
+            
+                    
+                    JSDOM
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2" data-path="docs/guides/code-coverage.html">
+            
+                <a href="docs/guides/code-coverage.html">
+            
+                    
+                    Code coverage
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.3" data-path="docs/guides/ide-integration.html">
+            
+                <a href="docs/guides/ide-integration.html">
+            
+                    
+                    IDE Integration
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter active" data-level="1.4" data-path="CONTRIBUTING.html">
+            
+                <a href="CONTRIBUTING.html">
+            
+                    
+                    Contributing Guide
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            Published with GitBook
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href="." >Contributing Guide</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+                                <section class="normal markdown-section">
+                                
+                                <h1 id="contributing"><a name="contributing" class="plugin-anchor" href="#contributing"><i class="fa fa-link" aria-hidden="true"></i></a>Contributing</h1>
+<h2 id="issues"><a name="issues" class="plugin-anchor" href="#issues"><i class="fa fa-link" aria-hidden="true"></i></a>Issues</h2>
+<p>Found an issue? Missing a feature or something else? We look forward to receive your feedback.</p>
+<p>For bug reports please make sure that you</p>
+<ul>
+<li>clearly describe your problem</li>
+<li>provide us something that allows us to reproduce the problem (a minimal failing example would be awesome)</li>
+</ul>
+<h2 id="pull-requests"><a name="pull-requests" class="plugin-anchor" href="#pull-requests"><i class="fa fa-link" aria-hidden="true"></i></a>Pull Requests</h2>
+<p>We love pull requests. Here&apos;s a quick guide:</p>
+<ol>
+<li><p>Fork the repo.</p>
+</li>
+<li><p>Run the tests. We only take pull requests with passing tests, and it&apos;s great to know that you have a clean state.</p>
+</li>
+<li><p>Add a test for your change. Only refactoring and documentation changes require no new tests. If you are adding functionality or fixing a bug, we need a test to avoid regressions in future releases.</p>
+</li>
+<li><p>Make the test pass.</p>
+</li>
+<li><p>Push to your fork and submit a pull request.</p>
+</li>
+<li><p>At this point you&apos;re waiting on us. We&apos;ll give you feedback asap.</p>
+</li>
+</ol>
+<p><strong>Note:</strong> If you have any problems with a test case don&apos;t hesitate to ask us. Just submit your PR and we&apos;ll find a solution together :)</p>
+<h3 id="how-to-run-tests"><a name="how-to-run-tests" class="plugin-anchor" href="#how-to-run-tests"><i class="fa fa-link" aria-hidden="true"></i></a>How to run tests</h3>
+<ol>
+<li><p>Make sure you have all dependencies installed</p>
+<pre class="language-"><code class="lang-bash">$ <span class="token function">npm</span> <span class="token function">install</span>
+</code></pre>
+</li>
+<li><p>Run the tests with:</p>
+<pre class="language-"><code class="lang-bash">$ <span class="token function">npm</span> run <span class="token function">test</span>
+</code></pre>
+</li>
+</ol>
+<h3 id="how-to-test-against-your-project"><a name="how-to-test-against-your-project" class="plugin-anchor" href="#how-to-test-against-your-project"><i class="fa fa-link" aria-hidden="true"></i></a>How to test against your project</h3>
+<p>Wanna test your changes against your real world project? No Problem!</p>
+<p>Let&apos;s use <code>npm link</code> to symlink the fork into your project.</p>
+<ol>
+<li><p>switch to the root of this project</p>
+</li>
+<li><p>make sure you have all dependencies installed</p>
+<pre class="language-"><code class="lang-bash">$ <span class="token function">npm</span> <span class="token function">install</span>
+</code></pre>
+</li>
+<li><p>run first step for npm link</p>
+<pre class="language-"><code class="lang-bash">$ <span class="token function">npm</span> <span class="token function">link</span>
+</code></pre>
+</li>
+<li><p>switch to your real world project</p>
+</li>
+<li><p>and execute the second step for npm link</p>
+<pre class="language-"><code class="lang-bash">$ <span class="token function">npm</span> <span class="token function">link</span> mochapack
+</code></pre>
+</li>
+<li><p>You need to configure loader resolution in your webpack config, like below</p>
+<pre class="language-"><code class="lang-js"><span class="token keyword">var</span> path <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">&apos;path&apos;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+module<span class="token punctuation">.</span>exports <span class="token operator">=</span> <span class="token punctuation">{</span>
+ <span class="token comment">// ..</span>
+ <span class="token comment">// npm link mochapack hack</span>
+ resolveLoader<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+   root<span class="token punctuation">:</span> <span class="token punctuation">[</span>
+    <span class="token comment">// __dirname is the root of your project, you may need to adjust the path</span>
+    path<span class="token punctuation">.</span><span class="token function">join</span><span class="token punctuation">(</span>__dirname<span class="token punctuation">,</span> <span class="token string">&quot;node_modules&quot;</span><span class="token punctuation">)</span>
+   <span class="token punctuation">]</span>
+ <span class="token punctuation">}</span><span class="token punctuation">;</span>
+ <span class="token comment">// ..</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+</code></pre>
+</li>
+<li><p>Then you are almost ready to go. You just have to build this project initially and whenever you make code changes.</p>
+<pre class="language-"><code class="lang-bash">$ <span class="token function">npm</span> run build
+</code></pre>
+</li>
+</ol>
+<h3 id="syntax-rules"><a name="syntax-rules" class="plugin-anchor" href="#syntax-rules"><i class="fa fa-link" aria-hidden="true"></i></a>Syntax rules</h3>
+<p>Please pay attention on the following syntax rules:</p>
+<ul>
+<li>Basic coding styles are defined within the .editorconfig file.</li>
+<li>ESLint automatically checks the code style after tests or manually via <code>npm run lint</code>.</li>
+<li>Follow the conventions used in the source already.</li>
+</ul>
+
+                                
+                                </section>
+                            
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="docs/guides/ide-integration.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page: IDE Integration">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"Contributing Guide","level":"1.4","depth":1,"previous":{"title":"IDE Integration","level":"1.3.3","depth":2,"path":"docs/guides/ide-integration.md","ref":"docs/guides/ide-integration.md","articles":[]},"dir":"ltr"},"config":{"plugins":["edit-link","-search","github","anchors","prism","-highlight"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"edit-link":{"label":"Edit This Page","base":"https://github.com/sysgears/mochapack/tree/master"},"github":{"url":"https://github.com/sysgears/mochapack"},"anchors":{},"prism":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"mochapack","gitbook":"3.2.2","description":"mocha cli with webpack support"},"file":{"path":"CONTRIBUTING.md","mtime":"2018-12-18T08:33:28.688Z","type":"markdown"},"gitbook":{"version":"3.2.2","time":"2018-12-18T08:56:01.772Z"},"basePath":".","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <script src="gitbook/gitbook.js"></script>
+    <script src="gitbook/theme.js"></script>
+    
+        
+        <script src="gitbook/gitbook-plugin-edit-link/plugin.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-github/plugin.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-sharing/buttons.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+
