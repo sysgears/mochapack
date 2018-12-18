@@ -1,0 +1,28 @@
+sudo: false
+
+# Build only master & PRs
+branches:
+  only:
+    - master
+    - /^greenkeeper/.*$/
+
+language: node_js
+
+node_js:
+  - "6"
+  - "8"
+  - "9"
+
+env:
+  - WEBPACK_VERSION=4 MOCHA_VERSION=4
+  - WEBPACK_VERSION=4 MOCHA_VERSION=5
+
+before_script:
+  - "yarn add webpack@$WEBPACK_VERSION"
+  - "yarn add mocha@$MOCHA_VERSION"
+
+script:
+  - npm run cover
+
+after_success:
+  - bash <(curl -s https://codecov.io/bash)
