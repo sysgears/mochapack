@@ -133,6 +133,8 @@
     "instrument": false
   },
   "resolutions": {
-    "mocha": "^6.0.0"
+    "mocha": "^6.0.0",
+    "hoek": "^4.2.1",
+    "cryptiles": "^4.1.3"
   }
 }
