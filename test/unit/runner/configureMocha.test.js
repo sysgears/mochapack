@@ -87,7 +87,7 @@ describe('configureMocha', function () {
       fgrep: 'dddd',
     });
 
-    assert.isTrue(this.spyGrep.calledTwice, 'grep() should be called');
+    assert.isTrue(this.spyGrep.called, 'grep() should be called');
   });
 
   it('should set growl', function () {
