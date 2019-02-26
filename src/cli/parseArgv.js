@@ -203,7 +203,7 @@ const parameters = paramList(options); // camel case parameters
 const parametersWithMultipleArgs = paramList(_.pickBy(_.mapValues(options, (v) => !!v.requiresArg && v.multiple === true))); // eslint-disable-line max-len
 const groupedAliases = _.values(_.mapValues(options, (value, key) => [_.camelCase(key), key, value.alias].filter(_.identity))); // eslint-disable-line max-len
 
-export default function parseArgv(argv, ignoreDefaults = false) {
+function parse(argv, ignoreDefaults) {
   const parsedArgs = yargs()
     .help('help')
     .alias('help', 'h')
@@ -278,4 +278,16 @@ export default function parseArgv(argv, ignoreDefaults = false) {
   }
 
   return validOptions;
+}
+
+export default function parseArgv(argv, ignoreDefaults = false) {
+  const origMainFilename = require.main.filename;
+  try {
+    // yargs searches for package.json up starting from `require.main.filename` path with `yargs` parser configuration
+    // it results in finding mocha `package.json` with config for yargs, which is different then we need
+    require.main.filename = require.resolve('../../bin/_mocha');
+    return parse(argv, ignoreDefaults);
+  } finally {
+    require.main.filename = origMainFilename;
+  }
 }

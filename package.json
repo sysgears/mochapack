@@ -16,7 +16,7 @@
     "clean-lib": "del-cli \"lib/**\" \"!lib\" \"!lib/reporters\" \"!lib/utils.js\" \"!lib/entry.js\" \"!lib/reporters/base.js\"",
     "clean-tmp": "del-cli \".tmp/**\"",
     "build": "npm run clean-lib && babel ./src -d lib",
-    "lint": "eslint --report-unused-disable-directives src test bin",
+    "lint": "eslint src test bin",
     "flow": "flow",
     "test": "npm run clean-tmp && npm run build && mocha --timeout 10000 --recursive --require babel-register \"test/**/*.test.js\"",
     "cover": "cross-env BABEL_ENV=coverage nyc --reporter=lcov --reporter=text npm test",
@@ -28,7 +28,8 @@
     "docs:deploy": "gh-pages -d _book",
     "prepublish": "npm run build  && npm run docs:build",
     "postpublish": "npm run docs:deploy",
-    "release": "np"
+    "release": "np",
+    "watch": "babel ./src -w -d lib"
   },
   "repository": {
     "type": "git",
@@ -44,7 +45,7 @@
   "author": "Victor Vlasenko <victor.vlasenko@sysgears.com>",
   "license": "MIT",
   "peerDependencies": {
-    "mocha": ">=4 <=5",
+    "mocha": ">=4 <=6",
     "webpack": "^4.0.0"
   },
   "devDependencies": {
@@ -62,7 +63,7 @@
     "babel-plugin-transform-runtime": "^6.15.0",
     "babel-preset-env": "^1.6.1",
     "babel-register": "^6.5.2",
-    "bdd-lazy-var": "^2.1.2",
+    "bdd-lazy-var": "^2.5.0",
     "chai": "^4.1.0",
     "coffee-script": "^1.11.1",
     "cross-env": "^5.1.0",
@@ -84,7 +85,7 @@
     "gitbook-plugin-github": "^2.0.0",
     "gitbook-plugin-prism": "^2.0.0",
     "glob": "7.1.2",
-    "mocha": "^5.0.1",
+    "mocha": "^6.0.0",
     "node-sass": "^4.11.0",
     "np": "^2.9.0",
     "nyc": "^11.3.0",
@@ -130,5 +131,8 @@
     ],
     "sourceMap": false,
     "instrument": false
+  },
+  "resolutions": {
+    "mocha": "^6.0.0"
   }
 }

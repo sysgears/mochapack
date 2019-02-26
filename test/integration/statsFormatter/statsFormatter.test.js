@@ -59,6 +59,7 @@ describe('statFormatter', function () {
       stripAnsi,
       (message) => message.replace(/\r?\n/g, '\n'),
       (message) => message.replace(testDirPath, `Xdir/${testName}`),
+      (message) => message.replace(process.cwd(), 'Cdir'),
     ]);
 
     it(`should print correct stats for ${path.basename(testDirPath)}`, function (done) {

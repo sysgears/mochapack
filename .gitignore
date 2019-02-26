@@ -1,5 +1,7 @@
-# IntelliJ, WebStorm, ...
+# IntelliJ, WebStorm, VS Code, ...
 .idea
+.vscode
+.history
 
 # Node
 node_modules
