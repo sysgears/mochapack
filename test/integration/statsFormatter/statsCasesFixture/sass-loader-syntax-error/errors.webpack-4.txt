@@ -1,7 +1,8 @@
 Error in ./main.scss
 
-  Syntax error:
+  Module build failed (from Cdir/node_modules/sass-loader/lib/loader.js):
+  
     color: red;
-               ^
+              ^
         Invalid CSS after "  color: red;": expected "}", was ""
-        in Xdir/sass-loader-syntax-error/main.scss (line 2, column 15)
+        in Xdir/sass-loader-syntax-error/main.scss (line 2, column 14)

@@ -16,6 +16,7 @@ node_js:
 env:
   - WEBPACK_VERSION=4 MOCHA_VERSION=4
   - WEBPACK_VERSION=4 MOCHA_VERSION=5
+  - WEBPACK_VERSION=4 MOCHA_VERSION=6
 
 before_script:
   - "yarn add webpack@$WEBPACK_VERSION"

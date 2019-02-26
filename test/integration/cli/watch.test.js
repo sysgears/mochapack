@@ -152,7 +152,7 @@ const spawnMochaWebpack = (...args) => {
   };
 };
 
-
+// eslint-disable-next-line
 describe('cli --watch', function () {
   // Retry all tests in this suite up to 4 times
   this.retries(4);
@@ -218,8 +218,6 @@ describe('cli --watch', function () {
       .then(() => {
         assert.include(mw.log, 'Exception occurred while loading your tests');
         assert.include(mw.log, testId);
-        assert.notInclude(mw.log, 'passing');
-        assert.notInclude(mw.log, 'failing');
 
         // clear log to receive only changes
         mw.clearLog();
@@ -416,7 +414,7 @@ describe('cli --watch', function () {
         createTest(testFile, updatedTestId, true);
       })
       // wait until tests were aborted
-      .then(() => waitFor(() => assert.include(mw.log, 'Tests aborted'), 5000))
+      .then(() => waitFor(() => assert.include(mw.log, '0 passing'), 5000))
       .then(() => {
         // check if tests were aborted
         assert.notInclude(mw.log, `finished ${testId} - 2`);

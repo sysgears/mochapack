@@ -1,6 +1,7 @@
 Error in ./entry.js
 
-  Syntax error: Unexpected token (2:0)
+  Module build failed (from Cdir/node_modules/babel-loader/lib/index.js):
+  SyntaxError: Unexpected token (2:0)
   
     1 | const x = {
   > 2 | 
