@@ -21,10 +21,6 @@ We love pull requests. Here's a quick guide:
 
 1. Push to your fork and submit a pull request.
 
-1. At this point you're waiting on us. We'll give you feedback asap.
-
-**Note:** If you have any problems with a test case don't hesitate to ask us. Just submit your PR and we'll find a solution together :)
-
 ### How to run tests
 
 1. Make sure you have all dependencies installed
@@ -59,7 +55,7 @@ Let's use `npm link` to symlink the fork into your project.
 
 1. and execute the second step for npm link
   ```bash
-  $ npm link mocha-webpack
+  $ npm link mochapack
   ```
 
 1. You need to configure loader resolution in your webpack config, like below
@@ -68,7 +64,7 @@ Let's use `npm link` to symlink the fork into your project.
 
   module.exports = {
     // ..
-    // npm link mocha-webpack hack
+    // npm link mochapack hack
     resolveLoader: {
       root: [
        // __dirname is the root of your project, you may need to adjust the path

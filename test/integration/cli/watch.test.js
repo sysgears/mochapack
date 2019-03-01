@@ -127,7 +127,7 @@ const waitFor = (condition, timeoutInMs) => new Promise((resolve, reject) => {
 
 const spawnMochaWebpack = (...args) => {
   let data = '';
-  const binPath = path.relative(process.cwd(), path.join('bin', 'mocha-webpack'));
+  const binPath = path.relative(process.cwd(), path.join('bin', 'mochapack'));
 
   const child = spawn('node', [binPath, '--mode', 'development', ...args]);
   const receiveData = (d) => {

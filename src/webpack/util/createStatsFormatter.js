@@ -47,7 +47,7 @@ export default function createStatsFormatter(rootPath: string) {
       lines.push('');
     } else {
       // got no file, that happens only for more generic errors like the following from node-sass
-      //    Missing binding /mocha-webpack-example/node_modules/node-sass/vendor/linux-x64-48/binding.node
+      //    Missing binding /mochapack-example/node_modules/node-sass/vendor/linux-x64-48/binding.node
       //    Node Sass could not find a binding for your current environment: Linux 64-bit with Node.js 6.x
       //    ...
       // just print 2 lines like file

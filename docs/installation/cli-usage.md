@@ -2,7 +2,7 @@
 
 
 ```bash
-Usage: mocha-webpack [options] [<file|directory|glob> ...]
+Usage: mochapack [options] [<file|directory|glob> ...]
 
 Options
 
@@ -33,12 +33,12 @@ Options
   --delay                        wait for async suite definition
   --webpack-config               path to webpack-config file
   --webpack-env                  environment passed to the webpack-config, when it is a function
-  --opts                         path to webpack-mocha options file, Default cwd/mocha-webpack.opts
+  --opts                         path to webpack-mocha options file, Default cwd/mochapack.opts
 
 Examples
 
-  mocha-webpack "src/**/*.test.js"
-  mocha-webpack --webpack-config webpack.config-test.js
+  mochapack "src/**/*.test.js"
+  mochapack --webpack-config webpack.config-test.js
 
 Default pattern when no arguments:
   "test/*.{ext}"              {ext} is placeholder for extensions in your webpack config via 'resolve.extensions'. Fallbacks to '.js'
@@ -50,16 +50,16 @@ Default pattern when no arguments:
 
 ### --webpack-config
 
-Allows you to use your own webpack configuration to define custom loaders and other webpack related stuff. 
+Allows you to use your own webpack configuration to define custom loaders and other webpack related stuff.
 
-When the parameter `--webpack-config` is omitted, mocha-webpack tries to load a webpack-config file named `webpack.config.js`, but will not bail when it doesn't exist.
+When the parameter `--webpack-config` is omitted, mochapack tries to load a webpack-config file named `webpack.config.js`, but will not bail when it doesn't exist.
 It fails only for missing webpack config files when the config is explicitly given.
 
 
 If you need to use a JavaScript preprocessor such as [Babel](https://babeljs.io/) or [CoffeeScript](http://coffeescript.org/)
 for your webpack config file then give it a name that ends with corresponding extension and call it without it:
 
-`$ mocha-webpack --webpack-config webpack.config-test.js`
+`$ mochapack --webpack-config webpack.config-test.js`
 
 **webpack.config-test.babel.js** - Babel example config
 ```javascript
@@ -110,30 +110,30 @@ Please have a look at the [webpack configuration chapter](./webpack-configuratio
 
 ### --opts
 
-mocha-webpack attempts to load a configuration file named `mocha-webpack.opts` in your working directory. It's basically the same like `mocha.opts` for mocha and appends common CLI options automatically to your commands.
+mochapack attempts to load a configuration file named `mochapack.opts` in your working directory. It's basically the same like `mocha.opts` for mocha and appends common CLI options automatically to your commands.
 
 `--opts` allows you to define a custom file path for this config file.
 
 The lines in this file are combined with any command-line arguments. Command-line arguments take precedence.
 
-Imagine you have the following mocha-webpack.opts file:
+Imagine you have the following mochapack.opts file:
 
-**mocha-webpack.opts**
+**mochapack.opts**
 ```
 --colors
 --webpack-config webpack.config-test.js
 src/**/*.test.js
 ```
 
-and call mocha-webpack with
+and call mochapack with
 ```bash
-$ mocha-webpack --growl
+$ mochapack --growl
 ```
 
 then it's equivalent to
 
 ```bash
-$ mocha-webpack --growl --colors --webpack-config webpack.config-test.js "src/**/*.test.js"
+$ mochapack --growl --colors --webpack-config webpack.config-test.js "src/**/*.test.js"
 ```
 
 ### --glob, --recursive
@@ -155,6 +155,6 @@ But like `--require` they will be executed before your tests.
 
 ### --watch
 
-Starts mocha-webpack in watch mode and compiles & run your tests automatically when a file change occur.
-Unlike mocha, mocha-webpack analyzes your dependency graph and run only those test files that were affected by this file change.
+Starts mochapack in watch mode and compiles & run your tests automatically when a file change occur.
+Unlike mocha, mochapack analyzes your dependency graph and run only those test files that were affected by this file change.
 

@@ -13,7 +13,7 @@ export default function registerInMemoryCompiler(compiler: Compiler) {
 
   // build asset map to allow fast checks for file existence
   const assetMap = new Map();
-  compiler.hooks.done.tap('mocha-webpack', (stats: Stats) => {
+  compiler.hooks.done.tap('mochapack', (stats: Stats) => {
     assetMap.clear();
 
     if (!stats.hasErrors()) {

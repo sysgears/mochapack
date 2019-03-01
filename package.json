@@ -1,9 +1,9 @@
 {
-  "name": "mocha-webpack",
-  "version": "2.0.0-beta.0",
+  "name": "mochapack",
+  "version": "1.0.0",
   "description": "mocha cli with webpack support",
   "bin": {
-    "mocha-webpack": "./bin/mocha-webpack"
+    "mochapack": "./bin/mochapack"
   },
   "main": "./lib/createMochaWebpack.js",
   "files": [
@@ -32,16 +32,16 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/zinserjan/mocha-webpack"
+    "url": "https://github.com/sysgears/mochapack"
   },
   "bugs": {
-    "url": "https://github.com/zinserjan/mocha-webpack/issues"
+    "url": "https://github.com/sysgears/mochapack/issues"
   },
   "keywords": [
     "webpack",
     "mocha"
   ],
-  "author": "Jan-André Zinser",
+  "author": "Victor Vlasenko <victor.vlasenko@sysgears.com>",
   "license": "MIT",
   "peerDependencies": {
     "mocha": ">=4 <=5",
@@ -85,7 +85,7 @@
     "gitbook-plugin-prism": "^2.0.0",
     "glob": "7.1.2",
     "mocha": "^5.0.1",
-    "node-sass": "~4.7.2",
+    "node-sass": "^4.11.0",
     "np": "^2.9.0",
     "nyc": "^11.3.0",
     "sass-loader": "~6.0.0",
@@ -98,7 +98,7 @@
   "dependencies": {
     "babel-runtime": "^6.18.0",
     "chalk": "^2.3.0",
-    "chokidar": "^2.0.2",
+    "chokidar": "^2.0.4",
     "glob-parent": "^3.1.0",
     "globby": "^7.1.1",
     "interpret": "^1.0.1",

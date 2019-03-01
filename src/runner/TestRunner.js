@@ -73,7 +73,7 @@ export default class TestRunner extends EventEmitter {
     let failures = 0;
     const compiler: Compiler = createCompiler(config);
 
-    compiler.hooks.run.tapAsync('mocha-webpack', (c, cb) => {
+    compiler.hooks.run.tapAsync('mochapack', (c, cb) => {
       this.emit('webpack:start');
       // $FlowFixMe
       cb();
@@ -159,7 +159,7 @@ export default class TestRunner extends EventEmitter {
     const compiler = createCompiler(config);
     registerInMemoryCompiler(compiler);
     // register webpack start callback
-    compiler.hooks.watchRun.tapAsync('mocha-webpack', (c, cb) => {
+    compiler.hooks.watchRun.tapAsync('mochapack', (c, cb) => {
       // check if mocha tests are still running, abort them and start compiling
       if (mochaRunner) {
         compilationScheduler = () => {
@@ -250,7 +250,7 @@ export default class TestRunner extends EventEmitter {
     const entryConfig = new EntryConfig();
     files.forEach((f) => entryConfig.addFile(f));
 
-    const tmpPath = path.join(this.options.cwd, '.tmp', 'mocha-webpack', Date.now().toString());
+    const tmpPath = path.join(this.options.cwd, '.tmp', 'mochapack', Date.now().toString());
     const withCustomPath = _.has(webpackConfig, 'output.path');
     const outputPath = path.normalize(_.get(webpackConfig, 'output.path', tmpPath));
     const publicPath = withCustomPath ? _.get(webpackConfig, 'output.publicPath', undefined) : outputPath + path.sep;

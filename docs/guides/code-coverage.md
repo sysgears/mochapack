@@ -1,7 +1,7 @@
-# Code Coverage with mocha-webpack
+# Code Coverage with mochapack
 
 
-This guide will show you how to setup code coverage with mocha-webpack and get a report like the following.
+This guide will show you how to setup code coverage with mochapack and get a report like the following.
 
 ![code coverage report](../media/code-coverage-report.png)
   *Yes, this is a very poor sample report for just two files...*
@@ -43,8 +43,8 @@ As second step we define a npm script to run our tests with code coverage.
 ```json
 {
   "scripts": {
-    "test": "mocha-webpack --watch",
-    "test-ci": "mocha-webpack",
+    "test": "mochapack --watch",
+    "test-ci": "mochapack",
     "cover": "cross-env NODE_ENV=coverage nyc --reporter=lcov --reporter=text npm run test-ci"
   },
 }
@@ -53,7 +53,7 @@ As second step we define a npm script to run our tests with code coverage.
 
 This allows us to get coverage reports of our codebase with the command `npm run cover`.
 
-*Note:* mocha-webpack in this sample is preconfigured via the `mocha-webpack.opts` file.
+*Note:* mochapack in this sample is preconfigured via the `mochapack.opts` file.
 
 As next we need to configure `nyc` within our package.json:
 
@@ -157,7 +157,7 @@ As you can see we have two files `module1.js` and `module2.js` in our `src` fold
 When we run our tests now with the following command...
 
 ```bash
-$ mocha-webpack "test/**/*.js"
+$ mochapack "test/**/*.js"
 ```
 
 ... `module2.js` will never be executed.
@@ -165,7 +165,7 @@ $ mocha-webpack "test/**/*.js"
 To fix this we add another entry to make sure that all source files are imported:
 
 ```bash
-$ mocha-webpack "src/**/*.js" "test/**/*.js"
+$ mochapack "src/**/*.js" "test/**/*.js"
 ```
 
 **Note:** It's recommended to have a CI configuration that imports all *source* + *test* files and for developing it's best to import only the tests cause importing code that will never execute causes unnecessary compile time.

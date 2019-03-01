@@ -2,7 +2,7 @@ import fs from 'fs';
 import { existsFileSync } from '../util/exists';
 import parseArgv from './parseArgv';
 
-const defaultConfig = 'mocha-webpack.opts';
+const defaultConfig = 'mochapack.opts';
 
 function handleMissingConfig(config) {
   if (config) {

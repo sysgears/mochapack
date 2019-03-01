@@ -71,9 +71,9 @@ export const formatErrorMessage: (message: string) => string = _.flow([
 export const stripLoaderFromPath = (file: string) => {
   // Remove webpack-specific loader notation from filename.
   // Before:
-  // ../mocha-webpack/lib/webpack/loader/entryLoader.js!../mocha-webpack/lib/entry.js
+  // ../mochapack/lib/webpack/loader/entryLoader.js!../mochapack/lib/entry.js
   // After:
-  // ../mocha-webpack/lib/entry.js
+  // ../mochapack/lib/entry.js
   if (file.lastIndexOf('!') !== -1) {
     return file.substr(file.lastIndexOf('!') + 1);
   }

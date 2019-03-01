@@ -16,11 +16,11 @@ describe('parseConfig', function () {
 
   it('throws an error when explicitly-specified default config file is missing', function () {
     const fn = () => {
-      parseConfig('mocha-webpack.opts');
+      parseConfig('mochapack.opts');
     };
 
     // then
-    assert.throws(fn, /Options file 'mocha-webpack.opts' not found/);
+    assert.throws(fn, /Options file 'mochapack.opts' not found/);
   });
 
   it('throws an error when specified config file is missing', function () {
@@ -34,10 +34,10 @@ describe('parseConfig', function () {
 
   optsTestCases.forEach((testDirName) => {
     const testDirPath = path.join(optsTestCasesPath, testDirName);
-    const optsFilePath = path.join(testDirPath, 'mocha-webpack.opts');
+    const optsFilePath = path.join(testDirPath, 'mochapack.opts');
     const expectedResultsPath = path.join(testDirPath, 'expected.json');
 
-    it(`parses '${testDirName}/mocha-webpack.opts' and returns options`, function () {
+    it(`parses '${testDirName}/mochapack.opts' and returns options`, function () {
       // eslint-disable-next-line global-require, import/no-dynamic-require
       const expectedResult = require(expectedResultsPath);
       const parsedOptions = parseConfig(optsFilePath);

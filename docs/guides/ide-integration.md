@@ -1,12 +1,12 @@
-# Using mocha-webpack in IDEs
+# Using mochapack in IDEs
 
 ## Debug in IDEA (WebStorm, IntelliJ, ...)
 
 1. Make sure the `NodeJS` repository plugin is installed and enabled. The plugin is not bundled with every IDEA product, but it can be installed from the JetBrains plugin repository.
 1. Create a Testrunner config
   ![IDEA run configuration](../media/idea-run-configuration.png)
-   - replace `Mocha package` path with path of mocha-webpack (should be a (dev-) dependency of your project)
-   - set some additional configuration options (mocha-webpack.opts in this case)
+   - replace `Mocha package` path with path of mochapack (should be a (dev-) dependency of your project)
+   - set some additional configuration options (mochapack.opts in this case)
    - specify the tests to run
 1. make sure that your webpack config contains the following (important for setting breakpoints in src):
 
@@ -77,11 +77,11 @@ You can workaround this with `debugger;` statements in your code.
         "remoteRoot": null
       },
       {
-        "name": "Run mocha-webpack",
+        "name": "Run mochapack",
         "type": "node",
         "request": "launch",
         "port": 5858,
-        "program": "${workspaceRoot}/node_modules/mocha-webpack/bin/mocha-webpack",
+        "program": "${workspaceRoot}/node_modules/mochapack/bin/mochapack",
         "stopOnEntry": false,
         "sourceMaps": true,
         "args": [],

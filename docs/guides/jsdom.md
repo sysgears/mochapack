@@ -1,4 +1,4 @@
-# Using mocha-webpack with jsdom
+# Using mochapack with jsdom
 
 [jsdom](https://github.com/tmpvar/jsdom) is a JavaScript based headless browser that can be used to create a realistic testing environment.
 
@@ -48,7 +48,7 @@ module.exports = {
 And finally use it with the command line using the `--require` and `--webpack-config` option:
 
 ```bash
-$ mocha-webpack --require setup.js --webpack-config webpack-config.test.js
+$ mochapack --require setup.js --webpack-config webpack-config.test.js
 ```
 
 ## Node.js Compatibility

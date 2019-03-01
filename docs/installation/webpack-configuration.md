@@ -1,6 +1,6 @@
 # Webpack configuration
 
-A really basic webpack configuration for mocha-webpack should at least contain the following:
+A really basic webpack configuration for mochapack should at least contain the following:
 
 
 **webpack.config-test.js** - example config
@@ -22,12 +22,12 @@ The reason for this is that webpack isn't able to compile all node_modules like 
 *Info*: You can install this plugin with `npm install --save-dev webpack-node-externals`
 
 Maybe you noticed that [entry](https://webpack.github.io/docs/configuration.html#entry) and [output.path](https://webpack.github.io/docs/configuration.html#output-path) are completely missing in this config.
-mocha-webpack does this automatically for you, but it respects custom `output` settings. This is especially useful, when you want to write the files to disk with an additional plugin.
+mochapack does this automatically for you, but it respects custom `output` settings. This is especially useful, when you want to write the files to disk with an additional plugin.
 
 
 ## Sourcemaps
 
-Sourcemap support is already applied for you via [source-map-support](https://github.com/evanw/node-source-map-support) by mocha-webpack.
+Sourcemap support is already applied for you via [source-map-support](https://github.com/evanw/node-source-map-support) by mochapack.
 You just need to enable it in your webpack config via the `devtool` setting.
 
 **Note**: For a proper debug experience in your IDE (setting breakpoints right into your code) you need to use a `devtool` which inlines the sourcemaps like `inline-cheap-module-source-map`.
