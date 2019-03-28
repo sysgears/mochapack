@@ -3,6 +3,7 @@ import path from 'path';
 import EventEmitter from 'events';
 import _ from 'lodash';
 import chokidar from 'chokidar';
+import minimatch from 'minimatch';
 
 import { glob } from '../util/glob';
 import createCompiler from '../webpack/compiler/createCompiler';
@@ -217,19 +218,23 @@ export default class TestRunner extends EventEmitter {
 
     const restartWebpackBuild = _.debounce(() => watchCompiler.watch(), watchOptions.aggregateTimeout);
     const fileDeletedOrAdded = (file, deleted) => {
-      const filePath = path.join(this.options.cwd, file);
-      if (deleted) {
-        this.emit('entry:removed', file);
-        entryConfig.removeFile(filePath);
-      } else {
-        this.emit('entry:added', file);
-        entryConfig.addFile(filePath);
-      }
+      const matchesGlob = this.entries.some((pattern) => minimatch(file, pattern));
+      // Chokidar gives files not matching pattern sometimes, prevent this
+      if (matchesGlob) {
+        const filePath = path.join(this.options.cwd, file);
+        if (deleted) {
+          this.emit('entry:removed', file);
+          entryConfig.removeFile(filePath);
+        } else {
+          this.emit('entry:added', file);
+          entryConfig.addFile(filePath);
+        }
 
-      // pause webpack watch immediately before webpack will be notified
-      watchCompiler.pause();
-      // call debounced webpack runner to rebuild files
-      restartWebpackBuild();
+        // pause webpack watch immediately before webpack will be notified
+        watchCompiler.pause();
+        // call debounced webpack runner to rebuild files
+        restartWebpackBuild();
+      }
     };
 
     // add listener for entry creation & deletion events
