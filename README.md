@@ -1,4 +1,4 @@
-# mochapack [![Join the chat at https://gitter.im/sysgears/mochapack](https://badges.gitter.im/sysgears/mochapack.svg)](https://gitter.im/sysgears/mochapack?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge) [![npm package][npm-badge]][npm]  [![Build Status Linux][build-badge]][build] [![Build Status Windows][build-badge-windows]][build-windows] [![codecov][codecov-badge]][codecov]
+# mochapack [![Join the chat at https://gitter.im/sysgears/mochapack](https://badges.gitter.im/sysgears/mochapack.svg)](https://gitter.im/sysgears/mochapack?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge) [![npm package][npm-badge]][npm]  [![Build Status Linux][build-badge]][build] [![Build Status Windows][build-badge-windows]][build-windows] [![codecov][codecov-badge]][codecov] [![Twitter Follow](https://img.shields.io/twitter/follow/sysgears.svg?style=social)](https://twitter.com/sysgears)
 
 This project is a fork of [mocha-webpack](https://github.com/zinserjan/mocha-webpack). We have created this fork since there is no visible activity from original author for a long time.
 
