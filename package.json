@@ -135,6 +135,8 @@
   },
   "resolutions": {
     "bdd-lazy-var/mocha": ">=4.0.0",
+    "fstream": ">=1.0.12",
+    "tunnel-agent": ">=0.6.0",
     "hoek": "^4.2.1",
     "cryptiles": "^4.1.3"
   }
