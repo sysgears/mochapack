@@ -84,8 +84,8 @@ This source code is licensed under the [MIT] license.<br/>
 Copyright &copy; 2016-2017 Jan-André Zinser<br/>
 Copyright &copy; 2018 [SysGears (Cyprus) Limited].
 
-[build-badge]: https://travis-ci.org/sysgears/mochapack.svg?branch=master
-[build]: https://travis-ci.org/sysgears/mochapack
+[build-badge]: https://travis-ci.com/sysgears/mochapack.svg?branch=master
+[build]: https://travis-ci.com/sysgears/mochapack
 [build-badge-windows]: https://ci.appveyor.com/api/projects/status/pnik85hfqesxy7y9/branch/master?svg=true
 [build-windows]: https://ci.appveyor.com/project/sysgears/mochapack
 [npm-badge]: https://img.shields.io/npm/v/mochapack.svg?style=flat-square
