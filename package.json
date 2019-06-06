@@ -134,6 +134,7 @@
     "instrument": false
   },
   "resolutions": {
+    "js-yaml": ">=3.13.0",
     "bdd-lazy-var/mocha": ">=4.0.0",
     "fstream": ">=1.0.12",
     "tunnel-agent": ">=0.6.0",
