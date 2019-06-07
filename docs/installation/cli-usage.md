@@ -27,7 +27,7 @@ Options
   --watch, -w                    watch files for changes
   --check-leaks                  check for global variable leaks
   --full-trace                   display the full stack trace
-  --inline                       display actual/expected differences inline within each string
+  --inline-diff                  display actual/expected differences inline within each string
   --exit                         require a clean shutdown of the event loop: mocha will not call process
   --retries                      set numbers of time to retry a failed test case
   --delay                        wait for async suite definition
