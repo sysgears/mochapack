@@ -106,7 +106,7 @@
     "interpret": "^1.0.1",
     "is-glob": "^4.0.0",
     "loader-utils": "^1.1.0",
-    "lodash": "^4.3.0",
+    "lodash": "^4.17.14",
     "memory-fs": "^0.4.1",
     "nodent-runtime": "^3.0.3",
     "normalize-path": "^2.0.1",
@@ -135,6 +135,7 @@
   },
   "resolutions": {
     "js-yaml": ">=3.13.0",
+    "lodash.mergewith": ">=4.6.2",
     "bdd-lazy-var/mocha": ">=4.0.0",
     "fstream": ">=1.0.12",
     "tunnel-agent": ">=0.6.0",
