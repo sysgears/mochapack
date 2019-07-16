@@ -9,6 +9,7 @@ const options = {
   'async-only': {
     alias: 'A',
     type: 'boolean',
+    default: false,
     describe: 'force all tests to take a callback (async) or return a promise',
     group: ADVANCED_GROUP,
   },
@@ -35,11 +36,13 @@ const options = {
   growl: {
     alias: 'G',
     type: 'boolean',
+    default: false,
     describe: 'enable growl notification support',
     group: OUTPUT_GROUP,
   },
   recursive: {
     type: 'boolean',
+    default: false,
     describe: 'include sub directories',
     group: ADVANCED_GROUP,
   },
@@ -275,6 +278,11 @@ function parse(argv, ignoreDefaults) {
     }
 
     return _.pick(validOptions, usedAliases);
+  }
+
+  if (validOptions.webpackEnv && Array.isArray(validOptions.webpackEnv.env)) {
+    const [first] = validOptions.webpackEnv.env;
+    validOptions.webpackEnv.env = first;
   }
 
   return validOptions;
