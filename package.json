@@ -10,7 +10,9 @@
     "*.md",
     "bin",
     "src",
-    "lib"
+    "lib",
+    "LICENSE.md",
+    "README.md"
   ],
   "scripts": {
     "clean-lib": "del-cli \"lib/**\" \"!lib\" \"!lib/reporters\" \"!lib/utils.js\" \"!lib/entry.js\" \"!lib/reporters/base.js\"",
