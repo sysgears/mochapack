@@ -8,7 +8,6 @@ assignees: ''
 ---
 
 - [ ] I'd be willing to implement this feature
-- [ ] This feature can already be implemented through a plugin
 
 **Describe the user story**
 
