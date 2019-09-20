@@ -31,6 +31,7 @@ describe('MochaWebpack', function () {
       asyncOnly: false,
       delay: false,
       interactive: !!(process.stdout.isTTY),
+      clearTerminal: false,
       quiet: false,
     };
     assert.deepEqual(mochaWebpack.options, expected);
@@ -275,6 +276,17 @@ describe('MochaWebpack', function () {
 
       assert.propertyVal(this.mochaWebpack.options, 'interactive', newValue, 'interactive should be changed');
       assert.notStrictEqual(this.mochaWebpack.options, oldOptions, 'interactive() should not mutate');
+      assert.strictEqual(returnValue, this.mochaWebpack, 'api should be chainable');
+    });
+
+    it('clearTerminal()', function () {
+      const oldOptions = this.mochaWebpack.options;
+      const clearTerminal = false;
+
+      const returnValue = this.mochaWebpack.clearTerminal(clearTerminal);
+
+      assert.propertyVal(this.mochaWebpack.options, 'clearTerminal', clearTerminal, 'clearTerminal should be changed');
+      assert.notStrictEqual(this.mochaWebpack.options, oldOptions, 'clearTerminal() should not mutate');
       assert.strictEqual(returnValue, this.mochaWebpack, 'api should be chainable');
     });
 

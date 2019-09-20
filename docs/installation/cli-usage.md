@@ -9,6 +9,7 @@ Options
   --async-only, -A               force all tests to take a callback (async) or return a promise
   --colors, -c                   force enabling of colors
   --interactive                  force interactive mode
+  --clear-terminal               clear current terminal, purging its histroy
   --quiet, -q                    does not display informational messages
   --growl, -G                    enable growl notification support
   --recursive                    include sub directories

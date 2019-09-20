@@ -61,6 +61,7 @@ mochaWebpack.bail(options.bail);
 mochaWebpack.reporter(options.reporter, options.reporterOptions);
 mochaWebpack.ui(options.ui);
 mochaWebpack.interactive(options.interactive);
+mochaWebpack.clearTerminal(options.clearTerminal);
 
 if (options.fgrep) {
   mochaWebpack.fgrep(options.fgrep);

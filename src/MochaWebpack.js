@@ -22,6 +22,7 @@ export type MochaWebpackOptions = {
   asyncOnly: boolean,
   delay: boolean,
   interactive: boolean,
+  clearTerminal: boolean,
   quiet: boolean,
   growl?: boolean,
 };
@@ -60,6 +61,7 @@ export default class MochaWebpack {
     asyncOnly: false,
     delay: false,
     interactive: !!((process.stdout: any).isTTY),
+    clearTerminal: false,
     quiet: false,
   };
 
@@ -376,6 +378,21 @@ export default class MochaWebpack {
   }
 
   /**
+   * Clear terminal on startup
+   *
+   * @public
+   * @param {boolean} clearTerminal
+   * @return {MochaWebpack}
+   */
+  clearTerminal(clearTerminal: boolean): MochaWebpack {
+    this.options = {
+      ...this.options,
+      clearTerminal,
+    };
+    return this;
+  }
+
+  /**
    * Enable growl notification support
    *
    * @public
@@ -403,6 +420,7 @@ export default class MochaWebpack {
       interactive: this.options.interactive,
       quiet: this.options.quiet,
       cwd: this.options.cwd,
+      clearTerminal: this.options.clearTerminal,
     });
     return runner.run();
   }
@@ -418,6 +436,7 @@ export default class MochaWebpack {
       interactive: this.options.interactive,
       quiet: this.options.quiet,
       cwd: this.options.cwd,
+      clearTerminal: this.options.clearTerminal,
     });
     await runner.watch();
   }

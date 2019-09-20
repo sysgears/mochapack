@@ -33,6 +33,12 @@ const options = {
     describe: 'force interactive mode (default enabled in terminal)',
     group: OUTPUT_GROUP,
   },
+  'clear-terminal': {
+    type: 'boolean',
+    default: false,
+    describe: 'clear current terminal, purging its histroy',
+    group: OUTPUT_GROUP,
+  },
   growl: {
     alias: 'G',
     type: 'boolean',
