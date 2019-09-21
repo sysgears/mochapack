@@ -24,21 +24,15 @@ const formatTitleError = (title) => chalk.white.bold.bgRed('', title, '');
 class Reporter {
   added: Array<string>;
   removed: Array<string>;
-  interactive: boolean;
-  clrTerm: boolean;
-  quiet: boolean;
+  options: ReporterOptions;
   formatStats: (stats: Stats) => { warnings: Array<string>, errors: Array<string> };
 
   constructor(options: ReporterOptions) {
-    const {
-      eventEmitter, interactive, quiet, cwd, clearTerminal,
-    } = options;
+    const { cwd, eventEmitter } = options;
 
+    this.options = options;
     this.added = [];
     this.removed = [];
-    this.interactive = interactive;
-    this.quiet = quiet;
-    this.clrTerm = clearTerminal;
     this.formatStats = createStatsFormatter(cwd);
 
     eventEmitter.on('uncaughtException', this.onUncaughtException);
@@ -53,13 +47,13 @@ class Reporter {
   }
 
   logInfo(...args: Array<any>) {
-    if (!this.quiet) {
+    if (!this.options.quiet) {
       log(...args);
     }
   }
 
   clearTerminal() {
-    if (this.clrTerm && this.interactive) {
+    if (this.options.clearTerminal && this.options.interactive) {
       process.stdout.write(process.platform === 'win32' ? '\x1B[2J\x1B[0f' : '\x1B[2J\x1B[3J\x1B[H');
     }
   }
