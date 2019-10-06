@@ -22,7 +22,7 @@ before_script:
   - "yarn add mocha@$MOCHA_VERSION"
 
 script:
-  - npm run cover
+  - yarn run cover
 
 after_success:
   - bash <(curl -s https://codecov.io/bash)
