@@ -25,6 +25,7 @@ export type MochaWebpackOptions = {
   clearTerminal: boolean,
   quiet: boolean,
   growl?: boolean,
+  forbidOnly: boolean,
 };
 
 export default class MochaWebpack {
@@ -63,6 +64,7 @@ export default class MochaWebpack {
     interactive: !!((process.stdout: any).isTTY),
     clearTerminal: false,
     quiet: false,
+    forbidOnly: false,
   };
 
   /**
@@ -403,6 +405,21 @@ export default class MochaWebpack {
     this.options = {
       ...this.options,
       growl: true,
+    };
+    return this;
+  }
+
+  /**
+   * Disallow .only in tests
+   *
+   * @public
+   * @param {boolean} forbidOnly
+   * @return {MochaWebpack}
+   */
+  forbidOnly(): MochaWebpack {
+    this.options = {
+      ...this.options,
+      forbidOnly: true,
     };
     return this;
   }

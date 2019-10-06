@@ -205,6 +205,12 @@ const options = {
     group: BASIC_GROUP,
     requiresArg: true,
   },
+  'forbid-only': {
+    type: 'boolean',
+    describe: 'fail if exclusive test(s) encountered',
+    group: ADVANCED_GROUP,
+    default: false,
+  },
 };
 
 const paramList = (opts) => _.map(_.keys(opts), _.camelCase);

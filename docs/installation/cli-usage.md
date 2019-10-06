@@ -19,6 +19,7 @@ Options
   --glob                         only test files matching <pattern> (only valid for directory entry)
   --grep, -g                     only run tests matching <pattern>
   --fgrep, -f                    only run tests containing <string>
+  --forbid-only                  fail if exclusive test(s) encountered
   --invert, -i                   inverts --grep and --fgrep matches
   --require, -r                  require the given module
   --include                      include the given module into test bundle

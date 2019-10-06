@@ -921,5 +921,32 @@ describe('parseArgv', function () {
         });
       }
     });
+
+    context('forbid-only', function () {
+      it('uses false as default value', function () {
+        // given
+        const { argv } = this;
+
+        // when
+        const parsedArgv = this.parseArgv(argv);
+
+        // then
+        assert.propertyVal(parsedArgv, 'forbidOnly', false);
+      });
+
+
+      for (const parameter of ['--forbid-only']) {
+        it(`parses ${parameter}`, function () {
+          // given
+          const argv = this.argv.concat([parameter]);
+
+          // when
+          const parsedArgv = this.parseArgv(argv);
+
+          // then
+          assert.propertyVal(parsedArgv, 'forbidOnly', true);
+        });
+      }
+    });
   });
 });

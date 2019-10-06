@@ -109,6 +109,10 @@ if (options.growl) {
   mochaWebpack.growl();
 }
 
+if (options.forbidOnly) {
+  mochaWebpack.forbidOnly();
+}
+
 Promise
   .resolve()
   .then(() => {
