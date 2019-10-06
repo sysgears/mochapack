@@ -32,7 +32,7 @@ Typing `node ./node_modules/mochapack/bin/mochapack ....` is just annoying and y
 ...
 ```
 
-This allows you to run your test command simply by just typing `npm run test`.
+This allows you to run your test command simply by just typing `npm run test` (or if you prefer yarn `yarn run test`).
 
 In addition, the defined command tells mochapack to use the provided webpack config file `webpack.config-test.js` and to execute all tests matching the pattern `"src/**/*.test.js"`.
 

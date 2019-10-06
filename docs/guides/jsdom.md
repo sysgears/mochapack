@@ -7,8 +7,16 @@ scope *before* running everything else. This can be done in four simple steps.
 
 First of all you need to install jsdom (*Note:* This guide uses jsdom in version 9.9.1.)
 
+### For npm 
+
 ```bash
 $ npm install jsdom --save-dev
+```
+
+### For yarn
+
+```bash
+$ yarn add --dev jsdom
 ```
 
 Then create a helper script to prepare the jsdom environment, e.g. `setup.js`.

@@ -8,6 +8,10 @@
 node_modules
 npm-debug.log
 
+# Yarn
+yarn-debug.log*
+yarn-error.log*
+
 # Project
 lib/*
 !lib/utils.js
