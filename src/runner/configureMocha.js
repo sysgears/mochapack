@@ -81,6 +81,11 @@ export default function configureMocha(options: MochaWebpackOptions) {
     mocha.suite.retries(options.retries);
   }
 
+  // forbid-only
+  if (options.forbidOnly) {
+    mocha.forbidOnly();
+  }
+
   // interface
   const ui = loadUI(options.ui, options.cwd);
   mocha.ui(ui);

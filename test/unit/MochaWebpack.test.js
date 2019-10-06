@@ -33,6 +33,7 @@ describe('MochaWebpack', function () {
       interactive: !!(process.stdout.isTTY),
       clearTerminal: false,
       quiet: false,
+      forbidOnly: false,
     };
     assert.deepEqual(mochaWebpack.options, expected);
   });
@@ -299,6 +300,18 @@ describe('MochaWebpack', function () {
 
       assert.propertyVal(this.mochaWebpack.options, 'growl', true, 'growl should be changed to true');
       assert.notStrictEqual(this.mochaWebpack.options, oldOptions, 'growl() should not mutate');
+      assert.strictEqual(returnValue, this.mochaWebpack, 'api should be chainable');
+    });
+
+    it('forbidOnly()', function () {
+      const oldOptions = this.mochaWebpack.options;
+      const oldValue = oldOptions.forbidOnly;
+      assert.isNotOk(oldValue, 'forbidOnly should be falsy');
+
+      const returnValue = this.mochaWebpack.forbidOnly();
+
+      assert.propertyVal(this.mochaWebpack.options, 'forbidOnly', true, 'forbidOnly should be changed to true');
+      assert.notStrictEqual(this.mochaWebpack.options, oldOptions, 'forbidOnly() should not mutate');
       assert.strictEqual(returnValue, this.mochaWebpack, 'api should be chainable');
     });
   });

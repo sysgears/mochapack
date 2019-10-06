@@ -22,6 +22,7 @@ describe('configureMocha', function () {
       slow: 75,
       asyncOnly: false,
       delay: false,
+      forbidOnly: true,
     };
     this.sandbox = sandbox.create();
     this.spyReporter = this.sandbox.spy(Mocha.prototype, 'reporter');
@@ -30,6 +31,7 @@ describe('configureMocha', function () {
     this.spyEnableTimeouts = this.sandbox.spy(Mocha.prototype, 'enableTimeouts');
     this.spyGrep = this.sandbox.spy(Mocha.prototype, 'grep');
     this.spyGrowl = this.sandbox.spy(Mocha.prototype, 'growl');
+    this.spyForbidOnly = this.sandbox.spy(Mocha.prototype, 'forbidOnly');
   });
 
   afterEach(function () {
@@ -104,5 +106,14 @@ describe('configureMocha', function () {
     });
 
     assert.isTrue(this.spyGrowl.called, 'growl() should be called');
+  });
+
+  it('should call forbidOnly()', function () {
+    configureMocha({
+      ...this.options,
+      timeout: 0,
+    });
+
+    assert.isTrue(this.spyForbidOnly.called, 'spyForbidOnly() should be called');
   });
 });
