@@ -25,37 +25,37 @@ We love pull requests. Here's a quick guide:
 
 1. Make sure you have all dependencies installed
   ```bash
-  $ npm install
+  $ yarn install
   ```
 
 1. Run the tests with:
   ```bash
-  $ npm run test
+  $ yarn run test
   ```
 
 ### How to test against your project
 
 Wanna test your changes against your real world project? No Problem!
 
-Let's use `npm link` to symlink the fork into your project.
+Let's use `yarn link` to symlink the fork into your project.
 
 1. switch to the root of this project
 
 1. make sure you have all dependencies installed
   ```bash
-  $ npm install
+  $ yarn install
   ```
 
-1. run first step for npm link
+1. run first step for yarn link
   ```bash
-  $ npm link
+  $ yarn link
   ```
 
 1. switch to your real world project
 
-1. and execute the second step for npm link
+1. and execute the second step for yarn link
   ```bash
-  $ npm link mochapack
+  $ yarn link mochapack
   ```
 
 1. You need to configure loader resolution in your webpack config, like below
@@ -64,7 +64,7 @@ Let's use `npm link` to symlink the fork into your project.
 
   module.exports = {
     // ..
-    // npm link mochapack hack
+    // yarn link mochapack hack
     resolveLoader: {
       root: [
        // __dirname is the root of your project, you may need to adjust the path
@@ -77,7 +77,7 @@ Let's use `npm link` to symlink the fork into your project.
 
 1. Then you are almost ready to go. You just have to build this project initially and whenever you make code changes.
   ```bash
-  $ npm run build
+  $ yarn run build
   ```
 
 
@@ -87,5 +87,5 @@ Let's use `npm link` to symlink the fork into your project.
 Please pay attention on the following syntax rules:
 
 * Basic coding styles are defined within the .editorconfig file.
-* ESLint automatically checks the code style after tests or manually via `npm run lint`.
+* ESLint automatically checks the code style after tests or manually via `yarn run lint`.
 * Follow the conventions used in the source already.

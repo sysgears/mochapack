@@ -14,7 +14,7 @@ For a generic setup that works with Babel, TypeScript and others, you just need 
 First of all we install both with
 
 ```bash
-$ npm install --save-dev nyc istanbul-instrumenter-loader
+$ yarn add --dev nyc istanbul-instrumenter-loader
 ```
 
 Then your package.json should contain the installed modules.
@@ -37,7 +37,7 @@ Then your package.json should contain the installed modules.
 
 *Note:* [cross-env](https://github.com/kentcdodds/cross-env) is here also installed, which set environment variables across platforms.
 
-As second step we define a npm script to run our tests with code coverage.
+As second step we define a yarn script to run our tests with code coverage.
 
 **package.json**
 ```json
@@ -45,13 +45,13 @@ As second step we define a npm script to run our tests with code coverage.
   "scripts": {
     "test": "mochapack --watch",
     "test-ci": "mochapack",
-    "cover": "cross-env NODE_ENV=coverage nyc --reporter=lcov --reporter=text npm run test-ci"
+    "cover": "cross-env NODE_ENV=coverage nyc --reporter=lcov --reporter=text yarn run test-ci"
   },
 }
 
 ```
 
-This allows us to get coverage reports of our codebase with the command `npm run cover`.
+This allows us to get coverage reports of our codebase with the command `yarn run cover`.
 
 *Note:* mochapack in this sample is preconfigured via the `mochapack.opts` file.
 
@@ -77,7 +77,7 @@ As next we need to configure `nyc` within our package.json:
 - `instrument: false` stops nyc from instrumenting your code, that's the task of loader
 - `sourceMap: false` is disabled for the same reason like `instrument`
 
-When you start `npm run cover ` now, you get something like this:
+When you start `yarn run cover ` now, you get something like this:
 
 ![code coverage unknown files](../media/code-coverage-cli-unknown.png)
 
@@ -126,7 +126,7 @@ Alternatively you can also use the [`enforce` option](https://webpack.js.org/con
 
 Another important detail is that the `include` option should be configured in the same way (but webpack compatible) as in the `package.json`. `istanbul-instrumenter-loader` does not respect the value in the package.json, that's why you need to configure it again.
 
-When you run `npm run cover` again you should see something like this - dependent on your code:
+When you run `yarn run cover` again you should see something like this - dependent on your code:
 
 ![code coverage success](../media/code-coverage-cli-success.png)
 
