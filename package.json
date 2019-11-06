@@ -1,6 +1,6 @@
 {
   "name": "mochapack",
-  "version": "1.1.5",
+  "version": "1.1.6",
   "description": "mocha cli with webpack support",
   "bin": {
     "mochapack": "./bin/mochapack"
@@ -17,7 +17,7 @@
   "scripts": {
     "clean-lib": "del-cli \"lib/**\" \"!lib\" \"!lib/reporters\" \"!lib/utils.js\" \"!lib/entry.js\" \"!lib/reporters/base.js\"",
     "clean-tmp": "del-cli \".tmp/**\"",
-    "build": "yarn run clean-lib && babel ./src -d lib",
+    "build": "yarn run clean-lib && babel ./src -d lib --source-maps",
     "lint": "eslint src test bin --fix",
     "flow": "flow",
     "test": "yarn run clean-tmp && yarn run build && mocha --timeout 10000 --recursive --require babel-register \"test/**/*.test.js\"",
