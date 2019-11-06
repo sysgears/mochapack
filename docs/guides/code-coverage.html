@@ -268,7 +268,7 @@
 <li><code>istanbul-instrumenter-loader</code>: Loader that wraps your code with hooks to track coverage when your code get&apos;s executed.</li>
 </ul>
 <p>First of all we install both with</p>
-<pre class="language-"><code class="lang-bash">$ <span class="token function">npm</span> <span class="token function">install</span> --save-dev nyc istanbul-instrumenter-loader
+<pre class="language-"><code class="lang-bash">$ <span class="token function">yarn</span> <span class="token function">add</span> --dev nyc istanbul-instrumenter-loader
 </code></pre>
 <p>Then your package.json should contain the installed modules.</p>
 <p><strong>package.json</strong></p>
@@ -286,17 +286,17 @@
 <span class="token punctuation">}</span>
 </code></pre>
 <p><em>Note:</em> <a href="https://github.com/kentcdodds/cross-env" target="_blank">cross-env</a> is here also installed, which set environment variables across platforms.</p>
-<p>As second step we define a npm script to run our tests with code coverage.</p>
+<p>As second step we define a yarn script to run our tests with code coverage.</p>
 <p><strong>package.json</strong></p>
 <pre class="language-"><code class="lang-json"><span class="token punctuation">{</span>
   <span class="token property">&quot;scripts&quot;</span><span class="token operator">:</span> <span class="token punctuation">{</span>
     <span class="token property">&quot;test&quot;</span><span class="token operator">:</span> <span class="token string">&quot;mochapack --watch&quot;</span><span class="token punctuation">,</span>
     <span class="token property">&quot;test-ci&quot;</span><span class="token operator">:</span> <span class="token string">&quot;mochapack&quot;</span><span class="token punctuation">,</span>
-    <span class="token property">&quot;cover&quot;</span><span class="token operator">:</span> <span class="token string">&quot;cross-env NODE_ENV=coverage nyc --reporter=lcov --reporter=text npm run test-ci&quot;</span>
+    <span class="token property">&quot;cover&quot;</span><span class="token operator">:</span> <span class="token string">&quot;cross-env NODE_ENV=coverage nyc --reporter=lcov --reporter=text yarn run test-ci&quot;</span>
   <span class="token punctuation">}</span><span class="token punctuation">,</span>
 <span class="token punctuation">}</span>
 </code></pre>
-<p>This allows us to get coverage reports of our codebase with the command <code>npm run cover</code>.</p>
+<p>This allows us to get coverage reports of our codebase with the command <code>yarn run cover</code>.</p>
 <p><em>Note:</em> mochapack in this sample is preconfigured via the <code>mochapack.opts</code> file.</p>
 <p>As next we need to configure <code>nyc</code> within our package.json:</p>
 <p><strong>package.json</strong></p>
@@ -317,7 +317,7 @@
 <li><code>instrument: false</code> stops nyc from instrumenting your code, that&apos;s the task of loader</li>
 <li><code>sourceMap: false</code> is disabled for the same reason like <code>instrument</code></li>
 </ul>
-<p>When you start <code>npm run cover</code> now, you get something like this:</p>
+<p>When you start <code>yarn run cover</code> now, you get something like this:</p>
 <p><img src="../media/code-coverage-cli-unknown.png" alt="code coverage unknown files"></p>
 <p>Now it&apos;s time to setup <code>istanbul-instrumenter-loader</code> to get proper code coverage reports. You just need to add <code>istanbul-instrumenter-loader</code> to the loaders list in your webpack configuration.</p>
 <p><strong>webpack.config-test.js</strong></p>
@@ -358,7 +358,7 @@ module<span class="token punctuation">.</span>exports <span class="token operato
 <p>In this config we add <code>istanbul-instrumenter-loader</code> only when we want coverage reports. The loader must be the first entry in the loaders array to ensure that it gets applied as last.
 Alternatively you can also use the <a href="https://webpack.js.org/configuration/module/#rule-enforce" target="_blank"><code>enforce</code> option</a>.</p>
 <p>Another important detail is that the <code>include</code> option should be configured in the same way (but webpack compatible) as in the <code>package.json</code>. <code>istanbul-instrumenter-loader</code> does not respect the value in the package.json, that&apos;s why you need to configure it again.</p>
-<p>When you run <code>npm run cover</code> again you should see something like this - dependent on your code:</p>
+<p>When you run <code>yarn run cover</code> again you should see something like this - dependent on your code:</p>
 <p><img src="../media/code-coverage-cli-success.png" alt="code coverage success"></p>
 <p>And you should get an html report (located at <code>./coverage/lcov-report/index.html</code>) that looks like the one from the intro.</p>
 <h2 id="generate-coverage-reports-for-the-whole-codebase"><a name="generate-coverage-reports-for-the-whole-codebase" class="plugin-anchor" href="#generate-coverage-reports-for-the-whole-codebase"><i class="fa fa-link" aria-hidden="true"></i></a>Generate coverage reports for the whole codebase</h2>
@@ -408,7 +408,7 @@ Alternatively you can also use the <a href="https://webpack.js.org/configuration
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Code coverage","level":"1.3.2","depth":2,"next":{"title":"IDE Integration","level":"1.3.3","depth":2,"path":"docs/guides/ide-integration.md","ref":"docs/guides/ide-integration.md","articles":[]},"previous":{"title":"JSDOM","level":"1.3.1","depth":2,"path":"docs/guides/jsdom.md","ref":"docs/guides/jsdom.md","articles":[]},"dir":"ltr"},"config":{"plugins":["edit-link","-search","github","anchors","prism","-highlight"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"edit-link":{"label":"Edit This Page","base":"https://github.com/sysgears/mochapack/tree/master"},"github":{"url":"https://github.com/sysgears/mochapack"},"anchors":{},"prism":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"mochapack","gitbook":"3.2.2","description":"mocha cli with webpack support"},"file":{"path":"docs/guides/code-coverage.md","mtime":"2019-07-01T11:16:11.892Z","type":"markdown"},"gitbook":{"version":"3.2.2","time":"2019-09-23T07:37:31.135Z"},"basePath":"../..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Code coverage","level":"1.3.2","depth":2,"next":{"title":"IDE Integration","level":"1.3.3","depth":2,"path":"docs/guides/ide-integration.md","ref":"docs/guides/ide-integration.md","articles":[]},"previous":{"title":"JSDOM","level":"1.3.1","depth":2,"path":"docs/guides/jsdom.md","ref":"docs/guides/jsdom.md","articles":[]},"dir":"ltr"},"config":{"plugins":["edit-link","-search","github","anchors","prism","-highlight"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"edit-link":{"label":"Edit This Page","base":"https://github.com/sysgears/mochapack/tree/master"},"github":{"url":"https://github.com/sysgears/mochapack"},"anchors":{},"prism":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"mochapack","gitbook":"3.2.2","description":"mocha cli with webpack support"},"file":{"path":"docs/guides/code-coverage.md","mtime":"2019-11-05T16:54:23.396Z","type":"markdown"},"gitbook":{"version":"3.2.2","time":"2019-11-06T18:54:45.214Z"},"basePath":"../..","book":{"language":""}});
         });
     </script>
 </div>

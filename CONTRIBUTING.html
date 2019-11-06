@@ -281,32 +281,32 @@
 <h3 id="how-to-run-tests"><a name="how-to-run-tests" class="plugin-anchor" href="#how-to-run-tests"><i class="fa fa-link" aria-hidden="true"></i></a>How to run tests</h3>
 <ol>
 <li><p>Make sure you have all dependencies installed</p>
-<pre class="language-"><code class="lang-bash">$ <span class="token function">npm</span> <span class="token function">install</span>
+<pre class="language-"><code class="lang-bash">$ <span class="token function">yarn</span> <span class="token function">install</span>
 </code></pre>
 </li>
 <li><p>Run the tests with:</p>
-<pre class="language-"><code class="lang-bash">$ <span class="token function">npm</span> run <span class="token builtin class-name">test</span>
+<pre class="language-"><code class="lang-bash">$ <span class="token function">yarn</span> run <span class="token builtin class-name">test</span>
 </code></pre>
 </li>
 </ol>
 <h3 id="how-to-test-against-your-project"><a name="how-to-test-against-your-project" class="plugin-anchor" href="#how-to-test-against-your-project"><i class="fa fa-link" aria-hidden="true"></i></a>How to test against your project</h3>
 <p>Wanna test your changes against your real world project? No Problem!</p>
-<p>Let&apos;s use <code>npm link</code> to symlink the fork into your project.</p>
+<p>Let&apos;s use <code>yarn link</code> to symlink the fork into your project.</p>
 <ol>
 <li><p>switch to the root of this project</p>
 </li>
 <li><p>make sure you have all dependencies installed</p>
-<pre class="language-"><code class="lang-bash">$ <span class="token function">npm</span> <span class="token function">install</span>
+<pre class="language-"><code class="lang-bash">$ <span class="token function">yarn</span> <span class="token function">install</span>
 </code></pre>
 </li>
-<li><p>run first step for npm link</p>
-<pre class="language-"><code class="lang-bash">$ <span class="token function">npm</span> <span class="token function">link</span>
+<li><p>run first step for yarn link</p>
+<pre class="language-"><code class="lang-bash">$ <span class="token function">yarn</span> <span class="token function">link</span>
 </code></pre>
 </li>
 <li><p>switch to your real world project</p>
 </li>
-<li><p>and execute the second step for npm link</p>
-<pre class="language-"><code class="lang-bash">$ <span class="token function">npm</span> <span class="token function">link</span> mochapack
+<li><p>and execute the second step for yarn link</p>
+<pre class="language-"><code class="lang-bash">$ <span class="token function">yarn</span> <span class="token function">link</span> mochapack
 </code></pre>
 </li>
 <li><p>You need to configure loader resolution in your webpack config, like below</p>
@@ -314,7 +314,7 @@
 
 module<span class="token punctuation">.</span>exports <span class="token operator">=</span> <span class="token punctuation">{</span>
  <span class="token comment">// ..</span>
- <span class="token comment">// npm link mochapack hack</span>
+ <span class="token comment">// yarn link mochapack hack</span>
  resolveLoader<span class="token punctuation">:</span> <span class="token punctuation">{</span>
    root<span class="token punctuation">:</span> <span class="token punctuation">[</span>
     <span class="token comment">// __dirname is the root of your project, you may need to adjust the path</span>
@@ -326,7 +326,7 @@ module<span class="token punctuation">.</span>exports <span class="token operato
 </code></pre>
 </li>
 <li><p>Then you are almost ready to go. You just have to build this project initially and whenever you make code changes.</p>
-<pre class="language-"><code class="lang-bash">$ <span class="token function">npm</span> run build
+<pre class="language-"><code class="lang-bash">$ <span class="token function">yarn</span> run build
 </code></pre>
 </li>
 </ol>
@@ -334,7 +334,7 @@ module<span class="token punctuation">.</span>exports <span class="token operato
 <p>Please pay attention on the following syntax rules:</p>
 <ul>
 <li>Basic coding styles are defined within the .editorconfig file.</li>
-<li>ESLint automatically checks the code style after tests or manually via <code>npm run lint</code>.</li>
+<li>ESLint automatically checks the code style after tests or manually via <code>yarn run lint</code>.</li>
 <li>Follow the conventions used in the source already.</li>
 </ul>
 
@@ -360,7 +360,7 @@ module<span class="token punctuation">.</span>exports <span class="token operato
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Contributing Guide","level":"1.4","depth":1,"previous":{"title":"IDE Integration","level":"1.3.3","depth":2,"path":"docs/guides/ide-integration.md","ref":"docs/guides/ide-integration.md","articles":[]},"dir":"ltr"},"config":{"plugins":["edit-link","-search","github","anchors","prism","-highlight"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"edit-link":{"label":"Edit This Page","base":"https://github.com/sysgears/mochapack/tree/master"},"github":{"url":"https://github.com/sysgears/mochapack"},"anchors":{},"prism":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"mochapack","gitbook":"3.2.2","description":"mocha cli with webpack support"},"file":{"path":"CONTRIBUTING.md","mtime":"2019-07-01T11:16:11.890Z","type":"markdown"},"gitbook":{"version":"3.2.2","time":"2019-09-23T07:37:31.135Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Contributing Guide","level":"1.4","depth":1,"previous":{"title":"IDE Integration","level":"1.3.3","depth":2,"path":"docs/guides/ide-integration.md","ref":"docs/guides/ide-integration.md","articles":[]},"dir":"ltr"},"config":{"plugins":["edit-link","-search","github","anchors","prism","-highlight"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"edit-link":{"label":"Edit This Page","base":"https://github.com/sysgears/mochapack/tree/master"},"github":{"url":"https://github.com/sysgears/mochapack"},"anchors":{},"prism":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"mochapack","gitbook":"3.2.2","description":"mocha cli with webpack support"},"file":{"path":"CONTRIBUTING.md","mtime":"2019-11-05T16:54:23.395Z","type":"markdown"},"gitbook":{"version":"3.2.2","time":"2019-11-06T18:54:45.214Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>
