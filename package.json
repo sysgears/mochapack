@@ -101,8 +101,8 @@
   "dependencies": {
     "babel-runtime": "^6.26.0",
     "chalk": "^2.4.2",
-    "chokidar": "3.2.1",
-    "gitbook-plugin-github": "^3.0.0",
+    "chokidar": "3.3.0",
+    "gitbook-plugin-github": "^2.0.0",
     "glob-parent": "5.1.0",
     "globby": "^10.0.1",
     "hoek": "6.1.3",
