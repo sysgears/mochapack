@@ -93,6 +93,7 @@
     "nyc": "14.1.1",
     "sass-loader": "6.0.7",
     "sinon": "7.5.0",
+    "strip-ansi": "^5.2.0",
     "tiny-worker": "2.3.0",
     "webpack": "4.41.0",
     "worker-loader": "2.0.0",
@@ -114,7 +115,6 @@
     "normalize-path": "^3.0.0",
     "progress": "^2.0.3",
     "source-map-support": "^0.5.13",
-    "strip-ansi": "^5.2.0",
     "toposort": "^2.0.2",
     "yargs": "14.0.0"
   },
