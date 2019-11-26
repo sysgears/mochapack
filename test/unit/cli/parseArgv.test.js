@@ -844,6 +844,11 @@ describe('parseArgv', function () {
       const parameters = [
         { given: ['--webpack-env', 'production'], expected: 'production' },
         { given: ['--webpack-env.env', 'production'], expected: { env: 'production' } },
+        { given: ['--webpack-env.anotherEnv', 'test'], expected: { anotherEnv: 'test' } },
+        {
+          given: ['--webpack-env.env', 'production', '--webpack-env.anotherEnv', 'test'],
+          expected: { env: 'production', anotherEnv: 'test' },
+        },
       ];
       for (const parameter of parameters) {
         it(`parses ${parameter.given.join(' ')}`, function () {

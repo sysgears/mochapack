@@ -40,7 +40,7 @@ describe('cli --webpack-config', function () {
     const env = Math.random();
     exec(`node ${binPath} --webpack-config ${config} --webpack-env.test ${env} "${testSimple}"`, (err, output) => {
       assert.isNull(err);
-      assert.include(output, env);
+      assert.include(output, `{ test: '${env}' }`);
       done();
     });
   });

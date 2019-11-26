@@ -279,6 +279,15 @@ function parse(argv, ignoreDefaults) {
   validOptions.require = validOptions.require || [];
   validOptions.include = validOptions.include || [];
 
+  if (validOptions.webpackEnv) {
+    _.mapValues(validOptions.webpackEnv, (value, key) => {
+      if (Array.isArray(value)) {
+        const [first] = value;
+        validOptions.webpackEnv[key] = first;
+      }
+    });
+  }
+
   if (ignoreDefaults) {
     const userOptions = yargs(argv).argv;
     const providedKeys = _.keys(userOptions);
@@ -290,11 +299,6 @@ function parse(argv, ignoreDefaults) {
     }
 
     return _.pick(validOptions, usedAliases);
-  }
-
-  if (validOptions.webpackEnv && Array.isArray(validOptions.webpackEnv.env)) {
-    const [first] = validOptions.webpackEnv.env;
-    validOptions.webpackEnv.env = first;
   }
 
   return validOptions;
