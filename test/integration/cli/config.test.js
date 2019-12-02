@@ -17,14 +17,12 @@ describe('cli --webpack-config', function () {
     });
   });
 
-  it('throws when not found', async function () {
+  it('throws when not found', function (done) {
     const configNotFound = 'xxxxxxx.js';
     const command = `node ${binPath} --webpack-config ${configNotFound} "${testSimple}"`;
-    await new Promise((res) => {
-      exec(command, (err, stdout) => {
-        assert.include(stdout, `Webpack config could not be found: ${configNotFound}`);
-        res(stdout);
-      });
+    exec(command, (err, output) => {
+      assert.include(output, `Webpack config could not be found: ${configNotFound}`);
+      done();
     });
   });
 
