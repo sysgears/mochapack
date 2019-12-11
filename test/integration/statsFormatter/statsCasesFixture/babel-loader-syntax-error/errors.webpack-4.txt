@@ -1,8 +1,9 @@
 Error in ./entry.js
 
   Module build failed (from Cdir/node_modules/babel-loader/lib/index.js):
-  SyntaxError: Unexpected token (2:0)
+  SyntaxError: Xdir/babel-loader-syntax-error/entry.js: Unexpected token (2:0)
   
     1 | const x = {
   > 2 | 
       | ^
+      at Cdir/node_modules/@babel/core/lib/transform.js:34:34

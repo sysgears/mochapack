@@ -28,7 +28,7 @@ const webpackConfig = {
         test: /.js$/,
         loader: 'babel-loader',
         options: {
-          presets: ['babel-preset-env'],
+          presets: ['@babel/preset-env'],
         },
       },
       {
@@ -58,8 +58,8 @@ describe('statFormatter', function () {
     const ensureConsistentCompare = _.flow([
       stripAnsi,
       (message) => message.replace(/\r?\n/g, '\n'),
-      (message) => message.replace(testDirPath, `Xdir/${testName}`),
-      (message) => message.replace(process.cwd(), 'Cdir'),
+      (message) => message.replace(new RegExp(testDirPath, 'g'), `Xdir/${testName}`),
+      (message) => message.replace(new RegExp(process.cwd(), 'g'), 'Cdir'),
     ]);
 
     it(`should print correct stats for ${path.basename(testDirPath)}`, function (done) {
@@ -89,7 +89,6 @@ describe('statFormatter', function () {
         assert.lengthOf(warnings, stats.compilation.warnings.length, 'Length of warnings should match original length');
         assert.isArray(errors, 'statsFormatter should return an Array of errors');
         assert.lengthOf(errors, stats.compilation.errors.length, 'Length of errors should match original length');
-
 
         const warningsContent = ensureConsistentCompare(warnings.join('\n'));
         const errorsContent = ensureConsistentCompare(errors.join('\n'));
