@@ -76,7 +76,6 @@ export default class TestRunner extends EventEmitter {
 
     compiler.hooks.run.tapAsync('mochapack', (c, cb) => {
       this.emit('webpack:start');
-      // $FlowFixMe
       cb();
     });
 
@@ -165,7 +164,6 @@ export default class TestRunner extends EventEmitter {
       if (mochaRunner) {
         compilationScheduler = () => {
           this.emit('webpack:start');
-          // $FlowFixMe
           cb();
         };
 
@@ -180,7 +178,6 @@ export default class TestRunner extends EventEmitter {
         }
       } else {
         this.emit('webpack:start');
-        // $FlowFixMe
         cb();
       }
     });
