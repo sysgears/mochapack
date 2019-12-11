@@ -78,7 +78,7 @@
     "eslint-plugin-flowtype-errors": "4.1.0",
     "eslint-plugin-import": "^2.9.0",
     "fast-async": "^6.1.2",
-    "flow-bin": "0.68.0",
+    "flow-bin": "^0.113.0",
     "fs-extra": "5.0.0",
     "gh-pages": "1.2.0",
     "gitbook-cli": "^2.3.2",
