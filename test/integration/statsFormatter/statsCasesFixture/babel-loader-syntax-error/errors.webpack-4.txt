@@ -6,4 +6,3 @@ Error in ./entry.js
     1 | const x = {
   > 2 | 
       | ^
-      at Cdir/node_modules/@babel/core/lib/transform.js:34:34
