@@ -43,7 +43,7 @@ const webpackConfig = {
   },
 };
 
-xdescribe('statFormatter', function () {
+describe('statsFormatter', function () {
   before(function () {
     if (process.platform === 'win32') {
       this.skip();
@@ -93,8 +93,16 @@ xdescribe('statFormatter', function () {
         const warningsContent = ensureConsistentCompare(warnings.join('\n'));
         const errorsContent = ensureConsistentCompare(errors.join('\n'));
 
+        let fixtureNodeId = '';
+        if (path.basename(testDirPath) === 'babel-loader-syntax-error') {
+          const nodeMajorVersion = process.version.split('.')[0].replace('v', '');
+          fixtureNodeId = parseInt(nodeMajorVersion, 10) <= 11 ? '' : `.node-${nodeMajorVersion}`;
+        }
         const expectedWarningsPath = path.join(testDirPath, `warnings.webpack-${webpackMajorVersion}.txt`);
-        const expectedErrorsPath = path.join(testDirPath, `errors.webpack-${webpackMajorVersion}.txt`);
+        const expectedErrorsPath = path.join(
+          testDirPath,
+          `errors.webpack-${webpackMajorVersion}${fixtureNodeId}.txt`,
+        );
 
         if (!fs.existsSync(expectedWarningsPath) || !fs.existsSync(expectedErrorsPath)) {
           fs.outputFileSync(expectedWarningsPath, warningsContent);

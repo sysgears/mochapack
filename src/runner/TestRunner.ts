@@ -135,7 +135,6 @@ export default class TestRunner extends EventEmitter {
 
     const runMocha = () => {
       try {
-        // $FlowFixMe
         const mocha = this.prepareMocha(config, stats);
         // unregister our custom exception handler (see declaration)
         process.removeListener('uncaughtException', uncaughtExceptionListener);

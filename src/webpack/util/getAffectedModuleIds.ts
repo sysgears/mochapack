@@ -97,7 +97,6 @@ const buildModuleUsageMap = (chunks: Array<Chunk>, modules: Array<Module>): Modu
     module.blocks // chunkGroup can be invalid in in some cases
     .filter(block => block.chunkGroup != null).forEach(block => {
       // loop through all generated chunks by this module
-      // $FlowFixMe - flow thinks that block.chunkGroup could be null
       block.chunkGroup.chunks.map(getId).forEach(chunkId => {
         // and mark all modules of this chunk as a direct dependency of the original module
         Object.values((chunkModuleMap[chunkId] as ModuleMap)).forEach((childModule: any) => {

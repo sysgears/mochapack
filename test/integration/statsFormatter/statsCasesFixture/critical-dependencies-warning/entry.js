@@ -1,1 +1,1 @@
-import './lib/critical-dependencies';
+import './src/critical-dependencies';

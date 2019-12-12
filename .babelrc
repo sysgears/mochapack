@@ -12,7 +12,6 @@
     ["@babel/preset-typescript"]
   ],
   "plugins": [
-    "@babel/plugin-transform-flow-strip-types",
     [
       "@babel/plugin-proposal-decorators",
       {
