@@ -19,7 +19,7 @@
     "clean-tmp": "del-cli \".tmp/**\"",
     "build": "yarn run clean-lib && tsc",
     "lint": "eslint src test bin --fix",
-    "test": "yarn run clean-tmp && yarn run build && mocha --timeout 10000 --recursive --require @babel/register \"test/**/*.test.js\"",
+    "test": "yarn run clean-tmp && yarn run build && ts-mocha --timeout 10000 --recursive --require @babel/register --exit \"test/**/*.test.ts\"",
     "cover": "cross-env BABEL_ENV=coverage nyc --reporter=lcov --reporter=text npm test",
     "posttest": "yarn run lint",
     "docs:clean": "del-cli _book",
@@ -94,6 +94,7 @@
     "sinon": "7.5.0",
     "strip-ansi": "^5.2.0",
     "tiny-worker": "2.3.0",
+    "ts-mocha": "^6.0.0",
     "typescript": "^3.7.3",
     "webpack": "4.41.0",
     "worker-loader": "2.0.0",
@@ -129,11 +130,10 @@
     ]
   },
   "nyc": {
+    "extension": [".ts"],
     "include": [
       "src/**/*.ts"
-    ],
-    "sourceMap": false,
-    "instrument": false
+    ]
   },
   "resolutions": {
     "js-yaml": ">=3.13.0",

@@ -32,7 +32,7 @@ const removeSurroundingQuotes = str => {
   return stripSingleQuotes(str);
 };
 
-export default function parseConfig(explicitConfig) {
+export default function parseConfig(explicitConfig?: any) {
   const config = explicitConfig || defaultConfig;
 
   if (!existsFileSync(config)) {

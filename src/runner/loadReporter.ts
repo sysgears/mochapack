@@ -1,8 +1,8 @@
 
 import path from "path";
-import { reporters } from "mocha";
+import { reporters, Spec } from "mocha";
 
-export default function loadReporter(reporter: string | (() => void), cwd: string) {
+export default function loadReporter(reporter: string | (() => void) | Spec, cwd?: string) {
   // if reporter is already loaded, just return it
   if (typeof reporter === 'function') {
     return reporter;

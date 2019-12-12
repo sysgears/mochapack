@@ -6,6 +6,7 @@
     "module": "commonjs",
     "moduleResolution": "node",
     "outDir": "lib",
+    "resolveJsonModule": true,
     "sourceMap": true,
   },
   "include": [

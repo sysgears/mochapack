@@ -3,6 +3,8 @@ import fs from "fs";
 import interpret from "interpret";
 import { Configuration as WebpackConfig } from "webpack";
 
+type WebpackConfigMode = 'production' | 'development' | 'none'
+
 function sortExtensions(ext1, ext2) {
   if (ext1 === '.js') {
     return -1;
@@ -64,7 +66,7 @@ function registerCompiler(moduleDescriptor) {
   }
 }
 
-export default async function requireWebpackConfig(webpackConfig, required, env, mode) {
+export default async function requireWebpackConfig(webpackConfig, required?: boolean, env?: string, mode?: WebpackConfigMode) {
   const configPath = path.resolve(webpackConfig);
   const configExtension = getConfigExtension(configPath);
   let configFound = false;
