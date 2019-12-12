@@ -24,20 +24,24 @@ const webpackConfig = {
     filename: 'bundle.js'
   },
   module: {
-    rules: [{
-      test: /.js$/,
-      loader: 'babel-loader',
-      options: {
-        presets: ['@babel/preset-env']
-      }
-    }, {
-      test: /\.css$/,
-      loader: 'css-loader'
-    }, {
-      test: /\.scss$/,
-      loader: 'sass-loader'
-    }]
-  }
+    rules: [
+      {
+        test: /.js$/,
+        loader: 'babel-loader',
+        options: {
+          presets: ['@babel/preset-env'],
+        },
+      },
+      {
+        test: /\.css$/,
+        loader: 'css-loader',
+      },
+      {
+        test: /\.scss$/,
+        loader: 'sass-loader',
+      },
+    ],
+  },
 };
 
 describe('statsFormatter', function () {
@@ -52,7 +56,12 @@ describe('statsFormatter', function () {
     const entryPath = path.join(testDirPath, 'entry.js');
 
     // make os & location independent messages without colors
-    const ensureConsistentCompare = _.flow([stripAnsi, message => message.replace(/\r?\n/g, '\n'), message => message.replace(new RegExp(testDirPath, 'g'), `Xdir/${testName}`), message => message.replace(new RegExp(process.cwd(), 'g'), 'Cdir')]);
+    const ensureConsistentCompare = _.flow([
+      stripAnsi, 
+      message => message.replace(/\r?\n/g, '\n'), 
+      message => message.replace(new RegExp(testDirPath, 'g'), `Xdir/${testName}`), 
+      message => message.replace(new RegExp(process.cwd(), 'g'), 'Cdir')
+    ]);
 
     it(`should print correct stats for ${path.basename(testDirPath)}`, function (done) {
       const formatter = createStatsFormatter(testDirPath);

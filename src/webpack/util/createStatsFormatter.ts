@@ -62,9 +62,7 @@ export default function createStatsFormatter(rootPath: string) {
   };
 
   return function statsFormatter(stats: Stats): {errors: Array<string>;warnings: Array<string>;} {
-    const {
-      compilation
-    } = stats;
+    const { compilation } = stats;
 
     return {
       errors: ensureWebpackErrors(compilation.errors).map(formatError).map(prependError),
