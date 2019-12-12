@@ -60,7 +60,7 @@ export default function createStatsFormatter(rootPath: string) {
     return lines.join(EOL);
   };
 
-  return function statsFormatter(stats: Stats) {
+  return function statsFormatter(stats: Stats): { errors: Array<string>, warnings: Array<string> } {
     const { compilation } = stats;
 
     return {
