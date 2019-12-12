@@ -1,11 +1,12 @@
-// @flow
-import { EOL } from 'os';
-import chalk from 'chalk';
-import RequestShortener from 'webpack/lib/RequestShortener';
-import { formatErrorMessage, stripLoaderFromPath } from './formatUtil';
-import type { WebpackError, Stats } from '../types';
 
-const createGetFile = (requestShortener: RequestShortener) => (e: WebpackError): ?string => {
+import { EOL } from "os";
+import chalk from "chalk";
+import { Stats } from "webpack";
+import RequestShortener from "webpack/lib/RequestShortener";
+import { formatErrorMessage, stripLoaderFromPath } from "./formatUtil";
+import { WebpackError } from "../types";
+
+const createGetFile = (requestShortener: RequestShortener) => (e: WebpackError): string | null => {
   /* istanbul ignore if */
   if (e.file) {
     // webpack does this also, so there must be case when this happens
@@ -14,20 +15,20 @@ const createGetFile = (requestShortener: RequestShortener) => (e: WebpackError):
     // if we got a module, build a file path to the module without loader information
     return stripLoaderFromPath(e.module.readableIdentifier(requestShortener));
   }
+
   /* istanbul ignore next */
   return null;
 };
 
 // helper to transform strings in errors
-const ensureWebpackErrors = (errors: Array<string | WebpackError>): Array<WebpackError> => errors
-  .map((e: string | WebpackError) => {
-    /* istanbul ignore if */
-    if (typeof e === 'string') {
-      // webpack does this also, so there must be case when this happens
-      return (({ message: e }: any): WebpackError);
-    }
-    return e;
-  });
+const ensureWebpackErrors = (errors: Array<string | WebpackError>): Array<WebpackError> => errors.map((e: string | WebpackError) => {
+  /* istanbul ignore if */
+  if (typeof e === 'string') {
+    // webpack does this also, so there must be case when this happens
+    return (({ message: e } as any) as WebpackError);
+  }
+  return e;
+});
 
 const prependWarning = (message: string) => `${chalk.yellow('Warning')} ${message}`;
 const prependError = (message: string) => `${chalk.red('Error')} ${message}`;
@@ -60,12 +61,14 @@ export default function createStatsFormatter(rootPath: string) {
     return lines.join(EOL);
   };
 
-  return function statsFormatter(stats: Stats): { errors: Array<string>, warnings: Array<string> } {
-    const { compilation } = stats;
+  return function statsFormatter(stats: Stats): {errors: Array<string>;warnings: Array<string>;} {
+    const {
+      compilation
+    } = stats;
 
     return {
       errors: ensureWebpackErrors(compilation.errors).map(formatError).map(prependError),
-      warnings: ensureWebpackErrors(compilation.warnings).map(formatError).map(prependWarning),
+      warnings: ensureWebpackErrors(compilation.warnings).map(formatError).map(prependWarning)
     };
   };
 }

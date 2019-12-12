@@ -1,16 +1,13 @@
-// @flow
-import path from 'path';
-import globby from 'globby';
-import isGlob from 'is-glob';
-import globParent from 'glob-parent';
-import normalizePath from 'normalize-path';
 
-const isDirectory = (filePath) => path.extname(filePath).length === 0;
+import path from "path";
+import globby from "globby";
+import isGlob from "is-glob";
+import globParent from "glob-parent";
+import normalizePath from "normalize-path";
 
-export const glob = async (
-  patterns: Array<string>,
-  options: {},
-): Promise<Array<string>> => globby(patterns, options);
+const isDirectory = filePath => path.extname(filePath).length === 0;
+
+export const glob = async (patterns: Array<string>, options: {}): Promise<Array<string>> => globby(patterns, options);
 
 export const ensureGlob = (entry: string, recursive: boolean = false, pattern: string = '*.js'): string => {
   const normalized = normalizePath(entry);

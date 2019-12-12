@@ -4,7 +4,7 @@ import { assert } from 'chai';
 import { sandbox } from 'sinon';
 import Mocha from 'mocha';
 
-import configureMocha from '../../../src/runner/configureMocha';
+import configureMocha from '../../../lib/runner/configureMocha';
 
 
 describe('configureMocha', function () {

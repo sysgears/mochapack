@@ -2,7 +2,7 @@
 /* eslint-disable func-names, prefer-arrow-callback */
 import path from 'path';
 import { assert } from 'chai';
-import loadUI from '../../../src/runner/loadUI';
+import loadUI from '../../../lib/runner/loadUI';
 
 const customMochaReporterPath = require.resolve('../../fixture/customMochaReporter.js');
 

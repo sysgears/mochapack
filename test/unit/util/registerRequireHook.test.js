@@ -1,7 +1,7 @@
 /* eslint-env node, mocha */
 /* eslint-disable func-names, prefer-arrow-callback */
 import { assert } from 'chai';
-import registerRequireHook from '../../../src/util/registerRequireHook';
+import registerRequireHook from '../../../lib/util/registerRequireHook';
 import fakemodule from './fixture/fakeModule';
 
 const fakeModulePath = require.resolve('./fixture/fakeModule');

@@ -1,8 +1,8 @@
-// @flow
-import path from 'path';
-import { reporters } from 'mocha';
 
-export default function loadReporter(reporter: string | () => void, cwd: string) {
+import path from "path";
+import { reporters } from "mocha";
+
+export default function loadReporter(reporter: string | (() => void), cwd: string) {
   // if reporter is already loaded, just return it
   if (typeof reporter === 'function') {
     return reporter;

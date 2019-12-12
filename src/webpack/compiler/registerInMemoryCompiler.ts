@@ -1,10 +1,10 @@
-// @flow
-import path from 'path';
-import sourceMapSupport from 'source-map-support';
-import MemoryFileSystem from 'memory-fs';
-import registerRequireHook from '../../util/registerRequireHook';
-import { ensureAbsolutePath } from '../../util/paths';
-import type { Compiler, Stats } from '../types';
+
+import path from "path";
+import sourceMapSupport from "source-map-support";
+import MemoryFileSystem from "memory-fs";
+import registerRequireHook from "../../util/registerRequireHook";
+import { ensureAbsolutePath } from "../../util/paths";
+import { Compiler, Stats } from "webpack";
 
 export default function registerInMemoryCompiler(compiler: Compiler) {
   // register memory fs to webpack
@@ -17,13 +17,12 @@ export default function registerInMemoryCompiler(compiler: Compiler) {
     assetMap.clear();
 
     if (!stats.hasErrors()) {
-      Object.keys(stats.compilation.assets)
-        .forEach((assetPath) => assetMap.set(ensureAbsolutePath(assetPath, compiler.options.output.path), true));
+      Object.keys(stats.compilation.assets).forEach(assetPath => assetMap.set(ensureAbsolutePath(assetPath, compiler.options.output.path), true));
     }
   });
 
   // provide file reader to read from memory fs
-  let readFile = (filePath) => {
+  let readFile = filePath => {
     if (assetMap.has(filePath)) {
       try {
         const code = memoryFs.readFileSync(filePath, 'utf8');
@@ -42,7 +41,9 @@ export default function registerInMemoryCompiler(compiler: Compiler) {
     let resolvedPath = filePath;
 
     if (code === null && requireCaller != null) {
-      const { filename } = requireCaller;
+      const {
+        filename
+      } = requireCaller;
       if (filename != null) {
         // if that didn't work, resolve the file relative to it's parent
         resolvedPath = path.resolve(path.dirname(filename), filePath);
@@ -60,11 +61,11 @@ export default function registerInMemoryCompiler(compiler: Compiler) {
     emptyCacheBetweenOperations: true,
     handleUncaughtExceptions: false,
     environment: 'node',
-    retrieveFile: (f) => readFile(f), // wrapper function to fake an unmount function
+    retrieveFile: f => readFile(f) // wrapper function to fake an unmount function
   });
 
   return function unmount() {
     unmountHook();
-    readFile = (filePath) => null; // eslint-disable-line no-unused-vars
+    readFile = filePath => null; // eslint-disable-line no-unused-vars
   };
 }

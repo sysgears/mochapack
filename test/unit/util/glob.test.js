@@ -1,7 +1,7 @@
 /* eslint-env node, mocha */
 /* eslint-disable func-names, prefer-arrow-callback */
 import { assert } from 'chai';
-import { ensureGlob, extensionsToGlob } from '../../../src/util/glob';
+import { ensureGlob, extensionsToGlob } from '../../../lib/util/glob';
 
 describe('glob', function () {
   context('ensureGlob', function () {

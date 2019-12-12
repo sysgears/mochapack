@@ -1,6 +1,6 @@
-import fs from 'fs';
-import { existsFileSync } from '../util/exists';
-import parseArgv from './parseArgv';
+import fs from "fs";
+import { existsFileSync } from "../util/exists";
+import parseArgv from "./parseArgv";
 
 const defaultConfig = 'mochapack.opts';
 
@@ -12,7 +12,7 @@ function handleMissingConfig(config) {
   return {};
 }
 
-const createStripSurroundingChar = (c) => (s) => {
+const createStripSurroundingChar = c => s => {
   if (s.indexOf(c) === 0 && s.lastIndexOf(c) === s.length - 1 && s.indexOf(c) !== s.lastIndexOf(c)) {
     return s.substring(1, s.length - 1);
   }
@@ -22,7 +22,7 @@ const createStripSurroundingChar = (c) => (s) => {
 const stripSingleQuotes = createStripSurroundingChar("'");
 const stripDoubleQuotes = createStripSurroundingChar('"');
 
-const removeSurroundingQuotes = (str) => {
+const removeSurroundingQuotes = str => {
   const stripped = stripDoubleQuotes(str);
 
   if (stripped !== str) {
@@ -39,12 +39,7 @@ export default function parseConfig(explicitConfig) {
     return handleMissingConfig(explicitConfig);
   }
 
-  const argv = fs.readFileSync(config, 'utf8')
-    .replace(/\\\s/g, '%20')
-    .split(/\s/)
-    .filter(Boolean)
-    .map((value) => value.replace(/%20/g, ' '))
-    .map(removeSurroundingQuotes);
+  const argv = fs.readFileSync(config, 'utf8').replace(/\\\s/g, '%20').split(/\s/).filter(Boolean).map(value => value.replace(/%20/g, ' ')).map(removeSurroundingQuotes);
   const defaultOptions = parseArgv(argv, true);
   return defaultOptions;
 }

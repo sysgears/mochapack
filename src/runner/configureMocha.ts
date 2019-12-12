@@ -1,8 +1,8 @@
-// @flow
-import Mocha from 'mocha';
-import loadReporter from './loadReporter';
-import loadUI from './loadUI';
-import type { MochaWebpackOptions } from '../MochaWebpack';
+
+import Mocha from "mocha";
+import loadReporter from "./loadReporter";
+import loadUI from "./loadUI";
+import { MochaWebpackOptions } from "../MochaWebpack";
 
 
 export default function configureMocha(options: MochaWebpackOptions) {

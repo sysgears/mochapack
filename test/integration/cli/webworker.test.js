@@ -7,7 +7,7 @@ import { exec } from './util/childProcess';
 
 
 const fixtureDir = path.relative(process.cwd(), path.join(__dirname, 'fixture'));
-const binPath = path.relative(process.cwd(), path.join('bin', '_mocha'));
+const binPath = path.relative(process.cwd(), path.resolve('bin', '_mocha'));
 
 describe('webworker', function () {
   before(function () {

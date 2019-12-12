@@ -1,10 +1,12 @@
-// @flow
-import type { Module, Chunk } from '../types';
 
-type ModuleMap = { [key: string | number]: Module };
+import { Module, Chunk } from "../types";
+
+type ModuleMap = {
+  [key: string ]: Module;
+};
 type ModuleUsageMap = {
   // child id
-  [key: string | number]: ModuleMap,
+  [key: string ]: ModuleMap;
 };
 const isBuilt = (module: Module): boolean => module.built;
 const getId = (module: any): number | string => module.id;
@@ -58,7 +60,7 @@ const buildModuleUsageMap = (chunks: Array<Chunk>, modules: Array<Module>): Modu
   // }
   //
   const moduleUsageMap: ModuleUsageMap = modules.reduce((memo, module: Module) => {
-    module.dependencies.forEach((dependency) => {
+    module.dependencies.forEach(dependency => {
       const dependentModule = dependency.module;
 
       if (!dependentModule) {
@@ -92,24 +94,20 @@ const buildModuleUsageMap = (chunks: Array<Chunk>, modules: Array<Module>): Modu
 
   // detect modules with code split points (e.g. require.ensure) and enhance moduleUsageMap with that information
   modules.forEach((module: Module) => {
-    module.blocks
-    // chunkGroup can be invalid in in some cases
-      .filter((block) => block.chunkGroup != null)
-      .forEach((block) => {
-        // loop through all generated chunks by this module
-        // $FlowFixMe - flow thinks that block.chunkGroup could be null
-        block.chunkGroup.chunks.map(getId).forEach((chunkId) => {
-          // and mark all modules of this chunk as a direct dependency of the original module
-          Object
-            .values((chunkModuleMap[chunkId]: ModuleMap))
-            .forEach((childModule: any) => {
-              if (typeof moduleUsageMap[childModule.id] === 'undefined') {
-                moduleUsageMap[childModule.id] = {};
-              }
-              moduleUsageMap[childModule.id][module.id] = module;
-            });
+    module.blocks // chunkGroup can be invalid in in some cases
+    .filter(block => block.chunkGroup != null).forEach(block => {
+      // loop through all generated chunks by this module
+      // $FlowFixMe - flow thinks that block.chunkGroup could be null
+      block.chunkGroup.chunks.map(getId).forEach(chunkId => {
+        // and mark all modules of this chunk as a direct dependency of the original module
+        Object.values((chunkModuleMap[chunkId] as ModuleMap)).forEach((childModule: any) => {
+          if (typeof moduleUsageMap[childModule.id] === 'undefined') {
+            moduleUsageMap[childModule.id] = {};
+          }
+          moduleUsageMap[childModule.id][module.id] = module;
         });
       });
+    });
   });
 
   return moduleUsageMap;

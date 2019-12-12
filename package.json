@@ -17,7 +17,7 @@
   "scripts": {
     "clean-lib": "del-cli \"lib/**\" \"!lib\" \"!lib/reporters\" \"!lib/utils.js\" \"!lib/entry.js\" \"!lib/reporters/base.js\"",
     "clean-tmp": "del-cli \".tmp/**\"",
-    "build": "yarn run clean-lib && babel ./src -d lib --source-maps",
+    "build": "yarn run clean-lib && tsc",
     "lint": "eslint src test bin --fix",
     "flow": "flow",
     "test": "yarn run clean-tmp && yarn run build && mocha --timeout 10000 --recursive --require @babel/register \"test/**/*.test.js\"",
@@ -60,7 +60,11 @@
     "@babel/plugin-transform-runtime": "^7.0.0",
     "@babel/preset-env": "^7.0.0",
     "@babel/preset-flow": "^7.0.0",
+    "@babel/preset-typescript": "^7.7.4",
     "@babel/register": "^7.0.0",
+    "@types/lodash": "^4.14.149",
+    "@types/node": "^12.12.17",
+    "@types/webpack": "^4.41.0",
     "anymatch": "3.1.1",
     "babel-eslint": "^9.0.0",
     "babel-loader": "^8.0.0",
@@ -96,6 +100,7 @@
     "sinon": "7.5.0",
     "strip-ansi": "^5.2.0",
     "tiny-worker": "2.3.0",
+    "typescript": "^3.7.3",
     "webpack": "4.41.0",
     "worker-loader": "2.0.0",
     "write-file-webpack-plugin": "^4.2.0"
@@ -131,7 +136,7 @@
   },
   "nyc": {
     "include": [
-      "src/**/*.js"
+      "src/**/*.ts"
     ],
     "sourceMap": false,
     "instrument": false

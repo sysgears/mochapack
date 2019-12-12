@@ -1,7 +1,7 @@
 /* eslint-env node, mocha */
 /* eslint-disable func-names, prefer-arrow-callback, max-len */
 import { assert } from 'chai';
-import MochaWebpack from '../../src/MochaWebpack';
+import MochaWebpack from '../../lib/MochaWebpack';
 
 describe('MochaWebpack', function () {
   it('should create a instance of MochaWebpack', function () {

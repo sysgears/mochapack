@@ -1,8 +1,8 @@
 let config = {
   mode: process.env.NODE_ENV || 'development',
-  entry: './src/index.js',
+  entry: './lib/index.js',
   devServer: {
-    contentBase: './src'
+    contentBase: './lib'
   }
 };
 

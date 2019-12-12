@@ -1,31 +1,31 @@
-// @flow
-import TestRunner from './runner/TestRunner';
-import testRunnerReporter from './runner/testRunnerReporter';
+
+import TestRunner from "./runner/TestRunner";
+import testRunnerReporter from "./runner/testRunnerReporter";
 
 export type MochaWebpackOptions = {
-  cwd: string,
-  webpackConfig: {},
-  bail: boolean,
-  reporter: string | () => void,
-  reporterOptions: {},
-  ui: string,
-  fgrep?: string,
-  grep?: string | RegExp,
-  invert: boolean,
-  ignoreLeaks: boolean,
-  fullStackTrace: boolean,
-  colors?: boolean,
-  useInlineDiffs: boolean,
-  timeout: number,
-  retries?: number,
-  slow: number,
-  asyncOnly: boolean,
-  delay: boolean,
-  interactive: boolean,
-  clearTerminal: boolean,
-  quiet: boolean,
-  growl?: boolean,
-  forbidOnly: boolean,
+  cwd: string;
+  webpackConfig: {};
+  bail: boolean;
+  reporter: string | (() => void);
+  reporterOptions: {};
+  ui: string;
+  fgrep?: string;
+  grep?: string | RegExp;
+  invert: boolean;
+  ignoreLeaks: boolean;
+  fullStackTrace: boolean;
+  colors?: boolean;
+  useInlineDiffs: boolean;
+  timeout: number;
+  retries?: number;
+  slow: number;
+  asyncOnly: boolean;
+  delay: boolean;
+  interactive: boolean;
+  clearTerminal: boolean;
+  quiet: boolean;
+  growl?: boolean;
+  forbidOnly: boolean;
 };
 
 export default class MochaWebpack {
@@ -35,12 +35,14 @@ export default class MochaWebpack {
    * @private
    */
   entries: Array<string> = [];
+
   /**
    * Files to include into the bundle
    *
    * @private
    */
   includes: Array<string> = [];
+
   /**
    * Options
    *
@@ -61,10 +63,10 @@ export default class MochaWebpack {
     slow: 75,
     asyncOnly: false,
     delay: false,
-    interactive: !!((process.stdout: any).isTTY),
+    interactive: !!(process.stdout as any).isTTY,
     clearTerminal: false,
     quiet: false,
-    forbidOnly: false,
+    forbidOnly: false
   };
 
   /**
@@ -75,10 +77,7 @@ export default class MochaWebpack {
    * @return {MochaWebpack}
    */
   addEntry(file: string): MochaWebpack {
-    this.entries = [
-      ...this.entries,
-      file,
-    ];
+    this.entries = [...this.entries, file];
     return this;
   }
 
@@ -90,10 +89,7 @@ export default class MochaWebpack {
    * @return {MochaWebpack}
    */
   addInclude(file: string): MochaWebpack {
-    this.includes = [
-      ...this.includes,
-      file,
-    ];
+    this.includes = [...this.includes, file];
     return this;
   }
 
@@ -107,7 +103,7 @@ export default class MochaWebpack {
   cwd(cwd: string): MochaWebpack {
     this.options = {
       ...this.options,
-      cwd,
+      cwd
     };
     return this;
   }
@@ -122,7 +118,7 @@ export default class MochaWebpack {
   webpackConfig(config: {} = {}): MochaWebpack {
     this.options = {
       ...this.options,
-      webpackConfig: config,
+      webpackConfig: config
     };
     return this;
   }
@@ -137,7 +133,7 @@ export default class MochaWebpack {
   bail(bail: boolean = false): MochaWebpack {
     this.options = {
       ...this.options,
-      bail,
+      bail
     };
     return this;
   }
@@ -149,11 +145,11 @@ export default class MochaWebpack {
    * @param {Object} reporterOptions optional options
    * @return {MochaWebpack}
    */
-  reporter(reporter: string | () => void, reporterOptions: {}): MochaWebpack {
+  reporter(reporter: string | (() => void), reporterOptions: {}): MochaWebpack {
     this.options = {
       ...this.options,
       reporter,
-      reporterOptions,
+      reporterOptions
     };
     return this;
   }
@@ -168,7 +164,7 @@ export default class MochaWebpack {
   ui(ui: string): MochaWebpack {
     this.options = {
       ...this.options,
-      ui,
+      ui
     };
     return this;
   }
@@ -183,7 +179,7 @@ export default class MochaWebpack {
   fgrep(str: string): MochaWebpack {
     this.options = {
       ...this.options,
-      fgrep: str,
+      fgrep: str
     };
     return this;
   }
@@ -198,7 +194,7 @@ export default class MochaWebpack {
   grep(pattern: string | RegExp): MochaWebpack {
     this.options = {
       ...this.options,
-      grep: pattern,
+      grep: pattern
     };
     return this;
   }
@@ -212,7 +208,7 @@ export default class MochaWebpack {
   invert(): MochaWebpack {
     this.options = {
       ...this.options,
-      invert: true,
+      invert: true
     };
     return this;
   }
@@ -227,7 +223,7 @@ export default class MochaWebpack {
   ignoreLeaks(ignore: boolean): MochaWebpack {
     this.options = {
       ...this.options,
-      ignoreLeaks: ignore,
+      ignoreLeaks: ignore
     };
     return this;
   }
@@ -241,7 +237,7 @@ export default class MochaWebpack {
   fullStackTrace(): MochaWebpack {
     this.options = {
       ...this.options,
-      fullStackTrace: true,
+      fullStackTrace: true
     };
     return this;
   }
@@ -256,7 +252,7 @@ export default class MochaWebpack {
   useColors(colors: boolean): MochaWebpack {
     this.options = {
       ...this.options,
-      colors,
+      colors
     };
     return this;
   }
@@ -270,7 +266,7 @@ export default class MochaWebpack {
   quiet(): MochaWebpack {
     this.options = {
       ...this.options,
-      quiet: true,
+      quiet: true
     };
     return this;
   }
@@ -285,7 +281,7 @@ export default class MochaWebpack {
   useInlineDiffs(inlineDiffs: boolean): MochaWebpack {
     this.options = {
       ...this.options,
-      useInlineDiffs: inlineDiffs,
+      useInlineDiffs: inlineDiffs
     };
     return this;
   }
@@ -300,7 +296,7 @@ export default class MochaWebpack {
   timeout(timeout: number): MochaWebpack {
     this.options = {
       ...this.options,
-      timeout,
+      timeout
     };
     return this;
   }
@@ -315,7 +311,7 @@ export default class MochaWebpack {
   retries(count: number): MochaWebpack {
     this.options = {
       ...this.options,
-      retries: count,
+      retries: count
     };
     return this;
   }
@@ -331,7 +327,7 @@ export default class MochaWebpack {
   slow(threshold: number): MochaWebpack {
     this.options = {
       ...this.options,
-      slow: threshold,
+      slow: threshold
     };
     return this;
   }
@@ -345,7 +341,7 @@ export default class MochaWebpack {
   asyncOnly(): MochaWebpack {
     this.options = {
       ...this.options,
-      asyncOnly: true,
+      asyncOnly: true
     };
     return this;
   }
@@ -359,7 +355,7 @@ export default class MochaWebpack {
   delay(): MochaWebpack {
     this.options = {
       ...this.options,
-      delay: true,
+      delay: true
     };
     return this;
   }
@@ -374,7 +370,7 @@ export default class MochaWebpack {
   interactive(interactive: boolean): MochaWebpack {
     this.options = {
       ...this.options,
-      interactive,
+      interactive
     };
     return this;
   }
@@ -389,7 +385,7 @@ export default class MochaWebpack {
   clearTerminal(clearTerminal: boolean): MochaWebpack {
     this.options = {
       ...this.options,
-      clearTerminal,
+      clearTerminal
     };
     return this;
   }
@@ -404,7 +400,7 @@ export default class MochaWebpack {
   growl(): MochaWebpack {
     this.options = {
       ...this.options,
-      growl: true,
+      growl: true
     };
     return this;
   }
@@ -419,7 +415,7 @@ export default class MochaWebpack {
   forbidOnly(): MochaWebpack {
     this.options = {
       ...this.options,
-      forbidOnly: true,
+      forbidOnly: true
     };
     return this;
   }
@@ -437,7 +433,7 @@ export default class MochaWebpack {
       interactive: this.options.interactive,
       quiet: this.options.quiet,
       cwd: this.options.cwd,
-      clearTerminal: this.options.clearTerminal,
+      clearTerminal: this.options.clearTerminal
     });
     return runner.run();
   }
@@ -453,7 +449,7 @@ export default class MochaWebpack {
       interactive: this.options.interactive,
       quiet: this.options.quiet,
       cwd: this.options.cwd,
-      clearTerminal: this.options.clearTerminal,
+      clearTerminal: this.options.clearTerminal
     });
     await runner.watch();
   }

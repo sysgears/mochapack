@@ -1,9 +1,10 @@
-// @flow
+
+
 /*  eslint-disable no-underscore-dangle */
 
 // see https://github.com/nodejs/node/blob/master/lib/module.js
-// $FlowFixMe
-import Module from 'module';
+
+import Module from "module";
 
 // the module in which the require() call originated
 let requireCaller;
@@ -11,8 +12,10 @@ let requireCaller;
 let pathResolvers = [];
 
 // keep original Module._resolveFilename
+// @ts-ignore
 const originalResolveFilename = Module._resolveFilename;
 // override Module._resolveFilename
+// @ts-ignore
 Module._resolveFilename = function _resolveFilename(...parameters) {
   const parent = parameters[1];
   // store require() caller (the module in which this require() call originated)
@@ -21,8 +24,10 @@ Module._resolveFilename = function _resolveFilename(...parameters) {
 };
 
 // keep original Module._findPath
+// @ts-ignore
 const originalFindPath = Module._findPath;
 // override Module._findPath
+// @ts-ignore
 Module._findPath = function _findPath(...parameters) {
   const request = parameters[0];
 
@@ -44,10 +49,7 @@ Module._findPath = function _findPath(...parameters) {
 };
 
 
-export default function registerRequireHook(
-  dotExt: string,
-  resolve: (path: string, parent: Module) => { path: ?string, source: ?string },
-) {
+export default function registerRequireHook(dotExt: string, resolve: (path: string, parent: Module) => {path: string | null;source: string | null;}) {
   // cache source code after resolving to avoid another access to the fs
   const sourceCache = {};
   // store all files that were affected by this hook
@@ -55,7 +57,10 @@ export default function registerRequireHook(
 
   const resolvePath = (path, parent) => {
     // get CommonJS module source code for this require() call
-    const { path: resolvedPath, source } = resolve(path, parent);
+    const {
+      path: resolvedPath,
+      source
+    } = resolve(path, parent);
 
     // if no CommonJS module source code returned - skip this require() hook
     if (resolvedPath == null) {
@@ -72,7 +77,7 @@ export default function registerRequireHook(
     return resolvedPath;
   };
 
-  const resolveSource = (path) => {
+  const resolveSource = path => {
     const source = sourceCache[path];
     delete sourceCache[path];
     return source;
@@ -82,13 +87,16 @@ export default function registerRequireHook(
 
 
   // keep original extension loader
+  // @ts-ignore
   const originalLoader = Module._extensions[dotExt];
   // override extension loader
+  // @ts-ignore
   Module._extensions[dotExt] = (module, filename) => {
     const source = resolveSource(filename);
 
     if (typeof source === 'undefined') {
       // load the file with the original loader
+      // @ts-ignore
       (originalLoader || Module._extensions['.js'])(module, filename);
       return;
     }
@@ -100,9 +108,10 @@ export default function registerRequireHook(
   };
 
   return function unmout() {
-    pathResolvers = pathResolvers.filter((r) => r !== resolvePath);
+    pathResolvers = pathResolvers.filter(r => r !== resolvePath);
+    // @ts-ignore
     Module._extensions[dotExt] = originalLoader;
-    Object.keys(affectedFiles).forEach((path) => {
+    Object.keys(affectedFiles).forEach(path => {
       delete require.cache[path];
       delete sourceCache[path];
       delete affectedFiles[path];

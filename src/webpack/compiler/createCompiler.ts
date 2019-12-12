@@ -1,6 +1,5 @@
-// @flow
-import webpack from 'webpack';
-import type { Compiler } from '../types';
+
+import webpack, { Compiler } from "webpack";
 
 export default function createCompiler(webpackConfig: {}): Compiler {
   const compiler = webpack(webpackConfig);

@@ -1,7 +1,7 @@
-// @flow
-import type { Compiler, Stats } from '../types';
 
-export default function registerReadyCallback(compiler: Compiler, cb: (err: ?(Error | string), stats: ?Stats) => void) {
+import { Compiler, Stats } from "webpack";
+
+export default function registerReadyCallback(compiler: Compiler, cb: (err: (Error | string) | null, stats: Stats | null) => void) {
   compiler.hooks.failed.tap('mochapack', cb);
   compiler.hooks.done.tap('mochapack', (stats: Stats) => {
     if (stats.hasErrors()) {

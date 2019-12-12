@@ -4,7 +4,7 @@
 import path from 'path';
 import fs from 'fs-extra';
 import { assert } from 'chai';
-import parseConfig from '../../../src/cli/parseConfig';
+import parseConfig from '../../../lib/cli/parseConfig';
 
 const optsTestCasesPath = path.join(__dirname, 'fixture', 'config', 'optsTestCases');
 const optsTestCases = fs.readdirSync(optsTestCasesPath);

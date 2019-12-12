@@ -1,34 +1,38 @@
-// @flow
-import EventEmitter from 'events';
-import chalk from 'chalk';
-import type { Stats } from '../webpack/types';
-import createStatsFormatter from '../webpack/util/createStatsFormatter';
+
+import EventEmitter from "events";
+import chalk from "chalk";
+import { Stats } from "webpack";
+import createStatsFormatter from "../webpack/util/createStatsFormatter";
 
 type ReporterOptions = {
-  eventEmitter: EventEmitter,
-  interactive: boolean,
-  clearTerminal: boolean,
-  quiet: boolean,
-  cwd: string,
+  eventEmitter: EventEmitter;
+  interactive: boolean;
+  clearTerminal: boolean;
+  quiet: boolean;
+  cwd: string;
 };
 
 const log = (...args: Array<any>) => {
   console.log(...args); // eslint-disable-line no-console
-  console.log();// eslint-disable-line no-console
+  console.log(); // eslint-disable-line no-console
 };
 
-const formatTitleInfo = (title) => chalk.inverse('', title, '');
-const formatTitleWarn = (title) => chalk.black.bgYellow('', title, '');
-const formatTitleError = (title) => chalk.white.bold.bgRed('', title, '');
+const formatTitleInfo = title => chalk.inverse('', title, '');
+const formatTitleWarn = title => chalk.black.bgYellow('', title, '');
+const formatTitleError = title => chalk.white.bold.bgRed('', title, '');
 
 class Reporter {
+
   added: Array<string>;
   removed: Array<string>;
   options: ReporterOptions;
-  formatStats: (stats: Stats) => { warnings: Array<string>, errors: Array<string> };
+  formatStats: (stats: Stats) => {warnings: Array<string>;errors: Array<string>;};
 
   constructor(options: ReporterOptions) {
-    const { cwd, eventEmitter } = options;
+    const {
+      cwd,
+      eventEmitter
+    } = options;
 
     this.options = options;
     this.added = [];
@@ -61,13 +65,11 @@ class Reporter {
   static displayErrors(severity: string, errors: Array<any>) {
     const errorCount = errors.length;
 
-    const message = severity === 'error' ?
-      `Failed to compile with ${chalk.red(`${errorCount} ${severity}(s)`)}` :
-      `Compiled with ${chalk.yellow(`${errorCount} ${severity}(s)`)}`;
+    const message = severity === 'error' ? `Failed to compile with ${chalk.red(`${errorCount} ${severity}(s)`)}` : `Compiled with ${chalk.yellow(`${errorCount} ${severity}(s)`)}`;
 
     const titleColor = severity === 'error' ? formatTitleError : formatTitleWarn;
     log(titleColor('WEBPACK'), message);
-    errors.forEach((err) => log(err));
+    errors.forEach(err => log(err));
   }
 
   onUncaughtException = (err: Error) => {
@@ -84,12 +86,12 @@ class Reporter {
     this.clearTerminal();
     if (this.added.length > 0) {
       this.logInfo(formatTitleInfo('MOCHA'), 'The following test entry files were added:');
-      this.logInfo(this.added.map((f) => `+ ${f}`).join('\n'));
+      this.logInfo(this.added.map(f => `+ ${f}`).join('\n'));
     }
 
     if (this.removed.length > 0) {
       this.logInfo(formatTitleInfo('MOCHA'), 'The following test entry files were removed:');
-      this.logInfo(this.removed.map((f) => `- ${f}`).join('\n'));
+      this.logInfo(this.removed.map(f => `- ${f}`).join('\n'));
     }
 
     this.logInfo(formatTitleInfo('WEBPACK'), 'Compiling...');
@@ -101,10 +103,16 @@ class Reporter {
   onWebpackReady = (err?: Error, stats?: Stats) => {
     this.clearTerminal();
     if (stats != null) {
-      const { errors, warnings } = this.formatStats(stats);
+      const {
+        errors,
+        warnings
+      } = this.formatStats(stats);
 
       if (errors.length === 0 && warnings.length === 0) {
-        const { startTime, endTime } = stats;
+        const {
+          startTime,
+          endTime
+        } = stats;
         const compileTime = endTime - startTime;
         this.logInfo(formatTitleInfo('WEBPACK'), `Compiled successfully in ${chalk.green(`${compileTime}ms`)}`);
         return;

@@ -1,9 +1,10 @@
-// @flow
-import loaderUtils from 'loader-utils';
-import normalizePath from 'normalize-path';
-import createEntry from '../util/createEntry';
 
-class EntryConfig {
+import loaderUtils from "loader-utils";
+import normalizePath from "normalize-path";
+import createEntry from "../util/createEntry";
+
+export class EntryConfig {
+
   files: Array<string>;
 
   constructor() {
@@ -17,7 +18,7 @@ class EntryConfig {
 
   removeFile(file: string): void {
     const normalizedFile = normalizePath(file);
-    this.files = this.files.filter((f) => f !== normalizedFile);
+    this.files = this.files.filter(f => f !== normalizedFile);
   }
 
   getFiles(): Array<string> {
@@ -25,16 +26,14 @@ class EntryConfig {
   }
 }
 
-const entryLoader = function entryLoader() {
+export const entryLoader = function entryLoader() {
   const loaderOptions = loaderUtils.getOptions(this);
   const config: EntryConfig = loaderOptions.entryConfig;
 
   // Remove all dependencies of the loader result
   this.clearDependencies();
 
-  const dependencies: Array<string> = config
-    .getFiles()
-    .map((file) => loaderUtils.stringifyRequest(this, file));
+  const dependencies: Array<string> = config.getFiles().map(file => loaderUtils.stringifyRequest(this, file));
 
   // add all entries as dependencies
   dependencies.forEach(this.addDependency.bind(this));
@@ -45,6 +44,4 @@ const entryLoader = function entryLoader() {
   this.callback(null, sourceCode, null);
 };
 
-
-module.exports = entryLoader;
-module.exports.EntryConfig = EntryConfig;
+export default entryLoader;

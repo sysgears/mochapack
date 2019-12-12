@@ -1,5 +1,5 @@
-import yargs from 'yargs';
-import _ from 'lodash';
+import yargs from "yargs";
+import _ from "lodash";
 
 const BASIC_GROUP = 'Basic options:';
 const OUTPUT_GROUP = 'Output options:';
@@ -11,46 +11,46 @@ const options = {
     type: 'boolean',
     default: false,
     describe: 'force all tests to take a callback (async) or return a promise',
-    group: ADVANCED_GROUP,
+    group: ADVANCED_GROUP
   },
   colors: {
     alias: 'c',
     type: 'boolean',
     default: undefined,
     describe: 'force enabling of colors',
-    group: OUTPUT_GROUP,
+    group: OUTPUT_GROUP
   },
   quiet: {
     alias: 'q',
     type: 'boolean',
     default: undefined,
     describe: 'does not show informational messages',
-    group: OUTPUT_GROUP,
+    group: OUTPUT_GROUP
   },
   interactive: {
     type: 'boolean',
-    default: !!(process.stdout.isTTY),
+    default: !!process.stdout.isTTY,
     describe: 'force interactive mode (default enabled in terminal)',
-    group: OUTPUT_GROUP,
+    group: OUTPUT_GROUP
   },
   'clear-terminal': {
     type: 'boolean',
     default: false,
     describe: 'clear current terminal, purging its histroy',
-    group: OUTPUT_GROUP,
+    group: OUTPUT_GROUP
   },
   growl: {
     alias: 'G',
     type: 'boolean',
     default: false,
     describe: 'enable growl notification support',
-    group: OUTPUT_GROUP,
+    group: OUTPUT_GROUP
   },
   recursive: {
     type: 'boolean',
     default: false,
     describe: 'include sub directories',
-    group: ADVANCED_GROUP,
+    group: ADVANCED_GROUP
   },
   reporter: {
     alias: 'R',
@@ -58,48 +58,48 @@ const options = {
     describe: 'specify the reporter to use',
     group: OUTPUT_GROUP,
     default: 'spec',
-    requiresArg: true,
+    requiresArg: true
   },
   'reporter-options': {
     alias: 'O',
     type: 'string',
     describe: 'reporter-specific options, --reporter-options <k=v,k2=v2,...>',
     group: OUTPUT_GROUP,
-    requiresArg: true,
+    requiresArg: true
   },
   bail: {
     alias: 'b',
     type: 'boolean',
     describe: 'bail after first test failure',
     group: ADVANCED_GROUP,
-    default: false,
+    default: false
   },
   glob: {
     type: 'string',
     describe: 'only test files matching <pattern> (only valid for directory entry)',
     group: ADVANCED_GROUP,
-    requiresArg: true,
+    requiresArg: true
   },
   grep: {
     alias: 'g',
     type: 'string',
     describe: 'only run tests matching <pattern>',
     group: ADVANCED_GROUP,
-    requiresArg: true,
+    requiresArg: true
   },
   fgrep: {
     alias: 'f',
     type: 'string',
     describe: 'only run tests containing <string>',
     group: ADVANCED_GROUP,
-    requiresArg: true,
+    requiresArg: true
   },
   invert: {
     alias: 'i',
     type: 'boolean',
     describe: 'inverts --grep and --fgrep matches',
     group: ADVANCED_GROUP,
-    default: false,
+    default: false
   },
   require: {
     alias: 'r',
@@ -107,14 +107,14 @@ const options = {
     describe: 'require the given module',
     group: ADVANCED_GROUP,
     requiresArg: true,
-    multiple: true,
+    multiple: true
   },
   include: {
     type: 'string',
     describe: 'include the given module into test bundle',
     group: ADVANCED_GROUP,
     requiresArg: true,
-    multiple: true,
+    multiple: true
   },
   slow: {
     alias: 's',
@@ -122,7 +122,7 @@ const options = {
     group: ADVANCED_GROUP,
     default: 75,
     defaultDescription: '75 ms',
-    requiresArg: true,
+    requiresArg: true
   },
   timeout: {
     alias: 't',
@@ -130,102 +130,98 @@ const options = {
     group: ADVANCED_GROUP,
     default: 2000,
     defaultDescription: '2000 ms',
-    requiresArg: true,
+    requiresArg: true
   },
   ui: {
     alias: 'u',
     describe: 'specify user-interface (e.g. "bdd", "tdd", "exports", "qunit")',
     group: BASIC_GROUP,
     default: 'bdd',
-    requiresArg: true,
+    requiresArg: true
   },
   watch: {
     alias: 'w',
     type: 'boolean',
     describe: 'watch files for changes',
     group: BASIC_GROUP,
-    default: false,
+    default: false
   },
   'check-leaks': {
     type: 'boolean',
     describe: 'check for global variable leaks',
     group: ADVANCED_GROUP,
-    default: false,
+    default: false
   },
   'full-trace': {
     type: 'boolean',
     describe: 'display the full stack trace',
     group: ADVANCED_GROUP,
-    default: false,
+    default: false
   },
   'inline-diffs': {
     type: 'boolean',
     describe: 'display actual/expected differences inline within each string',
     group: ADVANCED_GROUP,
-    default: false,
+    default: false
   },
   exit: {
     type: 'boolean',
     describe: 'require a clean shutdown of the event loop: mocha will not call process.exit',
     group: ADVANCED_GROUP,
-    default: false,
+    default: false
   },
   retries: {
     describe: 'set numbers of time to retry a failed test case',
     group: BASIC_GROUP,
-    requiresArg: true,
+    requiresArg: true
   },
   delay: {
     type: 'boolean',
     describe: 'wait for async suite definition',
     group: ADVANCED_GROUP,
-    default: false,
+    default: false
   },
   mode: {
     type: 'string',
     choices: ['development', 'production'],
     describe: 'webpack mode to use',
     group: BASIC_GROUP,
-    requiresArg: true,
+    requiresArg: true
   },
   'webpack-config': {
     type: 'string',
     describe: 'path to webpack-config file',
     group: BASIC_GROUP,
     requiresArg: true,
-    default: 'webpack.config.js',
+    default: 'webpack.config.js'
   },
   'webpack-env': {
     describe: 'environment passed to the webpack-config, when it is a function',
-    group: BASIC_GROUP,
+    group: BASIC_GROUP
   },
   opts: {
     type: 'string',
     describe: 'path to webpack-mocha options file',
     group: BASIC_GROUP,
-    requiresArg: true,
+    requiresArg: true
   },
   'forbid-only': {
     type: 'boolean',
     describe: 'fail if exclusive test(s) encountered',
     group: ADVANCED_GROUP,
-    default: false,
-  },
+    default: false
+  }
 };
 
-const paramList = (opts) => _.map(_.keys(opts), _.camelCase);
+const paramList = opts => _.map(_.keys(opts), _.camelCase);
 const parameters = paramList(options); // camel case parameters
-const parametersWithMultipleArgs = paramList(_.pickBy(_.mapValues(options, (v) => !!v.requiresArg && v.multiple === true))); // eslint-disable-line max-len
+// @ts-ignore
+const parametersWithMultipleArgs = paramList(_.pickBy(_.mapValues(options, v => !!v.requiresArg && v.multiple === true))); // eslint-disable-line max-len
+// @ts-ignore
 const groupedAliases = _.values(_.mapValues(options, (value, key) => [_.camelCase(key), key, value.alias].filter(_.identity))); // eslint-disable-line max-len
 
 function parse(argv, ignoreDefaults) {
-  const parsedArgs = yargs()
-    .help('help')
-    .alias('help', 'h')
-    .version()
-    .options(options)
-    .strict()
-    .parse(argv);
+  const parsedArgs = yargs().help('help').alias('help', 'h').version().options(options).strict().parse(argv);
 
   let files = parsedArgs._;
 
@@ -237,7 +233,7 @@ function parse(argv, ignoreDefaults) {
   const parsedOptions = _.pick(parsedArgs, parameters); // pick all parameters as new object
   const validOptions = _.omitBy(parsedOptions, _.isUndefined); // remove all undefined values
 
-  _.forEach(parametersWithMultipleArgs, (key) => {
+  _.forEach(parametersWithMultipleArgs, key => {
     if (_.has(validOptions, key)) {
       const value = validOptions[key];
       if (!Array.isArray(value)) {
@@ -251,7 +247,7 @@ function parse(argv, ignoreDefaults) {
     // see https://github.com/yargs/yargs/issues/229
     if (parametersWithMultipleArgs.indexOf(key) === -1 && _.isArray(value)) {
       const arg = _.kebabCase(key);
-      const provided = value.map((v) => `--${arg} ${v}`).join(' ');
+      const provided = value.map(v => `--${arg} ${v}`).join(' ');
       const expected = `--${arg} ${value[0]}`;
 
       throw new Error(`Duplicating arguments for "--${arg}" is not allowed. "${provided}" was provided, but expected "${expected}"`); // eslint-disable-line max-len
@@ -263,7 +259,7 @@ function parse(argv, ignoreDefaults) {
   const reporterOptions = {};
 
   if (validOptions.reporterOptions) {
-    validOptions.reporterOptions.split(',').forEach((opt) => {
+    validOptions.reporterOptions.split(',').forEach(opt => {
       const L = opt.split('=');
       if (L.length > 2 || L.length === 0) {
         throw new Error(`invalid reporter option ${opt}`);
@@ -291,8 +287,7 @@ function parse(argv, ignoreDefaults) {
   if (ignoreDefaults) {
     const userOptions = yargs(argv).argv;
     const providedKeys = _.keys(userOptions);
-    const usedAliases = _.flatten(_.filter(groupedAliases, (aliases) =>
-      _.some(aliases, (alias) => providedKeys.indexOf(alias) !== -1)));
+    const usedAliases = _.flatten(_.filter(groupedAliases, aliases => _.some(aliases, alias => providedKeys.indexOf(alias) !== -1)));
 
     if (parsedArgs._.length) {
       usedAliases.push('files');

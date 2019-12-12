@@ -1,6 +1,7 @@
-import path from 'path';
-import fs from 'fs';
-import interpret from 'interpret';
+import path from "path";
+import fs from "fs";
+import interpret from "interpret";
+import { Configuration as WebpackConfig } from "webpack";
 
 function sortExtensions(ext1, ext2) {
   if (ext1 === '.js') {
@@ -57,8 +58,7 @@ function registerCompiler(moduleDescriptor) {
       try {
         registerCompiler(moduleDescriptor[i]);
         break;
-      } catch (e) {
-        // do nothing
+      } catch (e) {// do nothing
       }
     }
   }
@@ -68,7 +68,7 @@ export default async function requireWebpackConfig(webpackConfig, required, env,
   const configPath = path.resolve(webpackConfig);
   const configExtension = getConfigExtension(configPath);
   let configFound = false;
-  let config = {};
+  let config: WebpackConfig | ((...args: any[]) => Promise<WebpackConfig>) = {};
 
   if (fileExists(configPath)) {
     // config exists, register compiler for non-js extensions
@@ -95,11 +95,12 @@ export default async function requireWebpackConfig(webpackConfig, required, env,
     if (required) {
       throw new Error(`Webpack config could not be found: ${webpackConfig}`);
     } else if (mode != null) {
-      config.mode = mode;
+      (config as WebpackConfig).mode = mode;
     }
     return config;
   }
 
+  // @ts-ignore
   config = config.default || config;
 
   if (typeof config === 'function') {

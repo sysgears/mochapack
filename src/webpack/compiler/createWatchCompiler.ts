@@ -1,17 +1,17 @@
-// @flow
-import _ from 'lodash';
-import Watching from 'webpack/lib/Watching';
-import type { Compiler } from '../types';
+
+import _ from "lodash";
+import Watching from "webpack/lib/Watching";
+import { Compiler } from "webpack";
 
 export type WatchCompiler = {
-  watch: () => void,
-  pause: () => void,
+  watch: () => void;
+  pause: () => void;
   getWatchOptions: () => {
-    aggregateTimeout: number,
-    ignored?: RegExp | string,
-    poll?: number | boolean,
-  },
-}
+    aggregateTimeout: number;
+    ignored?: RegExp | string;
+    poll?: number | boolean;
+  };
+};
 
 const noop = () => undefined;
 export default function createWatchCompiler(compiler: Compiler, watchOptions: {}): WatchCompiler {
@@ -25,12 +25,13 @@ export default function createWatchCompiler(compiler: Compiler, watchOptions: {}
       if (watchCompiler === null) {
         watchCompiler = createWatcher();
       } else {
+        // @ts-ignore
         const times = compiler.watchFileSystem.watcher.getTimes();
         // check if we can store some collected file timestamps
         // the non-empty check is necessary as the times will be reseted after .close()
         // and we don't want to reset already existing timestamps
         if (Object.keys(times).length > 0) {
-          const timesMap = new Map(Object.keys(times).map((key) => [key, times[key]]));
+          const timesMap = new Map(Object.keys(times).map(key => [key, times[key]]));
           // set already collected file timestamps to cache compiled files
           // webpack will do this only after a file change, but that will not happen when we add or delete files
           // and this means that we have to test the whole test suite again ...
@@ -51,6 +52,6 @@ export default function createWatchCompiler(compiler: Compiler, watchOptions: {}
     getWatchOptions() {
       // 200 is the default value by webpack
       return _.get(watchCompiler, 'watchOptions', { aggregateTimeout: 200 });
-    },
+    }
   };
 }

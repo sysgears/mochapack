@@ -1,6 +1,6 @@
-// @flow
-import path from 'path';
-import { interfaces } from 'mocha';
+
+import path from "path";
+import { interfaces } from "mocha";
 
 export default function loadUI(ui: string, cwd: string) {
   // try to load built-in ui like 'bdd'
