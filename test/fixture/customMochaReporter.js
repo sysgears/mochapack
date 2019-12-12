@@ -1,4 +1,4 @@
-module.exports = function reporter(runner) {
+module.exports = function customMochaReporter(runner) {
   runner.on('start', () => {
     console.log('customMochaReporter started'); // eslint-disable-line
   });

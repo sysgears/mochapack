@@ -1,5 +1,6 @@
 
 interface Config {
+  mode: string;
   target: string;
 }
 const config: Config = {

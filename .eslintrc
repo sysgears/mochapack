@@ -1,20 +1,10 @@
 {
   "parser": "babel-eslint",
   "extends": [
-    "airbnb-base",
-    "plugin:flowtype/recommended"
-  ],
-  "plugins": [
-    "flowtype",
-    "flowtype-errors"
+    "airbnb-base"
   ],
   "env": {
     "node": true
-  },
-  "settings": {
-    "flowtype": {
-      "onlyFilesWithFlowAnnotation": true
-    }
   },
   "rules": {
     "arrow-parens": ["error", "always"],
@@ -22,7 +12,6 @@
     "no-duplicate-imports": "off",
     "no-restricted-syntax": "off",
     "generator-star-spacing": "off",
-    "import/no-extraneous-dependencies": ["error", {"peerDependencies": true}],
-    "flowtype-errors/show-errors": "error"
+    "import/no-extraneous-dependencies": ["error", {"peerDependencies": true}]
   }
 }
