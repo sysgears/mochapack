@@ -219,20 +219,23 @@ const paramList = opts => _.map(_.keys(opts), _.camelCase)
 const parameters = paramList(options) // camel case parameters
 // @ts-ignore
 const parametersWithMultipleArgs = paramList(
+  // @ts-ignore
   _.pickBy(_.mapValues(options, v => !!v.requiresArg && v.multiple === true))
 ) // eslint-disable-line max-len
 // @ts-ignore
 const groupedAliases = _.values(
   _.mapValues(options, (value, key) =>
+    // @ts-ignore
     [_.camelCase(key), key, value.alias].filter(_.identity)
   )
 ) // eslint-disable-line max-len
 
 function parse(argv, ignoreDefaults) {
-  const parsedArgs = yargs()
+  const parsedArgs = yargs
     .help('help')
     .alias('help', 'h')
     .version()
+    // @ts-ignore
     .options(options)
     .strict()
     .parse(argv)

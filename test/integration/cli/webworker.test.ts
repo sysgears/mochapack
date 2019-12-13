@@ -4,7 +4,7 @@
 import { assert } from 'chai'
 import path from 'path'
 import normalizePath from 'normalize-path'
-import { exec } from './util/childProcess'
+import exec from './util/childProcess'
 
 const fixtureDir = path.relative(process.cwd(), path.join(__dirname, 'fixture'))
 const binPath = path.relative(process.cwd(), path.resolve('bin', '_mocha'))

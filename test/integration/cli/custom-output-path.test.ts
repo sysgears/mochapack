@@ -6,7 +6,7 @@ import path from 'path'
 import fs from 'fs'
 import del from 'del'
 import normalizePath from 'normalize-path'
-import { exec } from './util/childProcess'
+import exec from './util/childProcess'
 
 const fixtureDir = path.relative(process.cwd(), path.join(__dirname, 'fixture'))
 const binPath = path.relative(process.cwd(), path.join('bin', '_mocha'))

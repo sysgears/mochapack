@@ -6,7 +6,7 @@ import { existsFileSync } from '../util/exists'
 import parseConfig from './parseConfig'
 import requireWebpackConfig from './requireWebpackConfig'
 import { ensureGlob, extensionsToGlob } from '../util/glob'
-import { createMochaWebpack } from '../createMochaWebpack'
+import createMochaWebpack from '../createMochaWebpack'
 
 function resolve(mod) {
   const absolute = existsFileSync(mod) || existsFileSync(`${mod}.js`)
@@ -116,8 +116,8 @@ async function cli() {
     mochaWebpack.forbidOnly()
   }
 
-  // @ts-ignore
   await Promise.resolve()
+    // @ts-ignore
     .then(() => {
       if (options.watch) {
         return mochaWebpack.watch()

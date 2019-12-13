@@ -9,7 +9,7 @@ import del from 'del'
 import path from 'path'
 import anymatch from 'anymatch'
 import normalizePath from 'normalize-path'
-import { exec } from './util/childProcess'
+import exec from './util/childProcess'
 
 const escapePath = p => p.replace(/\\/gm, '\\\\')
 

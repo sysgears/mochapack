@@ -5,7 +5,7 @@ export type MochaWebpackOptions = {
   cwd: string
   webpackConfig: {}
   bail: boolean
-  reporter: string | (() => void)
+  reporter: string | ReporterConstructor
   reporterOptions: {}
   ui: string
   fgrep?: string
@@ -144,7 +144,10 @@ export default class MochaWebpack {
    * @param {Object} reporterOptions optional options
    * @return {MochaWebpack}
    */
-  reporter(reporter: string | (() => void), reporterOptions: {}): MochaWebpack {
+  reporter(
+    reporter: string | ReporterConstructor,
+    reporterOptions: {}
+  ): MochaWebpack {
     this.options = {
       ...this.options,
       reporter,
