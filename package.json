@@ -18,6 +18,7 @@
     "clean-lib": "del-cli \"lib/**\" \"!lib\" \"!lib/reporters\" \"!lib/utils.js\" \"!lib/entry.js\" \"!lib/reporters/base.js\"",
     "clean-tmp": "del-cli \".tmp/**\"",
     "build": "yarn run clean-lib && tsc",
+    "format": "prettier {src,test}/**/*",
     "lint": "eslint src test bin --fix",
     "test": "yarn run clean-tmp && yarn run build && ts-mocha --timeout 10000 --recursive --require @babel/register --exit \"test/**/*.test.ts\"",
     "cover": "cross-env BABEL_ENV=coverage nyc --reporter=lcov --reporter=text npm test",
@@ -90,6 +91,7 @@
     "node-sass": "^4.11.0",
     "np": "5.1.0",
     "nyc": "14.1.1",
+    "prettier": "^1.19.1",
     "sass-loader": "6.0.7",
     "sinon": "7.5.0",
     "strip-ansi": "^5.2.0",
@@ -134,6 +136,10 @@
     "include": [
       "src/**/*.ts"
     ]
+  },
+  "prettier": {
+    "semi": false,
+    "singleQuote": true
   },
   "resolutions": {
     "js-yaml": ">=3.13.0",
