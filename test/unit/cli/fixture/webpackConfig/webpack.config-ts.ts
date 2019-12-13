@@ -1,11 +1,10 @@
-
 interface Config {
-  mode: string;
-  target: string;
+  mode: string
+  target: string
 }
 const config: Config = {
   mode: 'development',
-  target: 'node',
-};
+  target: 'node'
+}
 
 export default config

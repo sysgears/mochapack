@@ -1,9 +1,9 @@
-import yargs from "yargs";
-import _ from "lodash";
+import yargs from 'yargs'
+import _ from 'lodash'
 
-const BASIC_GROUP = 'Basic options:';
-const OUTPUT_GROUP = 'Output options:';
-const ADVANCED_GROUP = 'Advanced options:';
+const BASIC_GROUP = 'Basic options:'
+const OUTPUT_GROUP = 'Output options:'
+const ADVANCED_GROUP = 'Advanced options:'
 
 const options = {
   'async-only': {
@@ -76,7 +76,8 @@ const options = {
   },
   glob: {
     type: 'string',
-    describe: 'only test files matching <pattern> (only valid for directory entry)',
+    describe:
+      'only test files matching <pattern> (only valid for directory entry)',
     group: ADVANCED_GROUP,
     requiresArg: true
   },
@@ -166,7 +167,8 @@ const options = {
   },
   exit: {
     type: 'boolean',
-    describe: 'require a clean shutdown of the event loop: mocha will not call process.exit',
+    describe:
+      'require a clean shutdown of the event loop: mocha will not call process.exit',
     group: ADVANCED_GROUP,
     default: false
   },
@@ -211,102 +213,119 @@ const options = {
     group: ADVANCED_GROUP,
     default: false
   }
-};
+}
 
-const paramList = opts => _.map(_.keys(opts), _.camelCase);
-const parameters = paramList(options); // camel case parameters
+const paramList = opts => _.map(_.keys(opts), _.camelCase)
+const parameters = paramList(options) // camel case parameters
 // @ts-ignore
-const parametersWithMultipleArgs = paramList(_.pickBy(_.mapValues(options, v => !!v.requiresArg && v.multiple === true))); // eslint-disable-line max-len
+const parametersWithMultipleArgs = paramList(
+  _.pickBy(_.mapValues(options, v => !!v.requiresArg && v.multiple === true))
+) // eslint-disable-line max-len
 // @ts-ignore
-const groupedAliases = _.values(_.mapValues(options, (value, key) => [_.camelCase(key), key, value.alias].filter(_.identity))); // eslint-disable-line max-len
+const groupedAliases = _.values(
+  _.mapValues(options, (value, key) =>
+    [_.camelCase(key), key, value.alias].filter(_.identity)
+  )
+) // eslint-disable-line max-len
 
 function parse(argv, ignoreDefaults) {
-  const parsedArgs = yargs().help('help').alias('help', 'h').version().options(options).strict().parse(argv);
+  const parsedArgs = yargs()
+    .help('help')
+    .alias('help', 'h')
+    .version()
+    .options(options)
+    .strict()
+    .parse(argv)
 
-  let files = parsedArgs._;
+  let files = parsedArgs._
 
   if (!files.length) {
-    files = ['./test'];
+    files = ['./test']
   }
 
-
-  const parsedOptions = _.pick(parsedArgs, parameters); // pick all parameters as new object
-  const validOptions = _.omitBy(parsedOptions, _.isUndefined); // remove all undefined values
+  const parsedOptions = _.pick(parsedArgs, parameters) // pick all parameters as new object
+  const validOptions = _.omitBy(parsedOptions, _.isUndefined) // remove all undefined values
 
   _.forEach(parametersWithMultipleArgs, key => {
     if (_.has(validOptions, key)) {
-      const value = validOptions[key];
+      const value = validOptions[key]
       if (!Array.isArray(value)) {
-        validOptions[key] = [value];
+        validOptions[key] = [value]
       }
     }
-  });
+  })
 
   _.forOwn(validOptions, (value, key) => {
     // validate all non-array options with required arg that it is not duplicated
     // see https://github.com/yargs/yargs/issues/229
     if (parametersWithMultipleArgs.indexOf(key) === -1 && _.isArray(value)) {
-      const arg = _.kebabCase(key);
-      const provided = value.map(v => `--${arg} ${v}`).join(' ');
-      const expected = `--${arg} ${value[0]}`;
+      const arg = _.kebabCase(key)
+      const provided = value.map(v => `--${arg} ${v}`).join(' ')
+      const expected = `--${arg} ${value[0]}`
 
-      throw new Error(`Duplicating arguments for "--${arg}" is not allowed. "${provided}" was provided, but expected "${expected}"`); // eslint-disable-line max-len
+      throw new Error(
+        `Duplicating arguments for "--${arg}" is not allowed. "${provided}" was provided, but expected "${expected}"`
+      ) // eslint-disable-line max-len
     }
-  });
+  })
 
-  validOptions.files = files;
+  validOptions.files = files
 
-  const reporterOptions = {};
+  const reporterOptions = {}
 
   if (validOptions.reporterOptions) {
     validOptions.reporterOptions.split(',').forEach(opt => {
-      const L = opt.split('=');
+      const L = opt.split('=')
       if (L.length > 2 || L.length === 0) {
-        throw new Error(`invalid reporter option ${opt}`);
+        throw new Error(`invalid reporter option ${opt}`)
       } else if (L.length === 2) {
-        reporterOptions[L[0]] = L[1]; // eslint-disable-line prefer-destructuring
+        reporterOptions[L[0]] = L[1] // eslint-disable-line prefer-destructuring
       } else {
-        reporterOptions[L[0]] = true;
+        reporterOptions[L[0]] = true
       }
-    });
+    })
   }
 
-  validOptions.reporterOptions = reporterOptions;
-  validOptions.require = validOptions.require || [];
-  validOptions.include = validOptions.include || [];
+  validOptions.reporterOptions = reporterOptions
+  validOptions.require = validOptions.require || []
+  validOptions.include = validOptions.include || []
 
   if (validOptions.webpackEnv) {
     _.mapValues(validOptions.webpackEnv, (value, key) => {
       if (Array.isArray(value)) {
-        const [first] = value;
-        validOptions.webpackEnv[key] = first;
+        const [first] = value
+        validOptions.webpackEnv[key] = first
       }
-    });
+    })
   }
 
   if (ignoreDefaults) {
-    const userOptions = yargs(argv).argv;
-    const providedKeys = _.keys(userOptions);
-    const usedAliases = _.flatten(_.filter(groupedAliases, aliases => _.some(aliases, alias => providedKeys.indexOf(alias) !== -1)));
+    const userOptions = yargs(argv).argv
+    const providedKeys = _.keys(userOptions)
+    const usedAliases = _.flatten(
+      _.filter(groupedAliases, aliases =>
+        _.some(aliases, alias => providedKeys.indexOf(alias) !== -1)
+      )
+    )
 
     if (parsedArgs._.length) {
-      usedAliases.push('files');
+      usedAliases.push('files')
     }
 
-    return _.pick(validOptions, usedAliases);
+    return _.pick(validOptions, usedAliases)
   }
 
-  return validOptions;
+  return validOptions
 }
 
 export default function parseArgv(argv, ignoreDefaults = false) {
-  const origMainFilename = require.main.filename;
+  const origMainFilename = require.main.filename
   try {
     // yargs searches for package.json up starting from `require.main.filename` path with `yargs` parser configuration
     // it results in finding mocha `package.json` with config for yargs, which is different then we need
-    require.main.filename = require.resolve('../../bin/_mocha');
-    return parse(argv, ignoreDefaults);
+    require.main.filename = require.resolve('../../bin/_mocha')
+    return parse(argv, ignoreDefaults)
   } finally {
-    require.main.filename = origMainFilename;
+    require.main.filename = origMainFilename
   }
 }

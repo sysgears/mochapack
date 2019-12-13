@@ -18,11 +18,11 @@
     "clean-lib": "del-cli \"lib/**\" \"!lib\" \"!lib/reporters\" \"!lib/utils.js\" \"!lib/entry.js\" \"!lib/reporters/base.js\"",
     "clean-tmp": "del-cli \".tmp/**\"",
     "build": "yarn run clean-lib && tsc",
-    "format": "prettier {src,test}/**/*",
-    "lint": "eslint src test bin --fix",
+    "format": "prettier {src,test}/**/* ./*.json --write",
+    "lint": "eslint src/**/* test/**/*.ts test/**/*.js bin --fix",
     "test": "yarn run clean-tmp && yarn run build && ts-mocha --timeout 10000 --recursive --require @babel/register --exit \"test/**/*.test.ts\"",
     "cover": "cross-env BABEL_ENV=coverage nyc --reporter=lcov --reporter=text npm test",
-    "posttest": "yarn run lint",
+    "posttest": "yarn run format && yarn run lint",
     "docs:clean": "del-cli _book",
     "docs:prepare": "gitbook install",
     "docs:build": "yarn run docs:clean && yarn run docs:prepare && gitbook build",
@@ -132,14 +132,17 @@
     ]
   },
   "nyc": {
-    "extension": [".ts"],
+    "extension": [
+      ".ts"
+    ],
     "include": [
       "src/**/*.ts"
     ]
   },
   "prettier": {
     "semi": false,
-    "singleQuote": true
+    "singleQuote": true,
+    "endOfLine": "lf"
   },
   "resolutions": {
     "js-yaml": ">=3.13.0",

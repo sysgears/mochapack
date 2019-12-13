@@ -1,6 +1,7 @@
 **/*.coffee
 **/*.opts
 **/*.gitignore
-test/integration/statsFormatter/statsCasesFixture/**/*.txt
-test/integration/statsFormatter/statsCasesFixture/**/*.css
-test/integration/statsFormatter/statsCasesFixture/**/*.scss
+**/*.txt
+**/*.css
+**/*.scss
+test/**/*.js

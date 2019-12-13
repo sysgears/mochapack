@@ -8,7 +8,7 @@
   },
   "rules": {
     "arrow-parens": ["error", "always"],
-    "max-len": ["error", 120],
+    "max-len": ["error", 80],
     "no-duplicate-imports": "off",
     "no-restricted-syntax": "off",
     "generator-star-spacing": "off",

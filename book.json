@@ -2,7 +2,14 @@
   "gitbook": "3.2.2",
   "title": "mochapack",
   "description": "mocha cli with webpack support",
-  "plugins": ["edit-link", "-search",  "github", "anchors", "prism", "-highlight"],
+  "plugins": [
+    "edit-link",
+    "-search",
+    "github",
+    "anchors",
+    "prism",
+    "-highlight"
+  ],
   "pluginsConfig": {
     "edit-link": {
       "base": "https://github.com/sysgears/mochapack/tree/master",
