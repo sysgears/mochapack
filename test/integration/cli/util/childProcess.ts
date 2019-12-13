@@ -1,6 +1,6 @@
 import { exec as execProcess } from 'child_process'
 
-export function exec(command, cb) {
+export default function exec(command, cb) {
   // eslint-disable-line import/prefer-default-export
   let data = ''
   const ps = execProcess(command, err => {

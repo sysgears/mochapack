@@ -1,9 +1,8 @@
 import path from 'path'
+import { Stats } from 'webpack'
 import sortChunks from './sortChunks'
 import getAffectedModuleIds from './getAffectedModuleIds'
-
 import { Chunk, Module } from '../types'
-import { Stats } from 'webpack'
 
 export type BuildStats = {
   affectedModules: Array<number | string>

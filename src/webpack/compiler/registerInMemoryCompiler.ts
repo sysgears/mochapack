@@ -1,9 +1,9 @@
 import path from 'path'
 import sourceMapSupport from 'source-map-support'
 import MemoryFileSystem from 'memory-fs'
+import { Compiler, Stats } from 'webpack'
 import registerRequireHook from '../../util/registerRequireHook'
 import { ensureAbsolutePath } from '../../util/paths'
-import { Compiler, Stats } from 'webpack'
 
 export default function registerInMemoryCompiler(compiler: Compiler) {
   // register memory fs to webpack

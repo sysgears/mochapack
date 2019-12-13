@@ -3,22 +3,21 @@ import EventEmitter from 'events'
 import _ from 'lodash'
 import chokidar from 'chokidar'
 import minimatch from 'minimatch'
+import { Configuration as WebpackConfig, Compiler, Stats } from 'webpack'
 
 import { glob } from '../util/glob'
 import createCompiler from '../webpack/compiler/createCompiler'
-import createWatchCompiler from '../webpack/compiler/createWatchCompiler'
+import createWatchCompiler, {
+  WatchCompiler
+} from '../webpack/compiler/createWatchCompiler'
 import registerInMemoryCompiler from '../webpack/compiler/registerInMemoryCompiler'
 import registerReadyCallback from '../webpack/compiler/registerReadyCallback'
-
 import { EntryConfig } from '../webpack/loader/entryLoader'
 import configureMocha from './configureMocha'
-import getBuildStats from '../webpack/util/getBuildStats'
+import getBuildStats, { BuildStats } from '../webpack/util/getBuildStats'
 import buildProgressPlugin from '../webpack/plugin/buildProgressPlugin'
 
 import { MochaWebpackOptions } from '../MochaWebpack'
-import { BuildStats } from '../webpack/util/getBuildStats'
-import { WatchCompiler } from '../webpack/compiler/createWatchCompiler'
-import { Configuration as WebpackConfig, Compiler, Stats } from 'webpack'
 
 const entryPath = path.resolve(__dirname, '../entry.js')
 const entryLoaderPath = path.resolve(
