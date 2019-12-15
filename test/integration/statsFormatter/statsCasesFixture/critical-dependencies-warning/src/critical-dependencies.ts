@@ -1,1 +1,1 @@
-if (global.test) test(require);
+if (global.test) test(require)

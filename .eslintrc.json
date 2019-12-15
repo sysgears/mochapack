@@ -1,0 +1,35 @@
+{
+  "env": {
+    "node": true
+  },
+  "extends": ["airbnb-base", "prettier"],
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "project": "./tsconfig.lint.json"
+  },
+  "plugins": ["@typescript-eslint"],
+  "rules": {
+    "import/extensions": [
+      "error",
+      "ignorePackages",
+      {
+        "js": "never",
+        "ts": "never"
+      }
+    ],
+    "import/no-extraneous-dependencies": [
+      "error",
+      { "peerDependencies": true }
+    ],
+    "no-duplicate-imports": "off",
+    "no-restricted-syntax": "off",
+    "no-unused-vars": "off"
+  },
+  "settings": {
+    "import/resolver": {
+      "node": {
+        "extensions": [".js", ".ts"]
+      }
+    }
+  }
+}

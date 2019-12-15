@@ -1,26 +1,28 @@
+import path from 'path'
+import { reporters } from 'mocha'
 
-import path from "path";
-import { reporters, Spec } from "mocha";
-
-export default function loadReporter(reporter: string | (() => void) | Spec, cwd?: string) {
+export default function loadReporter(
+  reporter: string | ReporterConstructor,
+  cwd?: string
+) {
   // if reporter is already loaded, just return it
   if (typeof reporter === 'function') {
-    return reporter;
+    return reporter
   }
 
   // try to load built-in reporter like 'spec'
   if (typeof reporters[reporter] !== 'undefined') {
-    return reporters[reporter];
+    return reporters[reporter]
   }
 
-  let loadedReporter = null;
+  let loadedReporter = null
   try {
     // try to load reporter from node_modules
-    loadedReporter = require(reporter); // eslint-disable-line global-require, import/no-dynamic-require
+    loadedReporter = require(reporter) // eslint-disable-line global-require, import/no-dynamic-require
   } catch (e) {
     // try to load reporter from cwd
     // eslint-disable-next-line global-require, import/no-dynamic-require
-    loadedReporter = require(path.resolve(cwd, reporter));
+    loadedReporter = require(path.resolve(cwd, reporter))
   }
-  return loadedReporter;
+  return loadedReporter
 }

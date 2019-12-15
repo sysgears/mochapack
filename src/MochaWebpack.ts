@@ -1,32 +1,31 @@
-
-import TestRunner from "./runner/TestRunner";
-import testRunnerReporter from "./runner/testRunnerReporter";
+import TestRunner from './runner/TestRunner'
+import testRunnerReporter from './runner/testRunnerReporter'
 
 export type MochaWebpackOptions = {
-  cwd: string;
-  webpackConfig: {};
-  bail: boolean;
-  reporter: string | (() => void);
-  reporterOptions: {};
-  ui: string;
-  fgrep?: string;
-  grep?: string | RegExp;
-  invert: boolean;
-  ignoreLeaks: boolean;
-  fullStackTrace: boolean;
-  colors?: boolean;
-  useInlineDiffs: boolean;
-  timeout: number;
-  retries?: number;
-  slow: number;
-  asyncOnly: boolean;
-  delay: boolean;
-  interactive: boolean;
-  clearTerminal: boolean;
-  quiet: boolean;
-  growl?: boolean;
-  forbidOnly: boolean;
-};
+  cwd: string
+  webpackConfig: {}
+  bail: boolean
+  reporter: string | ReporterConstructor
+  reporterOptions: {}
+  ui: string
+  fgrep?: string
+  grep?: string | RegExp
+  invert: boolean
+  ignoreLeaks: boolean
+  fullStackTrace: boolean
+  colors?: boolean
+  useInlineDiffs: boolean
+  timeout: number
+  retries?: number
+  slow: number
+  asyncOnly: boolean
+  delay: boolean
+  interactive: boolean
+  clearTerminal: boolean
+  quiet: boolean
+  growl?: boolean
+  forbidOnly: boolean
+}
 
 export default class MochaWebpack {
   /**
@@ -34,14 +33,14 @@ export default class MochaWebpack {
    *
    * @private
    */
-  entries: Array<string> = [];
+  entries: Array<string> = []
 
   /**
    * Files to include into the bundle
    *
    * @private
    */
-  includes: Array<string> = [];
+  includes: Array<string> = []
 
   /**
    * Options
@@ -67,7 +66,7 @@ export default class MochaWebpack {
     clearTerminal: false,
     quiet: false,
     forbidOnly: false
-  };
+  }
 
   /**
    * Add file run test against
@@ -77,8 +76,8 @@ export default class MochaWebpack {
    * @return {MochaWebpack}
    */
   addEntry(file: string): MochaWebpack {
-    this.entries = [...this.entries, file];
-    return this;
+    this.entries = [...this.entries, file]
+    return this
   }
 
   /**
@@ -89,8 +88,8 @@ export default class MochaWebpack {
    * @return {MochaWebpack}
    */
   addInclude(file: string): MochaWebpack {
-    this.includes = [...this.includes, file];
-    return this;
+    this.includes = [...this.includes, file]
+    return this
   }
 
   /**
@@ -104,8 +103,8 @@ export default class MochaWebpack {
     this.options = {
       ...this.options,
       cwd
-    };
-    return this;
+    }
+    return this
   }
 
   /**
@@ -119,8 +118,8 @@ export default class MochaWebpack {
     this.options = {
       ...this.options,
       webpackConfig: config
-    };
-    return this;
+    }
+    return this
   }
 
   /**
@@ -134,8 +133,8 @@ export default class MochaWebpack {
     this.options = {
       ...this.options,
       bail
-    };
-    return this;
+    }
+    return this
   }
 
   /**
@@ -145,13 +144,16 @@ export default class MochaWebpack {
    * @param {Object} reporterOptions optional options
    * @return {MochaWebpack}
    */
-  reporter(reporter: string | (() => void), reporterOptions: {}): MochaWebpack {
+  reporter(
+    reporter: string | ReporterConstructor,
+    reporterOptions: {}
+  ): MochaWebpack {
     this.options = {
       ...this.options,
       reporter,
       reporterOptions
-    };
-    return this;
+    }
+    return this
   }
 
   /**
@@ -165,8 +167,8 @@ export default class MochaWebpack {
     this.options = {
       ...this.options,
       ui
-    };
-    return this;
+    }
+    return this
   }
 
   /**
@@ -180,8 +182,8 @@ export default class MochaWebpack {
     this.options = {
       ...this.options,
       fgrep: str
-    };
-    return this;
+    }
+    return this
   }
 
   /**
@@ -195,8 +197,8 @@ export default class MochaWebpack {
     this.options = {
       ...this.options,
       grep: pattern
-    };
-    return this;
+    }
+    return this
   }
 
   /**
@@ -209,8 +211,8 @@ export default class MochaWebpack {
     this.options = {
       ...this.options,
       invert: true
-    };
-    return this;
+    }
+    return this
   }
 
   /**
@@ -224,8 +226,8 @@ export default class MochaWebpack {
     this.options = {
       ...this.options,
       ignoreLeaks: ignore
-    };
-    return this;
+    }
+    return this
   }
 
   /**
@@ -238,8 +240,8 @@ export default class MochaWebpack {
     this.options = {
       ...this.options,
       fullStackTrace: true
-    };
-    return this;
+    }
+    return this
   }
 
   /**
@@ -253,8 +255,8 @@ export default class MochaWebpack {
     this.options = {
       ...this.options,
       colors
-    };
-    return this;
+    }
+    return this
   }
 
   /**
@@ -267,8 +269,8 @@ export default class MochaWebpack {
     this.options = {
       ...this.options,
       quiet: true
-    };
-    return this;
+    }
+    return this
   }
 
   /**
@@ -282,8 +284,8 @@ export default class MochaWebpack {
     this.options = {
       ...this.options,
       useInlineDiffs: inlineDiffs
-    };
-    return this;
+    }
+    return this
   }
 
   /**
@@ -297,8 +299,8 @@ export default class MochaWebpack {
     this.options = {
       ...this.options,
       timeout
-    };
-    return this;
+    }
+    return this
   }
 
   /**
@@ -312,10 +314,9 @@ export default class MochaWebpack {
     this.options = {
       ...this.options,
       retries: count
-    };
-    return this;
+    }
+    return this
   }
-
 
   /**
    * Set slowness threshold in milliseconds.
@@ -328,8 +329,8 @@ export default class MochaWebpack {
     this.options = {
       ...this.options,
       slow: threshold
-    };
-    return this;
+    }
+    return this
   }
 
   /**
@@ -342,8 +343,8 @@ export default class MochaWebpack {
     this.options = {
       ...this.options,
       asyncOnly: true
-    };
-    return this;
+    }
+    return this
   }
 
   /**
@@ -356,8 +357,8 @@ export default class MochaWebpack {
     this.options = {
       ...this.options,
       delay: true
-    };
-    return this;
+    }
+    return this
   }
 
   /**
@@ -371,8 +372,8 @@ export default class MochaWebpack {
     this.options = {
       ...this.options,
       interactive
-    };
-    return this;
+    }
+    return this
   }
 
   /**
@@ -386,8 +387,8 @@ export default class MochaWebpack {
     this.options = {
       ...this.options,
       clearTerminal
-    };
-    return this;
+    }
+    return this
   }
 
   /**
@@ -401,8 +402,8 @@ export default class MochaWebpack {
     this.options = {
       ...this.options,
       growl: true
-    };
-    return this;
+    }
+    return this
   }
 
   /**
@@ -416,8 +417,8 @@ export default class MochaWebpack {
     this.options = {
       ...this.options,
       forbidOnly: true
-    };
-    return this;
+    }
+    return this
   }
 
   /**
@@ -427,15 +428,15 @@ export default class MochaWebpack {
    * @return {Promise<number>} a Promise that gets resolved with the number of failed tests or rejected with build error
    */
   async run(): Promise<number> {
-    const runner = new TestRunner(this.entries, this.includes, this.options);
+    const runner = new TestRunner(this.entries, this.includes, this.options)
     testRunnerReporter({
       eventEmitter: runner,
       interactive: this.options.interactive,
       quiet: this.options.quiet,
       cwd: this.options.cwd,
       clearTerminal: this.options.clearTerminal
-    });
-    return runner.run();
+    })
+    return runner.run()
   }
 
   /**
@@ -443,14 +444,14 @@ export default class MochaWebpack {
    * @public
    */
   async watch(): Promise<void> {
-    const runner = new TestRunner(this.entries, this.includes, this.options);
+    const runner = new TestRunner(this.entries, this.includes, this.options)
     testRunnerReporter({
       eventEmitter: runner,
       interactive: this.options.interactive,
       quiet: this.options.quiet,
       cwd: this.options.cwd,
       clearTerminal: this.options.clearTerminal
-    });
-    await runner.watch();
+    })
+    await runner.watch()
   }
 }

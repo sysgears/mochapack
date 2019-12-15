@@ -1,0 +1,7 @@
+**/*.coffee
+**/*.opts
+**/*.gitignore
+**/*.txt
+**/*.css
+**/*.scss
+test/**/*.js
