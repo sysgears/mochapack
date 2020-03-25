@@ -26,8 +26,6 @@ describe('configureMocha', function() {
     }
     this.sandbox = sandbox.create()
     this.spyReporter = this.sandbox.spy(Mocha.prototype, 'reporter')
-    this.spyUseColors = this.sandbox.spy(Mocha.prototype, 'useColors')
-    this.spyUseInlineDiffs = this.sandbox.spy(Mocha.prototype, 'useInlineDiffs')
     this.spyEnableTimeouts = this.sandbox.spy(Mocha.prototype, 'enableTimeouts')
     this.spyGrep = this.sandbox.spy(Mocha.prototype, 'grep')
     this.spyGrowl = this.sandbox.spy(Mocha.prototype, 'growl')
@@ -60,27 +58,36 @@ describe('configureMocha', function() {
     )
   })
 
-  it('should call useColors()', function() {
-    configureMocha({
-      ...this.options
+  it('should set color', function() {
+    var mocha = configureMocha({
+      ...this.options,
+      colors: undefined
     })
 
-    assert.isTrue(this.spyUseColors.called, 'useColors() should be called')
-    assert.isTrue(this.spyUseColors.calledWith(this.options.colors))
+    assert.isFalse(mocha.options.color)
+
+    mocha = configureMocha({
+      ...this.options,
+      colors: true
+    })
+
+    assert.isTrue(mocha.options.color)
   })
 
-  it('should call useInlineDiffs()', function() {
-    configureMocha({
-      ...this.options
+  it('should set inlineDiffs', function() {
+    var mocha = configureMocha({
+      ...this.options,
+      useInlineDiffs: undefined
     })
 
-    assert.isTrue(
-      this.spyUseInlineDiffs.called,
-      'useInlineDiffs() should be called'
-    )
-    assert.isTrue(
-      this.spyUseInlineDiffs.calledWith(this.options.useInlineDiffs)
-    )
+    assert.isFalse(mocha.options.inlineDiffs)
+
+    mocha = configureMocha({
+      ...this.options,
+      useInlineDiffs: true
+    })
+
+    assert.isTrue(mocha.options.inlineDiffs)
   })
 
   it('should call enableTimeouts()', function() {
