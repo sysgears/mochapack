@@ -47,7 +47,7 @@
   "author": "Victor Vlasenko <victor.vlasenko@sysgears.com>",
   "license": "MIT",
   "peerDependencies": {
-    "mocha": ">=4 <=6",
+    "mocha": ">=4 <=7",
     "webpack": "^4.0.0"
   },
   "devDependencies": {
@@ -92,7 +92,7 @@
     "gitbook-plugin-github": "3.0.0",
     "gitbook-plugin-prism": "^2.0.0",
     "glob": "7.1.4",
-    "mocha": "6.2.1",
+    "mocha": "7.1.1",
     "node-sass": "^4.11.0",
     "np": "5.1.0",
     "nyc": "14.1.1",
