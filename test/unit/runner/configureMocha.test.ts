@@ -26,8 +26,6 @@ describe('configureMocha', function() {
     }
     this.sandbox = sandbox.create()
     this.spyReporter = this.sandbox.spy(Mocha.prototype, 'reporter')
-    this.spyColor = this.sandbox.spy(Mocha.prototype, 'color')
-    this.spyInlineDiffs = this.sandbox.spy(Mocha.prototype, 'inlineDiffs')
     this.spyEnableTimeouts = this.sandbox.spy(Mocha.prototype, 'enableTimeouts')
     this.spyGrep = this.sandbox.spy(Mocha.prototype, 'grep')
     this.spyGrowl = this.sandbox.spy(Mocha.prototype, 'growl')
