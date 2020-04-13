@@ -1,6 +1,6 @@
 {
   "name": "mochapack",
-  "version": "1.1.14",
+  "version": "1.1.15",
   "description": "mocha cli with webpack support",
   "bin": {
     "mochapack": "./bin/mochapack"
@@ -111,7 +111,6 @@
     "@babel/runtime-corejs2": "^7.0.0",
     "chalk": "^2.4.2",
     "chokidar": "^2.0.0",
-    "gitbook-plugin-github": "^2.0.0",
     "glob-parent": "5.1.0",
     "globby": "^10.0.1",
     "interpret": "^1.2.0",
