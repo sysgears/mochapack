@@ -7,18 +7,17 @@ export default function configureMocha(options: MochaWebpackOptions) {
   // infinite stack traces
   Error.stackTraceLimit = Infinity
 
+  const mochaOptions = {
+    color: !!options.colors,
+    inlineDiffs: !!options.useInlineDiffs
+  }
+
   // init mocha
-  const mocha = new Mocha()
+  const mocha = new Mocha(mochaOptions)
 
   // reporter
   const reporter = loadReporter(options.reporter, options.cwd)
   mocha.reporter(reporter, options.reporterOptions)
-
-  // colors
-  mocha.useColors(options.colors)
-
-  // inline-diffs
-  mocha.useInlineDiffs(options.useInlineDiffs)
 
   // slow <ms>
   mocha.suite.slow(options.slow)
