@@ -1,8 +1,8 @@
 export type WebpackMode = 'development' | 'production'
 
 export interface ParsedWebpackArgs {
-  include: string[]
+  include?: string[]
   mode?: WebpackMode
   'webpack-config': string
-  'webpack-env': string
+  'webpack-env'?: string
 }

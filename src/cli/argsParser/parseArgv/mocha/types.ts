@@ -1,4 +1,4 @@
-type MochaReporter =
+export type MochaReporter =
   | 'base'
   | 'doc'
   | 'dot'
@@ -15,7 +15,7 @@ type MochaReporter =
   | 'landing'
   | 'jsonstream'
 
-type MochaUi = 'bdd' | 'tdd' | 'qunit' | 'exports'
+export type MochaUi = 'bdd' | 'tdd' | 'qunit' | 'exports'
 
 export interface ParsedMochaArgs {
   'allow-uncaught'?: boolean
@@ -39,8 +39,6 @@ export interface ParsedMochaArgs {
   ignore?: string[]
   'inline-diffs'?: boolean
   invert?: boolean
-  'list-interfaces'?: boolean
-  'list-reporters'?: boolean
   'no-colors'?: boolean
   package?: string
   recursive?: boolean
