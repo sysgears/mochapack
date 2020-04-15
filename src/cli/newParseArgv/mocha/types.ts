@@ -1,5 +1,21 @@
-type MochaReporter = ''
-type MochaUi = ''
+type MochaReporter =
+  | 'base'
+  | 'doc'
+  | 'dot'
+  | 'html'
+  | 'json'
+  | 'tap'
+  | 'list'
+  | 'spec'
+  | 'nyan'
+  | 'min'
+  | 'xunit'
+  | 'markdown'
+  | 'progress'
+  | 'landing'
+  | 'jsonstream'
+
+type MochaUi = 'bdd' | 'tdd' | 'qunit' | 'exports'
 
 export interface ParsedMochaArgs {
   'allow-uncaught'?: boolean

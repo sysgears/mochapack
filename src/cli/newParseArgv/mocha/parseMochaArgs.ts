@@ -55,13 +55,16 @@ const mochaChecks = (yargsInstance: any, argv: Arguments) => {
 
 /**
  * Parses CLI arguments for Mocha using Yargs as closely as possible to how
- *   Mocha parses arguments when run from their CLI
+ *   Mocha parses arguments when run from their CLI.
+ *
+ * This is done to keep Mocha somewhat at arm's length, and not pollute the
+ *   standard Mochapack args parser with Mocha-specific options/settings
  *
  * Note that some of this correlates with the builder in Mocha's lib/cli/run.js
  *
  * @param argv Arguments provided via CLI
  */
-const parseMochaArgs = (argv: string[]): ParsedMochaArgs =>
+export const parseMochaArgs = (argv: string[]): ParsedMochaArgs =>
   (yargs
     .options(mochaOptions)
     .check((args: Arguments) => mochaChecks(yargs, args))
@@ -72,4 +75,10 @@ const parseMochaArgs = (argv: string[]): ParsedMochaArgs =>
     .number(types.number)
     .parse(argv) as unknown) as ParsedMochaArgs
 
-export default parseMochaArgs
+/**
+ * Need to ensure any keys unknown to Mocha are not included in Yargs output
+ */
+export const pruneMochaYargsOutput = (
+  yargsOutput: ParsedMochaArgs
+): ParsedMochaArgs =>
+  _pick(yargsOutput, Object.keys(mochaOptions)) as ParsedMochaArgs

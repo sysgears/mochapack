@@ -4,6 +4,10 @@ import { isUndefined as _isUndefined, merge as _merge } from 'lodash'
 
 import parseArgv from '.'
 import mochaOptions from './mocha/mochaOptions'
+import mochapackOptions, {
+  mochapackDefaults
+} from './mochapack/mochapackOptions'
+import webpackOptions, { webpackDefaults } from './webpack/webpackOptions'
 
 describe('new parseArgv', () => {
   let argv: string[]
@@ -15,6 +19,13 @@ describe('new parseArgv', () => {
     timeout: 2000,
     ui: 'bdd'
   }
+
+  const mochaDefaultExtension = ['js', 'cjs', 'mjs']
+  const mochaDefaultWatchIgnore = ['node_modules', '.git']
+  const mochaFullDefaults = _merge({}, mochaDefaults, {
+    extension: mochaDefaultExtension,
+    'watch-ignore': mochaDefaultWatchIgnore
+  })
 
   beforeEach(() => {
     argv = ['src']
@@ -513,13 +524,8 @@ describe('new parseArgv', () => {
           if (_isUndefined(parsedMochaArgs)) {
             expect(defaultMochaOption.default).to.be.undefined // eslint-disable-line
           } else {
-            const allMochaDefaults = {
-              ...mochaDefaults,
-              extension: ['js', 'cjs', 'mjs'],
-              'watch-ignore': ['node_modules', '.git']
-            }
             expect(parsedMochaArgs[arg.argumentName]).to.eql(
-              allMochaDefaults[arg.argumentName]
+              mochaFullDefaults[arg.argumentName]
             )
           }
         })
@@ -532,16 +538,15 @@ describe('new parseArgv', () => {
                 {
                   mocha: {
                     ...mochaDefaults,
-                    extension: scenario.expected.mocha.extension || [
-                      'js',
-                      'cjs',
-                      'mjs'
-                    ],
-                    'watch-ignore': scenario.expected.mocha['watch-ignore'] || [
-                      'node_modules',
-                      '.git'
-                    ]
-                  }
+                    extension:
+                      scenario.expected.mocha.extension ||
+                      mochaDefaultExtension,
+                    'watch-ignore':
+                      scenario.expected.mocha['watch-ignore'] ||
+                      mochaDefaultWatchIgnore
+                  },
+                  webpack: webpackDefaults,
+                  mochapack: mochapackDefaults
                 },
                 scenario.expected
               )
@@ -552,7 +557,157 @@ describe('new parseArgv', () => {
     })
   })
 
-  xcontext('when handling arguments for Webpack', () => {})
+  context('when handling arguments for Webpack', () => {
+    const webpackArgs = [
+      {
+        argumentName: 'include',
+        scenarios: [
+          {
+            provided: ['--include', 'test.js'],
+            expected: { webpack: { include: ['test.js'] } }
+          },
+          {
+            provided: ['--include', 'test-a.js', '--include', 'test-b.js'],
+            expected: { webpack: { include: ['test-a.js', 'test-b.js'] } }
+          }
+        ]
+      },
+      {
+        argumentName: 'mode',
+        scenarios: [
+          {
+            provided: ['--mode', 'development'],
+            expected: { webpack: { mode: 'development' } }
+          }
+        ]
+      },
+      {
+        argumentName: 'webpack-config',
+        scenarios: [
+          {
+            provided: ['--webpack-config', 'path/to/config.js'],
+            expected: { webpack: { 'webpack-config': 'path/to/config.js' } }
+          }
+        ]
+      },
+      {
+        argumentName: 'webpack-env',
+        scenarios: [
+          {
+            provided: ['--webpack-env', 'custom-env'],
+            expected: { webpack: { 'webpack-env': 'custom-env' } }
+          }
+        ]
+      }
+    ]
 
-  xcontext('when handling arguments for Mochapack', () => {})
+    webpackArgs.forEach(arg => {
+      context(`when parsing arguments for ${arg.argumentName}`, () => {
+        it(`uses the default set by Mochapack`, () => {
+          const defaultWebpackOption = webpackOptions[arg.argumentName]
+          const parsedWebpackArgs = parseArgv([]).webpack
+          if (_isUndefined(parsedWebpackArgs)) {
+            expect(defaultWebpackOption.default).to.be.undefined // eslint-disable-line
+          } else {
+            expect(parsedWebpackArgs[arg.argumentName]).to.eql(
+              webpackDefaults[arg.argumentName]
+            )
+          }
+        })
+
+        arg.scenarios.forEach(scenario => {
+          it(`properly interprets '${scenario.provided.join(' ')}'`, () => {
+            expect(parseArgv(scenario.provided)).to.eql(
+              _merge(
+                {},
+                {
+                  mocha: mochaFullDefaults,
+                  webpack: webpackDefaults,
+                  mochapack: mochapackDefaults
+                },
+                scenario.expected
+              )
+            )
+          })
+        })
+      })
+    })
+  })
+
+  context('when handling arguments for Mochapack', () => {
+    const mochapackArgs = [
+      {
+        argumentName: 'quiet',
+        scenarios: [
+          {
+            provided: ['--quiet'],
+            expected: { mochapack: { quiet: true } }
+          },
+          {
+            provided: ['-q'],
+            expected: { mochapack: { quiet: true } }
+          }
+        ]
+      },
+      {
+        argumentName: 'interactive',
+        scenarios: [
+          {
+            provided: ['--interactive'],
+            expected: { mochapack: { interactive: true } }
+          }
+        ]
+      },
+      {
+        argumentName: 'clear-terminal',
+        scenarios: [
+          {
+            provided: ['--clear-terminal'],
+            expected: { mochapack: { 'clear-terminal': true } }
+          }
+        ]
+      },
+      {
+        argumentName: 'glob',
+        scenarios: [
+          {
+            provided: ['--glob', '**globpattern**.js'],
+            expected: { mochapack: { glob: '**globpattern**.js' } }
+          }
+        ]
+      }
+    ]
+
+    mochapackArgs.forEach(arg => {
+      context(`when parsing arguments for ${arg.argumentName}`, () => {
+        it(`uses the default set by Mochapack`, () => {
+          const defaultMochapackOption = mochapackOptions[arg.argumentName]
+          const parsedMochapackArgs = parseArgv([]).mochapack
+          if (_isUndefined(parsedMochapackArgs)) {
+            expect(defaultMochapackOption.default).to.be.undefined // eslint-disable-line
+          } else {
+            expect(parsedMochapackArgs[arg.argumentName]).to.eql(
+              mochapackDefaults[arg.argumentName]
+            )
+          }
+        })
+
+        arg.scenarios.forEach(scenario => {
+          it(`properly interprets '${scenario.provided.join(' ')}'`, () => {
+            expect(parseArgv(scenario.provided)).to.eql(
+              _merge(
+                {},
+                {
+                  mocha: mochaFullDefaults,
+                  webpack: webpackDefaults,
+                  mochapack: mochapackDefaults
+                },
+                scenario.expected
+              )
+            )
+          })
+        })
+      })
+    })
+  })
 })
