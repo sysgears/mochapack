@@ -1,5 +1,3 @@
-/* eslint-env node, mocha */
-
 /* eslint-disable func-names, prefer-arrow-callback */
 import { assert } from 'chai'
 import registerRequireHook from '../../../src/util/registerRequireHook'

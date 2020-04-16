@@ -31,5 +31,13 @@
         "extensions": [".js", ".ts"]
       }
     }
-  }
+  },
+  "overrides": [
+    {
+      "files": ["**/*.test.**"],
+      "env": {
+        "mocha": true
+      }
+    }
+  ]
 }

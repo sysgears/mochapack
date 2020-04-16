@@ -1,7 +1,8 @@
-import Mocha, { MochaOptions } from 'mocha'
-import getReporterConstructor from '../getReporterConstructor'
-import { MochapackMochaOptions } from '../../cli/argsParser/optionsFromParsedArgs/types'
-import loadUI from '../loadUI'
+import { cloneDeep as _cloneDeep } from 'lodash'
+import Mocha from 'mocha'
+import getReporterConstructor from '../../getReporterConstructor'
+import { MochapackMochaOptions } from '../../../cli/argsParser/optionsFromParsedArgs/types'
+import loadUI from '../../loadUI'
 
 /**
  * Uses the options set on the instance of Mocha to set its reporter for
@@ -21,12 +22,25 @@ const setUiInMochaOptions = (mocha: Mocha, cwd: string) => {
 }
 
 /**
+ * Adds specified files to the instance of Mocha
+ */
+const addFilesToMochaInstance = (mocha: Mocha, files?: string[]): Mocha => {
+  let clonedMocha = _cloneDeep(mocha)
+  if (files) {
+    files.forEach(file => {
+      clonedMocha = clonedMocha.addFile(file)
+    })
+  }
+  return clonedMocha
+}
+
+/**
  * Initializes an instance of Mocha on behalf of the user with their provided
  *   options
  */
 const initMocha = (options: MochapackMochaOptions, cwd: string): Mocha => {
-  const mochaInstance = new Mocha(options.constructor)
-
+  let mochaInstance = new Mocha(options.constructor)
+  mochaInstance = addFilesToMochaInstance(mochaInstance, options.cli.file)
   if (options.cli.invert) mochaInstance.invert()
   setReporterInMochaOptions(mochaInstance, cwd)
   setUiInMochaOptions(mochaInstance, cwd)

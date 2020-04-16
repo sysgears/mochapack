@@ -1,5 +1,3 @@
-/* eslint-env node, mocha */
-
 import path from 'path'
 import { assert } from 'chai'
 import { rejects } from 'assert'

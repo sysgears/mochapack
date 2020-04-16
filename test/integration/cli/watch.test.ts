@@ -1,5 +1,3 @@
-/* eslint-env node, mocha */
-
 /* eslint-disable func-names, max-len */
 
 import { assert } from 'chai'

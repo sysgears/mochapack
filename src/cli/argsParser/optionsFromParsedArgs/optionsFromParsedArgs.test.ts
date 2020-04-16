@@ -1,4 +1,3 @@
-/* eslint-env node, mocha */
 import { resolve } from 'path'
 import { expect } from 'chai'
 import { merge as _merge } from 'lodash'
@@ -129,7 +128,7 @@ describe('optionsFromParsedArgs', () => {
           argName: 'grep',
           optionName: 'grep',
           providedArgs: { grep: 'helloWorld.js' },
-          expectedOptions: { grep: new RegExp('helloWorld.js') }
+          expectedOptions: { grep: 'helloWorld.js' }
         },
         {
           argName: 'growl',

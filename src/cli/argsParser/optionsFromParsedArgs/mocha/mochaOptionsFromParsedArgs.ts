@@ -78,7 +78,7 @@ const colorsShouldBeUsed = (args: ParsedMochaArgs): boolean => {
 }
 
 const grepToUse = (args: ParsedMochaArgs): string | RegExp | undefined => {
-  if (args.grep) return new RegExp(args.grep)
+  if (args.grep) return args.grep
   if (args.fgrep) return args.fgrep
   return undefined
 }
