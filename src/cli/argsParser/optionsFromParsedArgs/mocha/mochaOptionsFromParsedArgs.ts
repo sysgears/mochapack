@@ -12,6 +12,7 @@ import {
   mergeMochaConfigWithConstructorOptions,
   mergeMochaConfigWithCliOptions
 } from './mergeMochaConfigWithOptions'
+import utils from '../../utils'
 
 /**
  * Keep track of which keys are not applicable to the Mocha constructor here.
@@ -35,21 +36,6 @@ export const mochaCliOptionArgs = [
   'watch-files',
   'watch-ignore'
 ]
-
-/**
- * Converts top-level keys of an object to camelCase
- *
- * @param obj An object to convert keys for
- */
-export const camelizeKeys = <T extends Object>(obj: T): T => {
-  const output: T = {} as T
-
-  Object.keys(obj).forEach(key => {
-    output[_camelCase(key)] = obj[key]
-  })
-
-  return output
-}
 
 /**
  * Ensures that any options that are provided as strings but expected as
@@ -95,7 +81,7 @@ const extractMochaConstructorOptions = (
   parsedMochaArgs: ParsedMochaArgs
 ): MochaOptions => {
   const relevantArgs = _omit(parsedMochaArgs, mochaCliOptionArgs)
-  const camelizedArgs = camelizeKeys(relevantArgs) as unknown
+  const camelizedArgs = utils.camelizeKeys(relevantArgs) as unknown
   let mochaOptions = ensureNumericOptionsAreNumbers(camelizedArgs)
   mochaOptions = convertGlobalKeyToGlobals(mochaOptions)
   const mergedOptions = mergeMochaConfigWithConstructorOptions(
@@ -116,7 +102,7 @@ const extractMochaCliOptions = (
   parsedMochaArgs: ParsedMochaArgs
 ): MochaCliOptions => {
   const relevantArgs = _pick(parsedMochaArgs, mochaCliOptionArgs)
-  const camelizedArgs = camelizeKeys(relevantArgs)
+  const camelizedArgs = utils.camelizeKeys(relevantArgs)
   const mergedOptions = mergeMochaConfigWithCliOptions(
     (camelizedArgs as unknown) as MochaOptions,
     parsedMochaArgs.config

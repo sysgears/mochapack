@@ -1,4 +1,5 @@
 import { MochaOptions } from 'mocha'
+import { WebpackMode } from '../parseArgv/webpack/types'
 
 export interface MochaCliOptions {
   config?: string
@@ -21,9 +22,19 @@ export interface MochapackMochaOptions {
   cli: MochaCliOptions
 }
 
-export interface MochapackWebpackOptions {}
+export interface MochapackWebpackOptions {
+  include?: string[]
+  mode?: WebpackMode
+  config: string
+  env?: string
+}
 
-export interface MochapackSpecificOptions {}
+export interface MochapackSpecificOptions {
+  quiet?: boolean
+  interactive: boolean
+  clearTerminal: boolean
+  glob?: string
+}
 
 export interface MochapackOptions {
   mocha: MochapackMochaOptions

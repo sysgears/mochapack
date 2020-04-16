@@ -5,8 +5,14 @@ import { merge as _merge } from 'lodash'
 import { MochaOptions } from 'mocha'
 import { ParsedArgs } from '../parseArgv/types'
 import optionsFromParsedArgs from '.'
-import { MochapackOptions } from './types'
+import {
+  MochapackOptions,
+  MochapackWebpackOptions,
+  MochapackSpecificOptions
+} from './types'
 import { ParsedMochaArgs } from '../parseArgv/mocha/types'
+import { ParsedWebpackArgs } from '../parseArgv/webpack/types'
+import { ParsedMochapackArgs } from '../parseArgv/mochapack/types'
 
 describe('optionsFromParsedArgs', () => {
   const defaultArgs: ParsedArgs = {
@@ -41,8 +47,13 @@ describe('optionsFromParsedArgs', () => {
         ui: 'bdd'
       }
     },
-    webpack: {},
-    mochapack: {}
+    webpack: {
+      config: 'webpack.config.js'
+    },
+    mochapack: {
+      interactive: true,
+      clearTerminal: false
+    }
   }
 
   context('when converting Mocha args to options', () => {
@@ -54,7 +65,7 @@ describe('optionsFromParsedArgs', () => {
         expectedOptions: MochaOptions
       }[] = [
         {
-          argName: 'allow-uncaught',
+          argName: 'include',
           optionName: 'allowUncaught',
           providedArgs: { 'allow-uncaught': true },
           expectedOptions: { allowUncaught: true }
@@ -358,21 +369,95 @@ describe('optionsFromParsedArgs', () => {
     })
   })
 
-  xcontext('when converting Webpack args to options', () => {
-    xit('places the options under options.webpack', () => {})
+  context('when converting Webpack args to options', () => {
+    const webpackArgs: {
+      argName: string
+      optionName: string
+      providedArgs: Partial<ParsedWebpackArgs>
+      expectedOptions: Partial<MochapackWebpackOptions>
+    }[] = [
+      {
+        argName: 'include',
+        optionName: 'include',
+        providedArgs: { include: ['hello.js'] },
+        expectedOptions: { include: ['hello.js'] }
+      },
+      {
+        argName: 'mode',
+        optionName: 'mode',
+        providedArgs: { mode: 'development' },
+        expectedOptions: { mode: 'development' }
+      },
+      {
+        argName: 'webpack-config',
+        optionName: 'webpackConfig',
+        providedArgs: { 'webpack-config': 'path/to/config.js' },
+        expectedOptions: { config: 'path/to/config.js' }
+      },
+      {
+        argName: 'webpack-env',
+        optionName: 'env',
+        providedArgs: { 'webpack-env': 'customEnv' },
+        expectedOptions: { env: 'customEnv' }
+      }
+    ]
 
-    context('when a config file provides options', () => {
-      context('when the config options and CLI args do not overlap', () => {
-        xit('properly merges config options with CLI args', () => {})
-      })
-
-      context('when the config options and CLI args overlap', () => {
-        xit('prefers the CLI args over config options', () => {})
+    webpackArgs.forEach(arg => {
+      it(`places ${arg.argName} under options.webpack.${arg.optionName}`, () => {
+        const providedArgs = _merge({}, defaultArgs, {
+          webpack: arg.providedArgs
+        })
+        const extractedOptions = optionsFromParsedArgs(providedArgs)
+        expect(extractedOptions.webpack).to.eql(
+          _merge({}, defaultOptions.webpack, arg.expectedOptions)
+        )
       })
     })
   })
 
-  xcontext('when converting Mochapack args to options', () => {
-    xit('places the options under options.mochapack', () => {})
+  context('when converting Mochapack args to options', () => {
+    const mochapackArgs: {
+      argName: string
+      optionName: string
+      providedArgs: Partial<ParsedMochapackArgs>
+      expectedOptions: Partial<MochapackSpecificOptions>
+    }[] = [
+      {
+        argName: 'quiet',
+        optionName: 'quiet',
+        providedArgs: { quiet: true },
+        expectedOptions: { quiet: true }
+      },
+      {
+        argName: 'interactive',
+        optionName: 'interactive',
+        providedArgs: { interactive: false },
+        expectedOptions: { interactive: false }
+      },
+      {
+        argName: 'clear-terminal',
+        optionName: 'clearTerminal',
+        providedArgs: { 'clear-terminal': true },
+        expectedOptions: { clearTerminal: true }
+      },
+      {
+        argName: 'glob',
+        optionName: 'glob',
+        providedArgs: { glob: '**findThis**.js' },
+        expectedOptions: { glob: '**findThis**.js' }
+      }
+    ]
+
+    mochapackArgs.forEach(arg => {
+      it(`places ${arg.argName} under options.mochapack.${arg.optionName}`, () => {
+        const providedArgs = _merge({}, defaultArgs, {
+          mochapack: arg.providedArgs
+        })
+        const extractedOptions = optionsFromParsedArgs(providedArgs)
+        expect(extractedOptions.mochapack).to.eql(
+          _merge({}, defaultOptions.mochapack, arg.expectedOptions)
+        )
+      })
+    })
   })
 })

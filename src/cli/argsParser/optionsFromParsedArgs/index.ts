@@ -1,6 +1,8 @@
 import { ParsedArgs } from '../parseArgv/types'
 import { MochapackOptions } from './types'
 import mochaOptionsFromParsedArgs from './mocha/mochaOptionsFromParsedArgs'
+import webpackOptionsFromParsedArgs from './webpack/webpackOptionsFromParsedArgs'
+import mochapackOptionsFromParsedArgs from './mochapack/mochapackOptionsFromParsedArgs'
 
 /**
  * Translates parsed arguments into a `MochapackOptions` object
@@ -9,8 +11,8 @@ import mochaOptionsFromParsedArgs from './mocha/mochaOptionsFromParsedArgs'
  */
 const optionsFromParsedArgs = (parsedArgs: ParsedArgs): MochapackOptions => ({
   mocha: mochaOptionsFromParsedArgs(parsedArgs),
-  webpack: {},
-  mochapack: {}
+  webpack: webpackOptionsFromParsedArgs(parsedArgs),
+  mochapack: mochapackOptionsFromParsedArgs(parsedArgs)
 })
 
 export default optionsFromParsedArgs
