@@ -1,6 +1,7 @@
 import {
   camelCase as _camelCase,
   cloneDeep as _cloneDeep,
+  merge as _merge,
   omit as _omit,
   pick as _pick
 } from 'lodash'
@@ -19,7 +20,6 @@ import utils from '../../utils'
  */
 export const mochaCliOptionArgs = [
   'config',
-  'diff',
   'exit',
   'extension',
   'file',
@@ -30,11 +30,27 @@ export const mochaCliOptionArgs = [
   'package',
   'recursive',
   'require',
-  'reporter-option',
   'sort',
   'watch',
   'watch-files',
   'watch-ignore'
+]
+
+/**
+ * These arguments require some processing in order to be translated into an
+ *   `MochaOptions` object to be used by Mochapack when initializing an
+ *   instance of `Mocha`
+ */
+const argsThatDoNotDirectlyTranslateToMochaOptions = [
+  'check-leaks',
+  'color',
+  'diff',
+  'full-trace',
+  'fgrep',
+  'global',
+  'grep',
+  'no-colors',
+  'reporter-option'
 ]
 
 /**
@@ -44,32 +60,65 @@ export const mochaCliOptionArgs = [
  * @param camelizedArgs Arguments that have been parsed and their keys have
  *   camelized
  */
-const ensureNumericOptionsAreNumbers = (
+const ensureNumericOptionsAreNumbers = <T extends Record<string, any>>(
   camelizedArgs: Record<string, any>
-): Record<string, any> => {
+): T => {
   const optionsThatShouldBeNumbers = ['slow', 'timeout']
   const output = _cloneDeep(camelizedArgs)
   optionsThatShouldBeNumbers.forEach(optionName => {
     if (output[optionName])
       output[optionName] = parseInt(output[optionName] as string, 10)
   })
-  return output
+  return output as T
 }
 
-const renameObjectKey = (
-  obj: Record<string, any>,
-  oldKey: string,
-  newKey: string
-): Record<string, any> => {
-  const output = _cloneDeep(obj)
-  if (output[oldKey]) output[newKey] = output[oldKey]
-  delete output[oldKey]
-  return output
+const colorsShouldBeUsed = (args: ParsedMochaArgs): boolean => {
+  if (args['no-colors']) return false
+  return !!args.color
 }
 
-const convertGlobalKeyToGlobals = (
-  camelizedArgs: Record<string, any>
-): Record<string, any> => renameObjectKey(camelizedArgs, 'global', 'globals')
+const grepToUse = (args: ParsedMochaArgs): string | RegExp | undefined => {
+  if (args.grep) return new RegExp(args.grep)
+  if (args.fgrep) return args.fgrep
+  return undefined
+}
+
+/**
+ * Translates camelized arguments into a `MochaOptions` object that can be
+ *   directly provided to a Mocha initializer
+ */
+const translateObjectIntoMochaOptions = (
+  args: ParsedMochaArgs
+): MochaOptions => {
+  const oneToOnes = _omit(args, argsThatDoNotDirectlyTranslateToMochaOptions)
+
+  const ignoreLeaks = !args['check-leaks']
+  const useColors = colorsShouldBeUsed(args)
+  const hideDiff = !args.diff
+  const fullStackTrace = args['full-trace']
+  const globals = args.global
+  const grep = grepToUse(args)
+  const reporterOptions = args['reporter-option']
+
+  const options: Record<string, any> = _merge(
+    {},
+    utils.camelizeKeys(oneToOnes),
+    {
+      ignoreLeaks,
+      useColors,
+      hideDiff,
+      fullStackTrace,
+      globals,
+      grep,
+      reporterOptions
+    }
+  )
+
+  const mochaOptions = ensureNumericOptionsAreNumbers<MochaOptions>(options)
+  if (mochaOptions.timeout === 0) mochaOptions.enableTimeouts = false
+
+  return mochaOptions
+}
 
 /**
  * Extracts applicable options for Mocha constructor given a `ParsedMochaArgs`
@@ -81,9 +130,9 @@ const extractMochaConstructorOptions = (
   parsedMochaArgs: ParsedMochaArgs
 ): MochaOptions => {
   const relevantArgs = _omit(parsedMochaArgs, mochaCliOptionArgs)
-  const camelizedArgs = utils.camelizeKeys(relevantArgs) as unknown
-  let mochaOptions = ensureNumericOptionsAreNumbers(camelizedArgs)
-  mochaOptions = convertGlobalKeyToGlobals(mochaOptions)
+  const mochaOptions = translateObjectIntoMochaOptions(
+    relevantArgs as ParsedMochaArgs
+  )
   const mergedOptions = mergeMochaConfigWithConstructorOptions(
     mochaOptions as MochaOptions,
     parsedMochaArgs.config

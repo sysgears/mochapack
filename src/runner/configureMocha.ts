@@ -1,5 +1,5 @@
 import Mocha from 'mocha'
-import loadReporter from './loadReporter'
+import getReporterConstructor from './getReporterConstructor'
 import loadUI from './loadUI'
 import { MochaWebpackOptions } from '../MochaWebpack'
 
@@ -16,7 +16,7 @@ export default function configureMocha(options: MochaWebpackOptions) {
   const mocha = new Mocha(mochaOptions)
 
   // reporter
-  const reporter = loadReporter(options.reporter, options.cwd)
+  const reporter = getReporterConstructor(options.reporter, options.cwd)
   mocha.reporter(reporter, options.reporterOptions)
 
   // slow <ms>

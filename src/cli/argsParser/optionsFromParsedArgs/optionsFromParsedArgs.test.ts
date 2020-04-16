@@ -44,7 +44,14 @@ describe('optionsFromParsedArgs', () => {
         reporter: 'spec',
         slow: 75,
         timeout: 2000,
-        ui: 'bdd'
+        ui: 'bdd',
+        fullStackTrace: undefined,
+        globals: undefined,
+        hideDiff: false,
+        ignoreLeaks: true,
+        useColors: false,
+        grep: undefined,
+        reporterOptions: undefined
       }
     },
     webpack: {
@@ -64,6 +71,18 @@ describe('optionsFromParsedArgs', () => {
         providedArgs: Partial<ParsedMochaArgs>
         expectedOptions: MochaOptions
       }[] = [
+        {
+          argName: 'diff',
+          optionName: 'diff',
+          providedArgs: { diff: true },
+          expectedOptions: { hideDiff: false }
+        },
+        {
+          argName: 'diff',
+          optionName: 'diff',
+          providedArgs: { diff: false },
+          expectedOptions: { hideDiff: true }
+        },
         {
           argName: 'include',
           optionName: 'allowUncaught',
@@ -102,15 +121,15 @@ describe('optionsFromParsedArgs', () => {
         },
         {
           argName: 'global',
-          optionName: 'global',
+          optionName: 'globals',
           providedArgs: { global: ['helloWorld'] },
           expectedOptions: { globals: ['helloWorld'] }
         },
         {
           argName: 'grep',
           optionName: 'grep',
-          providedArgs: { grep: '**helloWorld.js' },
-          expectedOptions: { grep: '**helloWorld.js' }
+          providedArgs: { grep: 'helloWorld.js' },
+          expectedOptions: { grep: new RegExp('helloWorld.js') }
         },
         {
           argName: 'growl',
@@ -149,10 +168,22 @@ describe('optionsFromParsedArgs', () => {
           expectedOptions: { timeout: 7000 }
         },
         {
+          argName: 'timeout',
+          optionName: 'timeout',
+          providedArgs: { timeout: '0' },
+          expectedOptions: { timeout: 0, enableTimeouts: false }
+        },
+        {
           argName: 'ui',
           optionName: 'ui',
           providedArgs: { ui: 'tdd' },
           expectedOptions: { ui: 'tdd' }
+        },
+        {
+          argName: 'reporter-option',
+          optionName: 'reporterOptions',
+          providedArgs: { 'reporter-option': { hello: 'world' } },
+          expectedOptions: { reporterOptions: { hello: 'world' } }
         }
       ]
 
@@ -171,12 +202,6 @@ describe('optionsFromParsedArgs', () => {
 
     context('when the argument is for a CLI option', () => {
       const mochaCliArgs = [
-        {
-          argName: 'diff',
-          optionName: 'diff',
-          providedArgs: { diff: true },
-          expectedOptions: { diff: true }
-        },
         {
           argName: 'extension',
           optionName: 'extension',
@@ -236,12 +261,6 @@ describe('optionsFromParsedArgs', () => {
           optionName: 'color',
           providedArgs: { color: true },
           expectedOptions: { color: true }
-        },
-        {
-          argName: 'diff',
-          optionName: 'diff',
-          providedArgs: { diff: false },
-          expectedOptions: { diff: false }
         },
         {
           argName: 'full-trace',
@@ -323,7 +342,6 @@ describe('optionsFromParsedArgs', () => {
             _merge({}, defaultOptions.mocha, {
               cli: {
                 config: 'test/fixture/mochaConfigNoOverlap.js',
-                diff: true,
                 ignore: ['**doNotTest.js'],
                 require: [
                   resolve(__dirname, '../../../..', 'test/fixture/required.js')
@@ -352,7 +370,6 @@ describe('optionsFromParsedArgs', () => {
             _merge({}, defaultOptions.mocha, {
               cli: {
                 config: 'test/fixture/mochaConfigWithOverlap.js',
-                diff: true,
                 ignore: ['**dontTest.js'],
                 require: [
                   resolve(__dirname, '../../../..', 'test/fixture/required.js')
