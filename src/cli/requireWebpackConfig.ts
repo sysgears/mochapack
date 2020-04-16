@@ -10,6 +10,9 @@ import {
 import { Configuration } from 'webpack'
 import { ModuleDescriptor, WebpackConfig, WebpackConfigMode } from './types'
 
+/**
+ * Ensures that .js extension comes first, or whichever extension is shorter
+ */
 const sortExtensions = (ext1: string, ext2: string): number => {
   if (ext1 === '.js') return -1
   if (ext2 === '.js') return 1

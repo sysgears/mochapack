@@ -3,10 +3,11 @@ import _ from 'lodash'
 
 import parseArgv from './parseArgv'
 import { existsFileSync } from '../util/exists'
-import parseConfig from './parseConfig'
+import parseMochaOptsFile from './parseMochaOptsFile'
 import requireWebpackConfig from './requireWebpackConfig'
 import { ensureGlob, extensionsToGlob } from '../util/glob'
 import createMochaWebpack from '../createMochaWebpack'
+import { MochaWebpackOptions } from '../MochaWebpack'
 
 function resolve(mod) {
   const absolute = existsFileSync(mod) || existsFileSync(`${mod}.js`)
@@ -26,9 +27,10 @@ function exit(lazy, code) {
 
 async function cli() {
   const cliOptions = parseArgv(process.argv.slice(2), true)
-  const configOptions = parseConfig(cliOptions.opts)
+  const configOptions = parseMochaOptsFile(cliOptions.opts)
   const requiresWebpackConfig =
-    cliOptions.webpackConfig != null || configOptions.webpackConfig != null
+    cliOptions.webpackConfig != null ||
+    (configOptions as MochaWebpackOptions).webpackConfig != null
   const defaultOptions = parseArgv([])
 
   const options = _.defaults({}, cliOptions, configOptions, defaultOptions)
