@@ -76,7 +76,7 @@ export default class TestRunner extends EventEmitter {
   }
 
   async run(): Promise<number> {
-    const { webpackConfig: config } = this.createWebpackConfig()
+    const { webpackConfig: config } = await this.createWebpackConfig()
     let failures = 0
     const compiler: Compiler = createCompiler(config)
 
@@ -123,7 +123,10 @@ export default class TestRunner extends EventEmitter {
   }
 
   async watch(): Promise<void> {
-    const { webpackConfig: config, entryConfig } = this.createWebpackConfig()
+    const {
+      webpackConfig: config,
+      entryConfig
+    } = await this.createWebpackConfig()
 
     let mochaRunner: MochaRunner | null = null
     let stats: Stats | null = null

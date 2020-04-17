@@ -1,5 +1,4 @@
 import { join, normalize, sep } from 'path'
-import { sync as globSync } from 'glob'
 import {
   flattenDeep as _flattenDeep,
   get as _get,
@@ -7,6 +6,7 @@ import {
   merge as _merge
 } from 'lodash'
 import { Configuration, Plugin, RuleSetRule } from 'webpack'
+import { glob } from '../../../util/glob'
 import { EntryConfig } from '../../../webpack/loader/entryLoader'
 import { buildProgressPlugin } from '../../../webpack/plugin/buildProgressPlugin'
 import {
@@ -16,15 +16,17 @@ import {
   MochapackWebpackConfigs
 } from './types'
 
-const buildEntryConfig = (entries: string[], cwd: string): EntryConfig => {
+const buildEntryConfig = async (
+  entries: string[],
+  cwd: string
+): Promise<EntryConfig> => {
   const entryConfig = new EntryConfig()
-  const files = entries.map(entry =>
-    globSync(entry, {
-      cwd,
-      absolute: true
-    })
-  )
-  _flattenDeep(files).forEach(f => entryConfig.addFile(f))
+  const files = await glob(entries, {
+    cwd,
+    absolute: true
+  })
+
+  files.forEach(f => entryConfig.addFile(f))
   return entryConfig
 }
 
@@ -102,12 +104,12 @@ const buildWebpackConfig = (
     plugins: options.plugins
   })
 
-const createWebpackConfig = (
+const createWebpackConfig = async (
   options: CreateWebpackConfigOptions
-): MochapackWebpackConfigs => {
+): Promise<MochapackWebpackConfigs> => {
   const { cwd, entries, interactive, webpackConfig } = options
 
-  const entryConfig = buildEntryConfig(entries, cwd)
+  const entryConfig = await buildEntryConfig(entries, cwd)
   const tmpPath = makeTemporaryPath(cwd)
   const outputPath = getOutputPath(webpackConfig, tmpPath)
   const publicPath = getPublicPath(webpackConfig, outputPath)
