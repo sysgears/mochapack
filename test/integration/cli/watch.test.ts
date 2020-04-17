@@ -5,6 +5,7 @@ import path from 'path'
 import { spawn } from 'child_process'
 import del from 'del'
 import fs from 'fs-extra'
+import { MOCHAPACK_NAME } from '../../../src/runner/newRunner/constants'
 
 const fixtureDir = path.join(process.cwd(), '.tmp/fixture')
 
@@ -128,7 +129,7 @@ const waitFor = (condition, timeoutInMs) =>
 
 const spawnMochaWebpack = (...args) => {
   let data = ''
-  const binPath = path.relative(process.cwd(), path.join('bin', 'mochapack'))
+  const binPath = path.relative(process.cwd(), path.join('bin', MOCHAPACK_NAME))
 
   const child = spawn('node', [binPath, '--mode', 'development', ...args])
   const receiveData = d => {

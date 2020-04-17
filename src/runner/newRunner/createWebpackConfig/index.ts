@@ -15,6 +15,7 @@ import {
   CreateWebpackConfigOptions,
   MochapackWebpackConfigs
 } from './types'
+import { MOCHAPACK_NAME } from '../constants'
 
 const buildEntryConfig = async (
   entries: string[],
@@ -31,7 +32,7 @@ const buildEntryConfig = async (
 }
 
 const makeTemporaryPath = (cwd: string): string =>
-  join(cwd, '.tmp', 'mochapack', Date.now().toString())
+  join(cwd, '.tmp', MOCHAPACK_NAME, Date.now().toString())
 
 const getOutputPath = (webpackConfig: Configuration, tmpPath: string): string =>
   normalize(_get(webpackConfig, 'output.path', tmpPath))

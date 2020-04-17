@@ -6,6 +6,7 @@ import { ProgressPlugin, LoaderOptionsPlugin } from 'webpack'
 import createWebpackConfig from '.'
 import { CreateWebpackConfigOptions, MochapackWebpackConfigs } from './types'
 import * as mochapackPlugins from '../../../webpack/plugin/buildProgressPlugin'
+import { MOCHAPACK_NAME } from '../constants'
 
 describe('createWebpackConfig', () => {
   const fixturesDir = resolve(
@@ -36,7 +37,7 @@ describe('createWebpackConfig', () => {
       interactive: false,
       webpackConfig: {}
     }
-    expectedTempPath = join(cwd, '.tmp', 'mochapack', '12345')
+    expectedTempPath = join(cwd, '.tmp', MOCHAPACK_NAME, '12345')
     createdConfig = await createWebpackConfig(configOptions)
   })
 

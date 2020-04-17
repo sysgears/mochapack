@@ -4,15 +4,20 @@ import MemoryFileSystem from 'memory-fs'
 import { Compiler, Stats } from 'webpack'
 import registerRequireHook from '../../util/registerRequireHook'
 import { ensureAbsolutePath } from '../../util/paths'
+import { MOCHAPACK_NAME } from '../../runner/newRunner/constants'
 
-export default function registerInMemoryCompiler(compiler: Compiler) {
+type VoidFunction = () => void
+
+export default function registerInMemoryCompiler(
+  compiler: Compiler
+): VoidFunction {
   // register memory fs to webpack
   const memoryFs = new MemoryFileSystem()
   compiler.outputFileSystem = memoryFs // eslint-disable-line no-param-reassign
 
   // build asset map to allow fast checks for file existence
   const assetMap = new Map()
-  compiler.hooks.done.tap('mochapack', (stats: Stats) => {
+  compiler.hooks.done.tap(MOCHAPACK_NAME, (stats: Stats) => {
     assetMap.clear()
 
     if (!stats.hasErrors()) {
