@@ -5,19 +5,17 @@ import chokidar from 'chokidar'
 import minimatch from 'minimatch'
 import { Configuration as WebpackConfig, Compiler, Stats } from 'webpack'
 
-import { glob } from '../util/glob'
 import createCompiler from '../webpack/compiler/createCompiler'
 import createWatchCompiler, {
   WatchCompiler
 } from '../webpack/compiler/createWatchCompiler'
 import registerInMemoryCompiler from '../webpack/compiler/registerInMemoryCompiler'
 import registerReadyCallback from '../webpack/compiler/registerReadyCallback'
-import { EntryConfig } from '../webpack/loader/entryLoader'
 import configureMocha from './configureMocha'
 import getBuildStats, { BuildStats } from '../webpack/util/getBuildStats'
-import buildProgressPlugin from '../webpack/plugin/buildProgressPlugin'
 
 import { MochaWebpackOptions } from '../MochaWebpack'
+import createWebpackConfig from './newRunner/createWebpackConfig'
 
 const entryPath = path.resolve(__dirname, '../entry.js')
 const entryLoaderPath = path.resolve(
@@ -78,7 +76,7 @@ export default class TestRunner extends EventEmitter {
   }
 
   async run(): Promise<number> {
-    const { webpackConfig: config } = await this.createWebpackConfig()
+    const { webpackConfig: config } = this.createWebpackConfig()
     let failures = 0
     const compiler: Compiler = createCompiler(config)
 
@@ -125,10 +123,7 @@ export default class TestRunner extends EventEmitter {
   }
 
   async watch(): Promise<void> {
-    const {
-      webpackConfig: config,
-      entryConfig
-    } = await this.createWebpackConfig()
+    const { webpackConfig: config, entryConfig } = this.createWebpackConfig()
 
     let mochaRunner: MochaRunner | null = null
     let stats: Stats | null = null
@@ -266,73 +261,15 @@ export default class TestRunner extends EventEmitter {
     return new Promise(() => undefined) // never ending story
   }
 
-  async createWebpackConfig() {
-    const { webpackConfig } = this.options
-
-    const files = await glob(this.entries, {
+  private createWebpackConfig = () =>
+    createWebpackConfig({
       cwd: this.options.cwd,
-      absolute: true
+      entries: this.entries,
+      entryLoaderPath,
+      entryPath,
+      includeLoaderPath,
+      includes: this.includes,
+      interactive: this.options.interactive,
+      webpackConfig: this.options.webpackConfig
     })
-
-    const entryConfig = new EntryConfig()
-    files.forEach(f => entryConfig.addFile(f))
-
-    const tmpPath = path.join(
-      this.options.cwd,
-      '.tmp',
-      'mochapack',
-      Date.now().toString()
-    )
-    const withCustomPath = _.has(webpackConfig, 'output.path')
-    const outputPath = path.normalize(
-      _.get(webpackConfig, 'output.path', tmpPath)
-    )
-    const publicPath = withCustomPath
-      ? _.get(webpackConfig, 'output.publicPath', undefined)
-      : outputPath + path.sep
-
-    const plugins = []
-
-    if (this.options.interactive) {
-      plugins.push(buildProgressPlugin())
-    }
-
-    const userLoaders = _.get(webpackConfig, 'module.rules', [])
-    userLoaders.unshift({
-      test: entryPath,
-      use: [
-        {
-          loader: includeLoaderPath,
-          options: {
-            include: this.includes
-          }
-        },
-        {
-          loader: entryLoaderPath,
-          options: {
-            entryConfig
-          }
-        }
-      ]
-    })
-
-    const config = {
-      ...webpackConfig,
-      entry: entryPath,
-      module: {
-        ...(webpackConfig as any).module,
-        rules: userLoaders
-      },
-      output: {
-        ...(webpackConfig as any).output,
-        path: outputPath,
-        publicPath
-      },
-      plugins: [...((webpackConfig as any).plugins || []), ...plugins]
-    }
-    return {
-      webpackConfig: config,
-      entryConfig
-    }
-  }
 }

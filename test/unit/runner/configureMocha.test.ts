@@ -1,6 +1,6 @@
 /* eslint-disable func-names, prefer-arrow-callback */
 import { assert } from 'chai'
-import { sandbox } from 'sinon'
+import { createSandbox } from 'sinon'
 import Mocha from 'mocha'
 
 import configureMocha from '../../../src/runner/configureMocha'
@@ -22,7 +22,7 @@ describe('configureMocha', function() {
       delay: false,
       forbidOnly: true
     }
-    this.sandbox = sandbox.create()
+    this.sandbox = createSandbox()
     this.spyReporter = this.sandbox.spy(Mocha.prototype, 'reporter')
     this.spyEnableTimeouts = this.sandbox.spy(Mocha.prototype, 'enableTimeouts')
     this.spyGrep = this.sandbox.spy(Mocha.prototype, 'grep')
