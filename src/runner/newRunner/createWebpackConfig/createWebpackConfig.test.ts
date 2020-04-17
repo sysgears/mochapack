@@ -20,7 +20,7 @@ describe('createWebpackConfig', () => {
   let createdConfig: MochapackWebpackConfigs
   let expectedTempPath: string
 
-  beforeEach(() => {
+  beforeEach(async () => {
     sandbox = createSandbox()
     sandbox.stub(Date, 'now').returns(12345)
     sandbox
@@ -37,7 +37,7 @@ describe('createWebpackConfig', () => {
       webpackConfig: {}
     }
     expectedTempPath = join(cwd, '.tmp', 'mochapack', '12345')
-    createdConfig = createWebpackConfig(configOptions)
+    createdConfig = await createWebpackConfig(configOptions)
   })
 
   afterEach(() => {
@@ -64,12 +64,12 @@ describe('createWebpackConfig', () => {
   })
 
   context('when an output path exists', () => {
-    beforeEach(() => {
+    beforeEach(async () => {
       configOptions = _merge({}, configOptions, {
         webpackConfig: { output: { path: 'existing/path' } }
       })
 
-      createdConfig = createWebpackConfig(configOptions)
+      createdConfig = await createWebpackConfig(configOptions)
     })
 
     it('uses the existing output path', () => {
@@ -83,7 +83,7 @@ describe('createWebpackConfig', () => {
     })
 
     context('when a public path is provided', () => {
-      beforeEach(() => {
+      beforeEach(async () => {
         configOptions = _merge({}, configOptions, {
           webpackConfig: {
             output: {
@@ -93,7 +93,7 @@ describe('createWebpackConfig', () => {
           }
         })
 
-        createdConfig = createWebpackConfig(configOptions)
+        createdConfig = await createWebpackConfig(configOptions)
       })
 
       it('uses the existing public path', () => {
@@ -112,12 +112,12 @@ describe('createWebpackConfig', () => {
     })
 
     context('when interactive is true', () => {
-      it('includes the buildProgressPlugin in the plugins array', () => {
+      it('includes the buildProgressPlugin in the plugins array', async () => {
         configOptions = _merge({}, configOptions, {
           interactive: true
         })
 
-        createdConfig = createWebpackConfig(configOptions)
+        createdConfig = await createWebpackConfig(configOptions)
         expect(createdConfig.webpackConfig.plugins).to.include(
           dummyProgressPlugin
         )
@@ -128,14 +128,14 @@ describe('createWebpackConfig', () => {
   context('when plugins are present in the provided webpack config', () => {
     const dummyProvidedPlugin = new LoaderOptionsPlugin({})
 
-    beforeEach(() => {
+    beforeEach(async () => {
       configOptions = _merge({}, configOptions, {
         webpackConfig: {
           plugins: [dummyProvidedPlugin]
         }
       })
 
-      createdConfig = createWebpackConfig(configOptions)
+      createdConfig = await createWebpackConfig(configOptions)
     })
 
     context('when interactive is false', () => {
@@ -147,12 +147,12 @@ describe('createWebpackConfig', () => {
     })
 
     context('when interactive is true', () => {
-      it('appends the buildProgressPlugin to the provided plugins', () => {
+      it('appends the buildProgressPlugin to the provided plugins', async () => {
         configOptions = _merge({}, configOptions, {
           interactive: true
         })
 
-        createdConfig = createWebpackConfig(configOptions)
+        createdConfig = await createWebpackConfig(configOptions)
         expect(createdConfig.webpackConfig.plugins).to.eql([
           dummyProvidedPlugin,
           dummyProgressPlugin
@@ -194,7 +194,7 @@ describe('createWebpackConfig', () => {
   })
 
   context('when other loader rules are present', () => {
-    it('adds loader rules applicable to Mochapack to the beginning of the array', () => {
+    it('adds loader rules applicable to Mochapack to the beginning of the array', async () => {
       configOptions = _merge({}, configOptions, {
         webpackConfig: {
           module: {
@@ -207,7 +207,7 @@ describe('createWebpackConfig', () => {
           }
         }
       })
-      createdConfig = createWebpackConfig(configOptions)
+      createdConfig = await createWebpackConfig(configOptions)
 
       // Using stringify to avoid mismatch of EntryConfig object
       expect(JSON.stringify(createdConfig.webpackConfig.module.rules)).to.eql(
