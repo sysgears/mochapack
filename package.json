@@ -1,6 +1,9 @@
 {
   "name": "mochapack",
   "version": "1.1.15",
+  "engines": {
+    "pm": "yarn@2.0.0-rc.31"
+  },
   "description": "mocha cli with webpack support",
   "bin": "./bin/mochapack",
   "main": "./lib/createMochaWebpack.js",
