@@ -1,23 +1,38 @@
+const https = require('https');
 const fs = require('fs');
 const path = require('path');
-const execSync = require('child_process').execSync;
 
+const REQUESTED_VERSION = require('./package.json').engines.pm.split('@')[1];
+const BERRY_URL = `https://raw.githubusercontent.com/yarnpkg/berry/%40yarnpkg/cli/${REQUESTED_VERSION}/packages/yarnpkg-cli/bin/yarn.js`;
 const YARN_DIR = path.join(__dirname, '.yarn');
 const RELEASES_DIR = path.join(YARN_DIR, 'releases');
-const ONE_DAY = 24 * 60 * 60 * 1000;
+const BERRY_FILE = path.join(RELEASES_DIR, `yarn-${REQUESTED_VERSION}.js`);
+
 let stats;
-
 try {
- stats = fs.statSync(RELEASES_DIR);
-} catch {}
+  stats = fs.statSync(RELEASES_DIR);
+} catch (e) {}
+const CURRENT_BERRY_FILENAME = !stats ? null : fs.readdirSync(RELEASES_DIR)[0];
+const CURRENT_VERSION = !stats ? null : path.basename(CURRENT_BERRY_FILENAME).slice(0, -path.extname(CURRENT_BERRY_FILENAME).length).replace('yarn-', '');
 
-const yarnInstallCmd = stats ? `yarn set version latest`: `yarn set version berry`;
+if (CURRENT_VERSION !== REQUESTED_VERSION) {
+  if (!fs.existsSync(YARN_DIR))
+    fs.mkdirSync(YARN_DIR);
 
-if (!stats || (Date.now() - stats.mtime) >= ONE_DAY) {
-  fs.renameSync('.yarnrc.yml', '.yarnrc.yml.bak');
-  execSync(yarnInstallCmd);
-  fs.renameSync('.yarnrc.yml.bak', '.yarnrc.yml');
+  if (!fs.existsSync(RELEASES_DIR))
+    fs.mkdirSync(RELEASES_DIR);
+
+  const file = fs.createWriteStream(BERRY_FILE);
+
+  const request = https.get(BERRY_URL, response => {
+    response.pipe(file);
+    file.on('finish', () => {
+      require(BERRY_FILE);
+    });
+  }).on('error', err => {
+    fs.unlink(BERRY_FILE);
+    console.err(err);
+  });
+} else {
+  require(BERRY_FILE);
 }
-
-const YARN_BUNDLE = path.join(RELEASES_DIR, fs.readdirSync(RELEASES_DIR)[0]);
-require(YARN_BUNDLE);
