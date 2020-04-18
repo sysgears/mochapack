@@ -5,6 +5,7 @@
 .npmrc
 
 # Node
+.yarn
 node_modules
 npm-debug.log
 

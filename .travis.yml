@@ -13,8 +13,11 @@ branches:
 language: node_js
 
 node_js:
-  - "8"
   - "10"
+  - "12"
+
+install:
+  - yarn install --immutable
 
 env:
   - WEBPACK_VERSION=4 MOCHA_VERSION=4
@@ -23,8 +26,8 @@ env:
   - WEBPACK_VERSION=4 MOCHA_VERSION=7
 
 before_script:
-  - "yarn add webpack@$WEBPACK_VERSION"
-  - "yarn add mocha@$MOCHA_VERSION"
+  - "yarn add -D webpack@$WEBPACK_VERSION"
+  - "yarn add -D mocha@$MOCHA_VERSION"
 
 script:
   - yarn run cover
