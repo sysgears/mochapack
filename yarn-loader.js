@@ -16,6 +16,9 @@ const CURRENT_BERRY_FILENAME = !stats ? null : fs.readdirSync(RELEASES_DIR)[0];
 const CURRENT_VERSION = !stats ? null : path.basename(CURRENT_BERRY_FILENAME).slice(0, -path.extname(CURRENT_BERRY_FILENAME).length).replace('yarn-', '');
 
 if (CURRENT_VERSION !== REQUESTED_VERSION) {
+  if (CURRENT_BERRY_FILENAME)
+    fs.unlinkSync(path.join(RELEASES_DIR, CURRENT_BERRY_FILENAME));
+
   if (!fs.existsSync(YARN_DIR))
     fs.mkdirSync(YARN_DIR);
 
