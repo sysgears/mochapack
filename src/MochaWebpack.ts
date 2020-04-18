@@ -1,5 +1,7 @@
+import { defaults as _defaults } from 'lodash'
 import TestRunner from './runner/TestRunner'
 import testRunnerReporter from './runner/testRunnerReporter'
+import { MochapackOptions } from './cli/argsParser/optionsFromParsedArgs/types'
 
 export type MochaWebpackOptions = {
   cwd: string
@@ -28,6 +30,38 @@ export type MochaWebpackOptions = {
 }
 
 export default class MochaWebpack {
+  private mochapackOptions: MochapackOptions
+
+  constructor(options: MochapackOptions) {
+    this.mochapackOptions = options
+    const { mocha, webpack, mochapack } = this.mochapackOptions
+    this.includes = webpack.include || []
+
+    const providedOptions: Partial<MochaWebpackOptions> = {
+      asyncOnly: mocha.constructor.asyncOnly,
+      bail: mocha.constructor.bail,
+      clearTerminal: mochapack.clearTerminal,
+      colors: mocha.constructor.useColors,
+      cwd: process.cwd(),
+      delay: mocha.constructor.delay,
+      forbidOnly: mocha.constructor.forbidOnly,
+      fullStackTrace: mocha.constructor.fullStackTrace,
+      growl: mocha.constructor.growl,
+      ignoreLeaks: mocha.constructor.ignoreLeaks,
+      interactive: mochapack.interactive,
+      invert: mocha.cli.invert,
+      quiet: mochapack.quiet,
+      reporter: mocha.constructor.reporter,
+      reporterOptions: mocha.constructor.reporterOptions,
+      retries: mocha.constructor.retries,
+      slow: mocha.constructor.slow,
+      timeout: mocha.constructor.timeout,
+      ui: mocha.constructor.ui,
+      useInlineDiffs: mocha.constructor.inlineDiffs
+    }
+
+    this.options = _defaults({}, providedOptions, this.options)
+  }
   /**
    * Files to run test against
    *
@@ -93,80 +127,17 @@ export default class MochaWebpack {
   }
 
   /**
-   * Sets the current working directory
-   *
-   * @public
-   * @param {string} cwd absolute working directory path
-   * @return {MochaWebpack}
-   */
-  cwd(cwd: string): MochaWebpack {
-    this.options = {
-      ...this.options,
-      cwd
-    }
-    return this
-  }
-
-  /**
    * Sets the webpack config
    *
    * @public
    * @param {Object} config webpack config
    * @return {MochaWebpack}
    */
+
   webpackConfig(config: {} = {}): MochaWebpack {
     this.options = {
       ...this.options,
       webpackConfig: config
-    }
-    return this
-  }
-
-  /**
-   * Enable or disable bailing on the first failure.
-   *
-   * @public
-   * @param {boolean} [bail]
-   * @return {MochaWebpack}
-   */
-  bail(bail: boolean = false): MochaWebpack {
-    this.options = {
-      ...this.options,
-      bail
-    }
-    return this
-  }
-
-  /**
-   * Set reporter to `reporter`, defaults to "spec".
-   *
-   * @param {string|Function} reporter name or constructor
-   * @param {Object} reporterOptions optional options
-   * @return {MochaWebpack}
-   */
-  reporter(
-    reporter: string | ReporterConstructor,
-    reporterOptions: {}
-  ): MochaWebpack {
-    this.options = {
-      ...this.options,
-      reporter,
-      reporterOptions
-    }
-    return this
-  }
-
-  /**
-   * Set test UI, defaults to "bdd".
-   *
-   * @public
-   * @param {string} ui bdd/tdd
-   * @return {MochaWebpack}
-   */
-  ui(ui: string): MochaWebpack {
-    this.options = {
-      ...this.options,
-      ui
     }
     return this
   }
@@ -202,223 +173,18 @@ export default class MochaWebpack {
   }
 
   /**
-   * Invert `.grep()` matches.
-   *
-   * @public
-   * @return {MochaWebpack}
+   * Builds a test runner that can be used for run or watch mode
    */
-  invert(): MochaWebpack {
-    this.options = {
-      ...this.options,
-      invert: true
-    }
-    return this
-  }
-
-  /**
-   * Ignore global leaks.
-   *
-   * @public
-   * @param {boolean} ignore
-   * @return {MochaWebpack}
-   */
-  ignoreLeaks(ignore: boolean): MochaWebpack {
-    this.options = {
-      ...this.options,
-      ignoreLeaks: ignore
-    }
-    return this
-  }
-
-  /**
-   * Display long stack-trace on failing
-   *
-   * @public
-   * @return {MochaWebpack}
-   */
-  fullStackTrace(): MochaWebpack {
-    this.options = {
-      ...this.options,
-      fullStackTrace: true
-    }
-    return this
-  }
-
-  /**
-   * Emit color output.
-   *
-   * @public
-   * @param {boolean} colors
-   * @return {MochaWebpack}
-   */
-  useColors(colors: boolean): MochaWebpack {
-    this.options = {
-      ...this.options,
-      colors
-    }
-    return this
-  }
-
-  /**
-   * Quiet informational messages.
-   *
-   * @public
-   * @return {MochaWebpack}
-   */
-  quiet(): MochaWebpack {
-    this.options = {
-      ...this.options,
-      quiet: true
-    }
-    return this
-  }
-
-  /**
-   * Use inline diffs rather than +/-.
-   *
-   * @public
-   * @param {boolean} inlineDiffs
-   * @return {MochaWebpack}
-   */
-  useInlineDiffs(inlineDiffs: boolean): MochaWebpack {
-    this.options = {
-      ...this.options,
-      useInlineDiffs: inlineDiffs
-    }
-    return this
-  }
-
-  /**
-   * Set the timeout in milliseconds. Value of 0 disables timeouts
-   *
-   * @public
-   * @param {number} timeout time in ms
-   * @return {MochaWebpack}
-   */
-  timeout(timeout: number): MochaWebpack {
-    this.options = {
-      ...this.options,
-      timeout
-    }
-    return this
-  }
-
-  /**
-   * Set the number of times to retry failed tests.
-   *
-   * @public
-   * @param {number} count retry times
-   * @return {MochaWebpack}
-   */
-  retries(count: number): MochaWebpack {
-    this.options = {
-      ...this.options,
-      retries: count
-    }
-    return this
-  }
-
-  /**
-   * Set slowness threshold in milliseconds.
-   *
-   * @public
-   * @param {number} threshold time in ms
-   * @return {MochaWebpack}
-   */
-  slow(threshold: number): MochaWebpack {
-    this.options = {
-      ...this.options,
-      slow: threshold
-    }
-    return this
-  }
-
-  /**
-   * Makes all tests async (accepting a callback)
-   *
-   * @public
-   * @return {MochaWebpack}
-   */
-  asyncOnly(): MochaWebpack {
-    this.options = {
-      ...this.options,
-      asyncOnly: true
-    }
-    return this
-  }
-
-  /**
-   * Delay root suite execution.
-   *
-   * @public
-   * @return {MochaWebpack}
-   */
-  delay(): MochaWebpack {
-    this.options = {
-      ...this.options,
-      delay: true
-    }
-    return this
-  }
-
-  /**
-   * Force interactive mode (default enabled in terminal)
-   *
-   * @public
-   * @param {boolean} interactive
-   * @return {MochaWebpack}
-   */
-  interactive(interactive: boolean): MochaWebpack {
-    this.options = {
-      ...this.options,
-      interactive
-    }
-    return this
-  }
-
-  /**
-   * Clear terminal on startup
-   *
-   * @public
-   * @param {boolean} clearTerminal
-   * @return {MochaWebpack}
-   */
-  clearTerminal(clearTerminal: boolean): MochaWebpack {
-    this.options = {
-      ...this.options,
-      clearTerminal
-    }
-    return this
-  }
-
-  /**
-   * Enable growl notification support
-   *
-   * @public
-   * @param {boolean} growl
-   * @return {MochaWebpack}
-   */
-  growl(): MochaWebpack {
-    this.options = {
-      ...this.options,
-      growl: true
-    }
-    return this
-  }
-
-  /**
-   * Disallow .only in tests
-   *
-   * @public
-   * @param {boolean} forbidOnly
-   * @return {MochaWebpack}
-   */
-  forbidOnly(): MochaWebpack {
-    this.options = {
-      ...this.options,
-      forbidOnly: true
-    }
-    return this
+  private buildTestRunner = (): TestRunner => {
+    const runner = new TestRunner(this.entries, this.includes, this.options)
+    testRunnerReporter({
+      eventEmitter: runner,
+      interactive: this.options.interactive,
+      quiet: this.options.quiet,
+      cwd: this.options.cwd,
+      clearTerminal: this.options.clearTerminal
+    })
+    return runner
   }
 
   /**
@@ -428,15 +194,7 @@ export default class MochaWebpack {
    * @return {Promise<number>} a Promise that gets resolved with the number of failed tests or rejected with build error
    */
   async run(): Promise<number> {
-    const runner = new TestRunner(this.entries, this.includes, this.options)
-    testRunnerReporter({
-      eventEmitter: runner,
-      interactive: this.options.interactive,
-      quiet: this.options.quiet,
-      cwd: this.options.cwd,
-      clearTerminal: this.options.clearTerminal
-    })
-    return runner.run()
+    return this.buildTestRunner().run()
   }
 
   /**
@@ -444,14 +202,6 @@ export default class MochaWebpack {
    * @public
    */
   async watch(): Promise<void> {
-    const runner = new TestRunner(this.entries, this.includes, this.options)
-    testRunnerReporter({
-      eventEmitter: runner,
-      interactive: this.options.interactive,
-      quiet: this.options.quiet,
-      cwd: this.options.cwd,
-      clearTerminal: this.options.clearTerminal
-    })
-    await runner.watch()
+    await this.buildTestRunner().watch()
   }
 }

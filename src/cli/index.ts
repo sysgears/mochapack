@@ -48,9 +48,40 @@ async function cli() {
     options.mode
   )
 
-  const mochaWebpack = createMochaWebpack()
-
-  options.include.forEach(f => mochaWebpack.addInclude(f))
+  const mochaWebpack = createMochaWebpack({
+    mocha: {
+      cli: {
+        extension: _.get(options.webpackConfig, 'resolve.extensions', ['.js']),
+        invert: options.invert,
+        watchIgnore: []
+      },
+      constructor: {
+        asyncOnly: options.asyncOnly,
+        bail: options.bail,
+        forbidOnly: options.forbidOnly,
+        fullStackTrace: options.fullTrace,
+        growl: options.growl,
+        ignoreLeaks: !options.checkLeaks,
+        inlineDiffs: options.inlineDiffs,
+        reporter: options.reporter,
+        reporterOptions: options.reporterOptions,
+        retries: options.retries,
+        slow: options.slow,
+        timeout: options.timeout,
+        ui: options.ui,
+        useColors: options.colors
+      }
+    },
+    webpack: {
+      config: options.webpackConfig,
+      include: options.include
+    },
+    mochapack: {
+      interactive: options.interactive,
+      clearTerminal: options.clearTerminal,
+      quiet: options.quiet
+    }
+  })
 
   const extensions = _.get(options.webpackConfig, 'resolve.extensions', ['.js'])
   const fallbackFileGlob = extensionsToGlob(extensions)
@@ -60,13 +91,7 @@ async function cli() {
     mochaWebpack.addEntry(ensureGlob(f, options.recursive, fileGlob))
   )
 
-  mochaWebpack.cwd(process.cwd())
   mochaWebpack.webpackConfig(options.webpackConfig)
-  mochaWebpack.bail(options.bail)
-  mochaWebpack.reporter(options.reporter, options.reporterOptions)
-  mochaWebpack.ui(options.ui)
-  mochaWebpack.interactive(options.interactive)
-  mochaWebpack.clearTerminal(options.clearTerminal)
 
   if (options.fgrep) {
     mochaWebpack.fgrep(options.fgrep)
@@ -74,48 +99,6 @@ async function cli() {
 
   if (options.grep) {
     mochaWebpack.grep(options.grep)
-  }
-
-  if (options.invert) {
-    mochaWebpack.invert()
-  }
-
-  if (options.checkLeaks) {
-    mochaWebpack.ignoreLeaks(false)
-  }
-
-  if (options.fullTrace) {
-    mochaWebpack.fullStackTrace()
-  }
-
-  if (options.quiet) {
-    mochaWebpack.quiet()
-  }
-
-  mochaWebpack.useColors(options.colors)
-  mochaWebpack.useInlineDiffs(options.inlineDiffs)
-  mochaWebpack.timeout(options.timeout)
-
-  if (options.retries) {
-    mochaWebpack.retries(options.retries)
-  }
-
-  mochaWebpack.slow(options.slow)
-
-  if (options.asyncOnly) {
-    mochaWebpack.asyncOnly()
-  }
-
-  if (options.delay) {
-    mochaWebpack.delay()
-  }
-
-  if (options.growl) {
-    mochaWebpack.growl()
-  }
-
-  if (options.forbidOnly) {
-    mochaWebpack.forbidOnly()
   }
 
   await Promise.resolve()
