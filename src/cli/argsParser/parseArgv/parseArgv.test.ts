@@ -6,13 +6,14 @@ import mochaOptions from './mocha/mochaOptions'
 import mochapackOptions, {
   mochapackDefaults
 } from './mochapack/mochapackOptions'
-import webpackOptions, { webpackDefaults } from './webpack/webpackOptions'
+import webpackOptions from './webpack/webpackOptions'
 
 describe('new parseArgv', () => {
   let argv: string[]
 
   const mochaDefaults = {
     diff: true,
+    files: ['./test'],
     reporter: 'spec',
     slow: 75,
     timeout: 2000,
@@ -31,6 +32,20 @@ describe('new parseArgv', () => {
   })
 
   context('when handling arguments for Mocha', () => {
+    context('when no files to test are specified', () => {
+      it('assumes tests are in `test/`', () => {
+        const parsedMochaArgs = parseArgv([]).mocha
+        expect(parsedMochaArgs.files).to.eql(['./test'])
+      })
+    })
+
+    context('when files to test are specified', () => {
+      it('properly determines the array of files', () => {
+        const parsedMochaArgs = parseArgv(['fileA.js', 'fileB.js']).mocha
+        expect(parsedMochaArgs.files).to.eql(['fileA.js', 'fileB.js'])
+      })
+    })
+
     const mochaArgs = [
       {
         argumentName: 'allow-uncaught',
@@ -512,6 +527,15 @@ describe('new parseArgv', () => {
             expected: { mocha: { 'watch-ignore': ['**notTestable**.js'] } }
           }
         ]
+      },
+      {
+        argumentName: 'opts',
+        scenarios: [
+          {
+            provided: ['--opts', 'mochapack.opts'],
+            expected: { mocha: { opts: 'mochapack.opts' } }
+          }
+        ]
       }
     ]
 
@@ -544,7 +568,7 @@ describe('new parseArgv', () => {
                       scenario.expected.mocha['watch-ignore'] ||
                       mochaDefaultWatchIgnore
                   },
-                  webpack: webpackDefaults,
+                  webpack: {},
                   mochapack: mochapackDefaults
                 },
                 scenario.expected
@@ -604,14 +628,7 @@ describe('new parseArgv', () => {
       context(`when parsing arguments for ${arg.argumentName}`, () => {
         it(`uses the default set by Mochapack`, () => {
           const defaultWebpackOption = webpackOptions[arg.argumentName]
-          const parsedWebpackArgs = parseArgv([]).webpack
-          if (_isUndefined(parsedWebpackArgs)) {
-            expect(defaultWebpackOption.default).to.be.undefined // eslint-disable-line
-          } else {
-            expect(parsedWebpackArgs[arg.argumentName]).to.eql(
-              webpackDefaults[arg.argumentName]
-            )
-          }
+          expect(defaultWebpackOption.default).to.be.undefined // eslint-disable-line
         })
 
         arg.scenarios.forEach(scenario => {
@@ -621,7 +638,7 @@ describe('new parseArgv', () => {
                 {},
                 {
                   mocha: mochaFullDefaults,
-                  webpack: webpackDefaults,
+                  webpack: {},
                   mochapack: mochapackDefaults
                 },
                 scenario.expected
@@ -698,7 +715,7 @@ describe('new parseArgv', () => {
                 {},
                 {
                   mocha: mochaFullDefaults,
-                  webpack: webpackDefaults,
+                  webpack: {},
                   mochapack: mochapackDefaults
                 },
                 scenario.expected

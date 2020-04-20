@@ -30,6 +30,7 @@ export interface ParsedMochaArgs {
   extension?: string[]
   fgrep?: string
   file?: string[]
+  files: string[]
   'forbid-only'?: boolean
   'forbid-pending'?: boolean
   'full-trace'?: boolean
@@ -40,6 +41,7 @@ export interface ParsedMochaArgs {
   'inline-diffs'?: boolean
   invert?: boolean
   'no-colors'?: boolean
+  opts?: string
   package?: string
   recursive?: boolean
   reporter: MochaReporter

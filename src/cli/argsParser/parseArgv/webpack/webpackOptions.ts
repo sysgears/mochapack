@@ -2,10 +2,6 @@ import { Options } from 'yargs'
 
 const WEBPACK_GROUP = 'Webpack:'
 
-export const webpackDefaults = {
-  'webpack-config': 'webpack.config.js'
-}
-
 const webpackOptions: { [key: string]: Options } = {
   include: {
     type: 'array',
@@ -24,8 +20,7 @@ const webpackOptions: { [key: string]: Options } = {
     type: 'string',
     describe: 'Path to Webpack config file',
     group: WEBPACK_GROUP,
-    requiresArg: true,
-    default: webpackDefaults['webpack-config']
+    requiresArg: true
   },
   'webpack-env': {
     type: 'string',

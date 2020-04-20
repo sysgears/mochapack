@@ -228,9 +228,16 @@ const mochaOptions: { [key: string]: Options } = {
  * Cleans up Mocha's Yargs options to provide only those that are relevant to
  *   running Mochapack
  */
-const mochaOptionsForMochapack =
+const mochaOptionsForMochapack = {
   // Some options are irrelevant to actually running tests and should be run
   //   using Mocha from the command line directly
-  _omit(mochaOptions, 'list-interfaces', 'list-reporters')
+  ..._omit(mochaOptions, 'list-interfaces', 'list-reporters'),
+  opts: {
+    type: 'string',
+    describe: 'Path to Mocha options file (no longer supported by Mocha)',
+    group: GROUPS.CONFIG,
+    requiresArg: true
+  } as Options
+}
 
 export default mochaOptionsForMochapack

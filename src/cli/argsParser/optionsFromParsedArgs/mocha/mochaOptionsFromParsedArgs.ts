@@ -23,6 +23,7 @@ export const mochaCliOptionArgs = [
   'exit',
   'extension',
   'file',
+  'files',
   'ignore',
   'invert',
   'list-interfaces',
@@ -154,7 +155,8 @@ const extractMochaCliOptions = (
   const camelizedArgs = utils.camelizeKeys(relevantArgs)
   const mergedOptions = mergeMochaConfigWithCliOptions(
     (camelizedArgs as unknown) as MochaOptions,
-    parsedMochaArgs.config
+    parsedMochaArgs.config,
+    parsedMochaArgs.opts
   )
 
   return mergedOptions as MochaCliOptions

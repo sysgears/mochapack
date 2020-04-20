@@ -1,9 +1,8 @@
 import Mocha from 'mocha'
 import getReporterConstructor from './getReporterConstructor'
 import loadUI from './loadUI'
-import { MochaWebpackOptions } from '../MochaWebpack'
 
-export default function configureMocha(options: MochaWebpackOptions) {
+export default function configureMocha(options) {
   // infinite stack traces
   Error.stackTraceLimit = Infinity
 

@@ -1,4 +1,5 @@
 import { MochaOptions } from 'mocha'
+import { Configuration } from 'webpack'
 import { WebpackMode } from '../parseArgv/webpack/types'
 
 export interface MochaCliOptions {
@@ -6,6 +7,7 @@ export interface MochaCliOptions {
   exit?: boolean
   extension: string[]
   file?: string[]
+  files: string[]
   ignore?: string[]
   invert?: boolean
   package?: string
@@ -25,7 +27,7 @@ export interface MochapackMochaOptions {
 export interface MochapackWebpackOptions {
   include?: string[]
   mode?: WebpackMode
-  config: string
+  config: Configuration
   env?: string
 }
 

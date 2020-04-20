@@ -10,12 +10,13 @@ describe('createMochaWebpack', function() {
       mocha: {
         cli: {
           extension: [],
+          files: [],
           watchIgnore: []
         },
         constructor: {}
       },
       webpack: {
-        config: ''
+        config: {}
       },
       mochapack: {
         interactive: false,

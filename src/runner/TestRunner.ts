@@ -11,10 +11,8 @@ import createWatchCompiler, {
 } from '../webpack/compiler/createWatchCompiler'
 import registerInMemoryCompiler from '../webpack/compiler/registerInMemoryCompiler'
 import registerReadyCallback from '../webpack/compiler/registerReadyCallback'
-import configureMocha from './configureMocha'
 import getBuildStats, { BuildStats } from '../webpack/util/getBuildStats'
 
-import { MochaWebpackOptions } from '../MochaWebpack'
 import createWebpackConfig from './newRunner/createWebpackConfig'
 import {
   WEBPACK_START_EVENT,
@@ -28,6 +26,8 @@ import {
   ENTRY_ADDED_EVENT,
   UNCAUGHT_EXCEPTION_EVENT
 } from './newRunner/constants'
+import initMocha from './newRunner/initMocha'
+import { MochapackOptions } from '../cli/argsParser/optionsFromParsedArgs/types'
 
 const entryPath = path.resolve(__dirname, '../entry.js')
 const entryLoaderPath = path.resolve(
@@ -56,22 +56,24 @@ type Mocha = {
 export default class TestRunner extends EventEmitter {
   entries: Array<string>
   includes: Array<string>
-  options: MochaWebpackOptions
+  options: MochapackOptions
+  cwd: string
 
   constructor(
     entries: Array<string>,
     includes: Array<string>,
-    options: MochaWebpackOptions
+    options: MochapackOptions,
+    cwd: string
   ) {
     super()
     this.entries = entries
     this.includes = includes
-
     this.options = options
+    this.cwd = cwd
   }
 
   prepareMocha(webpackConfig: WebpackConfig, stats: Stats): Mocha {
-    const mocha: Mocha = configureMocha(this.options)
+    const mocha: Mocha = initMocha(this.options.mocha, this.cwd)
     const outputPath = webpackConfig.output.path
     const buildStats: BuildStats = getBuildStats(stats, outputPath)
 
@@ -236,7 +238,7 @@ export default class TestRunner extends EventEmitter {
       typeof watchOptions.poll === 'number' ? watchOptions.poll : undefined
     // create own file watcher for entry files to detect created or deleted files
     const watcher = chokidar.watch(this.entries, {
-      cwd: this.options.cwd,
+      cwd: this.cwd,
       // see https://github.com/webpack/watchpack/blob/e5305b53ac3cf2a70d49a772912b115fa77665c2/lib/DirectoryWatcher.js
       ignoreInitial: true,
       persistent: true,
@@ -256,7 +258,7 @@ export default class TestRunner extends EventEmitter {
       const matchesGlob = this.entries.some(pattern => minimatch(file, pattern))
       // Chokidar gives files not matching pattern sometimes, prevent this
       if (matchesGlob) {
-        const filePath = path.join(this.options.cwd, file)
+        const filePath = path.join(this.cwd, file)
         if (deleted) {
           this.emit(ENTRY_REMOVED_EVENT, file)
           entryConfig.removeFile(filePath)
@@ -281,13 +283,13 @@ export default class TestRunner extends EventEmitter {
 
   private createWebpackConfig = () =>
     createWebpackConfig({
-      cwd: this.options.cwd,
+      cwd: this.cwd,
       entries: this.entries,
       entryLoaderPath,
       entryPath,
       includeLoaderPath,
       includes: this.includes,
-      interactive: this.options.interactive,
-      webpackConfig: this.options.webpackConfig
+      interactive: this.options.mochapack.interactive,
+      webpackConfig: this.options.webpack.config
     })
 }

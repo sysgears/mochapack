@@ -2,6 +2,7 @@ import { resolve } from 'path'
 import { expect } from 'chai'
 import { merge as _merge } from 'lodash'
 import { MochaOptions } from 'mocha'
+import { SinonSandbox, createSandbox } from 'sinon'
 import { ParsedArgs } from '../parseArgv/types'
 import optionsFromParsedArgs from '.'
 import {
@@ -17,6 +18,7 @@ describe('optionsFromParsedArgs', () => {
   const defaultArgs: ParsedArgs = {
     mocha: {
       diff: true,
+      files: ['./test'],
       reporter: 'spec',
       slow: '75',
       timeout: '2000',
@@ -24,9 +26,7 @@ describe('optionsFromParsedArgs', () => {
       extension: ['js', 'cjs', 'mjs'],
       'watch-ignore': ['node_modules', '.git']
     },
-    webpack: {
-      'webpack-config': 'webpack.config.js'
-    },
+    webpack: {},
     mochapack: {
       interactive: true,
       'clear-terminal': false
@@ -37,6 +37,7 @@ describe('optionsFromParsedArgs', () => {
     mocha: {
       cli: {
         extension: ['js', 'cjs', 'mjs'],
+        files: ['./test'],
         watchIgnore: ['node_modules', '.git']
       },
       constructor: {
@@ -54,13 +55,25 @@ describe('optionsFromParsedArgs', () => {
       }
     },
     webpack: {
-      config: 'webpack.config.js'
+      config: {},
+      env: undefined
     },
     mochapack: {
       interactive: true,
       clearTerminal: false
     }
   }
+
+  const fixturesDir = resolve(__dirname, '../../../..', 'test/unit/cli/fixture')
+  let sandbox: SinonSandbox
+
+  beforeEach(() => {
+    sandbox = createSandbox()
+  })
+
+  afterEach(() => {
+    sandbox.restore()
+  })
 
   context('when converting Mocha args to options', () => {
     context('when the argument is for a constructor option', () => {
@@ -187,11 +200,11 @@ describe('optionsFromParsedArgs', () => {
       ]
 
       mochaConstructorArgs.forEach(arg => {
-        it(`places ${arg.argName} under options.mocha.constructor.${arg.optionName}`, () => {
+        it(`places ${arg.argName} under options.mocha.constructor.${arg.optionName}`, async () => {
           const providedArgs = _merge({}, defaultArgs, {
             mocha: arg.providedArgs
           })
-          const extractedOptions = optionsFromParsedArgs(providedArgs)
+          const extractedOptions = await optionsFromParsedArgs(providedArgs)
           expect(extractedOptions.mocha.constructor).to.eql(
             _merge({}, defaultOptions.mocha.constructor, arg.expectedOptions)
           )
@@ -313,11 +326,11 @@ describe('optionsFromParsedArgs', () => {
 
       it('places the option under options.mocha.cli', () => {
         mochaCliArgs.forEach(arg => {
-          it(`places ${arg.argName} under options.mocha.constructor.${arg.optionName}`, () => {
+          it(`places ${arg.argName} under options.mocha.constructor.${arg.optionName}`, async () => {
             const providedArgs = _merge({}, defaultArgs, {
               mocha: arg.providedArgs
             })
-            const extractedOptions = optionsFromParsedArgs(providedArgs)
+            const extractedOptions = await optionsFromParsedArgs(providedArgs)
             expect(extractedOptions.mocha.cli).to.eql(
               _merge({}, defaultOptions.mocha.cli, arg.expectedOptions)
             )
@@ -328,7 +341,7 @@ describe('optionsFromParsedArgs', () => {
 
     context('when a config file provides options', () => {
       context('when the config options and CLI args do not overlap', () => {
-        it('properly merges config options with CLI args', () => {
+        it('properly merges config options with CLI args', async () => {
           const providedArgs = _merge({}, defaultArgs, {
             mocha: {
               config: 'test/fixture/mochaConfigNoOverlap.js',
@@ -336,7 +349,7 @@ describe('optionsFromParsedArgs', () => {
               ignore: ['**doNotTest.js']
             }
           })
-          const extractedOptions = optionsFromParsedArgs(providedArgs)
+          const extractedOptions = await optionsFromParsedArgs(providedArgs)
           expect(extractedOptions.mocha).to.eql(
             _merge({}, defaultOptions.mocha, {
               cli: {
@@ -356,7 +369,7 @@ describe('optionsFromParsedArgs', () => {
       })
 
       context('when the config options and CLI args overlap', () => {
-        it('prefers the CLI args over config options', () => {
+        it('prefers the CLI args over config options', async () => {
           const providedArgs = _merge({}, defaultArgs, {
             mocha: {
               config: 'test/fixture/mochaConfigWithOverlap.js',
@@ -364,7 +377,7 @@ describe('optionsFromParsedArgs', () => {
               ignore: ['**dontTest.js']
             }
           })
-          const extractedOptions = optionsFromParsedArgs(providedArgs)
+          const extractedOptions = await optionsFromParsedArgs(providedArgs)
           expect(extractedOptions.mocha).to.eql(
             _merge({}, defaultOptions.mocha, {
               cli: {
@@ -402,13 +415,10 @@ describe('optionsFromParsedArgs', () => {
         argName: 'mode',
         optionName: 'mode',
         providedArgs: { mode: 'development' },
-        expectedOptions: { mode: 'development' }
-      },
-      {
-        argName: 'webpack-config',
-        optionName: 'webpackConfig',
-        providedArgs: { 'webpack-config': 'path/to/config.js' },
-        expectedOptions: { config: 'path/to/config.js' }
+        expectedOptions: {
+          mode: 'development',
+          config: { mode: 'development' }
+        }
       },
       {
         argName: 'webpack-env',
@@ -419,14 +429,51 @@ describe('optionsFromParsedArgs', () => {
     ]
 
     webpackArgs.forEach(arg => {
-      it(`places ${arg.argName} under options.webpack.${arg.optionName}`, () => {
+      it(`places ${arg.argName} under options.webpack.${arg.optionName}`, async () => {
         const providedArgs = _merge({}, defaultArgs, {
           webpack: arg.providedArgs
         })
-        const extractedOptions = optionsFromParsedArgs(providedArgs)
+        const extractedOptions = await optionsFromParsedArgs(providedArgs)
         expect(extractedOptions.webpack).to.eql(
           _merge({}, defaultOptions.webpack, arg.expectedOptions)
         )
+      })
+    })
+
+    context('when a config file is not specified by the user', () => {
+      context('when a config file is available in the default location', () => {
+        it('uses the config file', async () => {
+          const extractedOptions = await optionsFromParsedArgs(defaultArgs)
+          expect(extractedOptions.webpack.config).to.eql({})
+        })
+      })
+
+      context(
+        'when a config file is not available in the default location',
+        () => {
+          it('defaults to an empty object', async () => {
+            const extractedOptions = await optionsFromParsedArgs(defaultArgs)
+            expect(extractedOptions.webpack.config).to.eql({})
+          })
+        }
+      )
+    })
+
+    context('when a webpack config is specified by the user', () => {
+      it("reads the user's webpack config", async () => {
+        const providedArgs = _merge({}, defaultArgs, {
+          webpack: {
+            'webpack-config': resolve(
+              fixturesDir,
+              'webpackConfig/webpack.config-test.js'
+            )
+          }
+        })
+        const extractedOptions = await optionsFromParsedArgs(providedArgs)
+        expect(extractedOptions.webpack.config).to.eql({
+          mode: 'development',
+          target: 'node'
+        })
       })
     })
   })
@@ -465,11 +512,11 @@ describe('optionsFromParsedArgs', () => {
     ]
 
     mochapackArgs.forEach(arg => {
-      it(`places ${arg.argName} under options.mochapack.${arg.optionName}`, () => {
+      it(`places ${arg.argName} under options.mochapack.${arg.optionName}`, async () => {
         const providedArgs = _merge({}, defaultArgs, {
           mochapack: arg.providedArgs
         })
-        const extractedOptions = optionsFromParsedArgs(providedArgs)
+        const extractedOptions = await optionsFromParsedArgs(providedArgs)
         expect(extractedOptions.mochapack).to.eql(
           _merge({}, defaultOptions.mochapack, arg.expectedOptions)
         )

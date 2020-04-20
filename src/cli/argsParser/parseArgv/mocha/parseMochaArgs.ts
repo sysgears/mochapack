@@ -38,12 +38,17 @@ const mochaChecks = (yargsInstance: any, argv: Arguments) => {
     )
   }
 
+  /**
+   * Commented out here to provide backward compatibility for now
+   */
+  /*
   if (argv.opts) {
     throw createUnsupportedError(
       `--opts: configuring Mocha via 'mocha.opts' is DEPRECATED and no longer supported.
       Please use a configuration file instead.`
     )
   }
+  */
 
   // load requires first, because it can impact "plugin" validation
   handleRequires(argv.require)
@@ -64,8 +69,8 @@ const mochaChecks = (yargsInstance: any, argv: Arguments) => {
  *
  * @param argv Arguments provided via CLI
  */
-export const parseMochaArgs = (argv: string[]): ParsedMochaArgs =>
-  (yargs
+export const parseMochaArgs = (argv: string[]): ParsedMochaArgs => {
+  const yargsOutput = yargs
     .options(mochaOptions)
     .check((args: Arguments) => mochaChecks(yargs, args))
     .alias(aliases)
@@ -73,7 +78,15 @@ export const parseMochaArgs = (argv: string[]): ParsedMochaArgs =>
     .boolean(types.boolean)
     .string(types.string)
     .number(types.number)
-    .parse(argv) as unknown) as ParsedMochaArgs
+    .parse(argv)
+
+  let files = yargsOutput._
+  files = files.length ? files : ['./test']
+  // Mocha checks prevent unrecognized UI from being passed along as a string
+  if (yargsOutput.ui && yargsOutput.ui !== yargsOutput.u)
+    yargsOutput.ui = yargsOutput.u
+  return ({ ...yargsOutput, files } as unknown) as ParsedMochaArgs
+}
 
 /**
  * Need to ensure any keys unknown to Mocha are not included in Yargs output
@@ -81,4 +94,4 @@ export const parseMochaArgs = (argv: string[]): ParsedMochaArgs =>
 export const pruneMochaYargsOutput = (
   yargsOutput: ParsedMochaArgs
 ): ParsedMochaArgs =>
-  _pick(yargsOutput, Object.keys(mochaOptions)) as ParsedMochaArgs
+  _pick(yargsOutput, [...Object.keys(mochaOptions), 'files']) as ParsedMochaArgs

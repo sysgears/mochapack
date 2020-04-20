@@ -16,9 +16,8 @@ const setReporterInMochaOptions = (mocha: Mocha, cwd: string) => {
 /**
  * Uses the options set on the instance of Mocha to set its UI for Mochapack
  */
-const setUiInMochaOptions = (mocha: Mocha, cwd: string) => {
-  const ui = loadUI(mocha.options.ui, cwd)
-  mocha.ui(ui)
+const setUiInMochaOptions = (mocha: Mocha, ui: string, cwd: string) => {
+  mocha.ui(loadUI(ui, cwd))
 }
 
 /**
@@ -43,7 +42,7 @@ const initMocha = (options: MochapackMochaOptions, cwd: string): Mocha => {
   mochaInstance = addFilesToMochaInstance(mochaInstance, options.cli.file)
   if (options.cli.invert) mochaInstance.invert()
   setReporterInMochaOptions(mochaInstance, cwd)
-  setUiInMochaOptions(mochaInstance, cwd)
+  setUiInMochaOptions(mochaInstance, options.constructor.ui, cwd)
 
   return mochaInstance
 }

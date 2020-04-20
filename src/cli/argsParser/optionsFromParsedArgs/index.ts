@@ -9,9 +9,11 @@ import mochapackOptionsFromParsedArgs from './mochapack/mochapackOptionsFromPars
  *
  * @param parsedArgs Args that have been parsed into a `ParsedArgs` object
  */
-const optionsFromParsedArgs = (parsedArgs: ParsedArgs): MochapackOptions => ({
+const optionsFromParsedArgs = async (
+  parsedArgs: ParsedArgs
+): Promise<MochapackOptions> => ({
   mocha: mochaOptionsFromParsedArgs(parsedArgs),
-  webpack: webpackOptionsFromParsedArgs(parsedArgs),
+  webpack: await webpackOptionsFromParsedArgs(parsedArgs),
   mochapack: mochapackOptionsFromParsedArgs(parsedArgs)
 })
 
