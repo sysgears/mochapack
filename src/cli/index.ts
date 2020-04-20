@@ -2,7 +2,7 @@ import { get as _get } from 'lodash'
 
 import parseArgv from './argsParser/parseArgv'
 import { ensureGlob, extensionsToGlob } from '../util/glob'
-import createMochaWebpack from '../createMochaWebpack'
+import createMochapack from '../createMochapack'
 import optionsFromParsedArgs from './argsParser/optionsFromParsedArgs'
 
 const exit = (lazy: boolean, code: number): void => {
@@ -18,7 +18,7 @@ const exit = (lazy: boolean, code: number): void => {
 async function cli() {
   const cliArgs = parseArgv(process.argv.slice(2))
   const cliOptions = await optionsFromParsedArgs(cliArgs)
-  const mochaWebpack = createMochaWebpack(cliOptions)
+  const mochaWebpack = createMochapack(cliOptions)
 
   const extensions = _get(cliOptions.webpack.config, 'resolve.extensions', [
     '.js'

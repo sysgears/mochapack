@@ -6,7 +6,7 @@
   },
   "description": "mocha cli with webpack support",
   "bin": "./bin/mochapack",
-  "main": "./lib/createMochaWebpack.js",
+  "main": "./lib/createMochapack.js",
   "files": [
     "*.md",
     "bin",

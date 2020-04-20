@@ -1,9 +1,9 @@
 /* eslint-disable func-names, prefer-arrow-callback, max-len */
 import { assert } from 'chai'
-import MochaWebpack from '../../src/MochaWebpack'
+import Mochapack from '../../src/Mochapack'
 import { MochapackOptions } from '../../src/cli/argsParser/optionsFromParsedArgs/types'
 
-describe('MochaWebpack', function() {
+describe('Mochapack', function() {
   const basicOptions: MochapackOptions = {
     mocha: {
       cli: {
@@ -21,28 +21,28 @@ describe('MochaWebpack', function() {
       clearTerminal: false
     }
   }
-  it('should create a instance of MochaWebpack', function() {
-    assert.doesNotThrow(() => new MochaWebpack(basicOptions))
-    const mochaWebpack = new MochaWebpack(basicOptions)
+  it('should create a instance of Mochapack', function() {
+    assert.doesNotThrow(() => new Mochapack(basicOptions))
+    const mochaWebpack = new Mochapack(basicOptions)
 
     assert.isNotNull(mochaWebpack)
   })
 
   it('has a list of entries', function() {
-    const mochaWebpack = new MochaWebpack(basicOptions)
+    const mochaWebpack = new Mochapack(basicOptions)
     assert.isArray(mochaWebpack.entries)
     assert.lengthOf(mochaWebpack.entries, 0)
   })
 
   it('has a list of includes', function() {
-    const mochaWebpack = new MochaWebpack(basicOptions)
+    const mochaWebpack = new Mochapack(basicOptions)
     assert.isArray(mochaWebpack.includes)
     assert.lengthOf(mochaWebpack.includes, 0)
   })
 
   context('methods', function() {
     beforeEach(function() {
-      this.mochaWebpack = new MochaWebpack(basicOptions)
+      this.mochaWebpack = new Mochapack(basicOptions)
     })
 
     it('addEntry()', function() {

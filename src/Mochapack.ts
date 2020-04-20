@@ -3,7 +3,7 @@ import TestRunner from './runner/TestRunner'
 import testRunnerReporter from './runner/testRunnerReporter'
 import { MochapackOptions } from './cli/argsParser/optionsFromParsedArgs/types'
 
-export default class MochaWebpack {
+export default class Mochapack {
   private options: MochapackOptions
 
   constructor(options: MochapackOptions) {
@@ -64,9 +64,9 @@ export default class MochaWebpack {
    *
    * @public
    * @param {string} file file or glob
-   * @return {MochaWebpack}
+   * @return {Mochapack}
    */
-  addEntry(file: string): MochaWebpack {
+  addEntry(file: string): Mochapack {
     this.entries = [...this.entries, file]
     return this
   }
@@ -76,9 +76,9 @@ export default class MochaWebpack {
    *
    * @public
    * @param {string} file absolute path to module
-   * @return {MochaWebpack}
+   * @return {Mochapack}
    */
-  addInclude(file: string): MochaWebpack {
+  addInclude(file: string): Mochapack {
     this.includes = [...this.includes, file]
     return this
   }

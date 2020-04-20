@@ -127,7 +127,7 @@ const waitFor = (condition, timeoutInMs) =>
     setTimeout(run, timeoutDelay())
   })
 
-const spawnMochaWebpack = (...args) => {
+const spawnMochapack = (...args) => {
   let data = ''
   const binPath = path.relative(process.cwd(), path.join('bin', MOCHAPACK_NAME))
 
@@ -170,7 +170,7 @@ xdescribe('cli --watch', function() {
     const testFile = 'test1.js'
     const testId = Date.now()
     createSyntaxErrorTest(testFile, testId)
-    const mw = spawnMochaWebpack('--watch', this.entryGlob)
+    const mw = spawnMochapack('--watch', this.entryGlob)
 
     return Promise.resolve() // wait until the output matches our condition
       .then(() =>
@@ -215,7 +215,7 @@ xdescribe('cli --watch', function() {
     const testFile = 'test1.js'
     const testId = Date.now()
     createErrorFile(testFile, testId)
-    const mw = spawnMochaWebpack('--watch', this.entryGlob)
+    const mw = spawnMochapack('--watch', this.entryGlob)
 
     return Promise.resolve() // wait until the output matches our condition
       .then(() =>
@@ -259,7 +259,7 @@ xdescribe('cli --watch', function() {
     const testFile = 'test1.js'
     const testId = Date.now()
     createUncaughtErrorTest(testFile, testId)
-    const mw = spawnMochaWebpack('--watch', this.entryGlob)
+    const mw = spawnMochapack('--watch', this.entryGlob)
 
     return Promise.resolve() // wait until the output matches our condition
       .then(() =>
@@ -306,7 +306,7 @@ xdescribe('cli --watch', function() {
     const testId = Date.now()
     createTest(testFile, testId, true)
 
-    const mw = spawnMochaWebpack('--watch', this.entryGlob)
+    const mw = spawnMochapack('--watch', this.entryGlob)
 
     return Promise.resolve() // wait until the output matches our condition
       .then(() =>
@@ -331,7 +331,7 @@ xdescribe('cli --watch', function() {
     const testFile = 'test1.js'
     const testId = Date.now()
     createTest(testFile, testId, true)
-    const mw = spawnMochaWebpack('--watch', this.entryGlob)
+    const mw = spawnMochapack('--watch', this.entryGlob)
 
     return Promise.resolve() // wait until the output matches our condition
       .then(() =>
@@ -380,7 +380,7 @@ xdescribe('cli --watch', function() {
     const testId2 = testId1 + 2
     createTest(testFile1, testId1, true)
     createTest(testFile2, testId2, true)
-    const mw = spawnMochaWebpack('--watch', this.entryGlob)
+    const mw = spawnMochapack('--watch', this.entryGlob)
 
     return Promise.resolve() // wait until the output matches our condition
       .then(() => waitFor(() => assert.include(mw.log, '2 passing'), 5000)) // output matched our condition
@@ -427,7 +427,7 @@ xdescribe('cli --watch', function() {
     const testId = Date.now()
     const updatedTestId = testId + 100
     createLongRunningTest(testFile, testId)
-    const mw = spawnMochaWebpack('--watch', this.entryGlob)
+    const mw = spawnMochapack('--watch', this.entryGlob)
 
     return Promise.resolve() // wait until the first async test start
       .then(() =>
@@ -472,7 +472,7 @@ xdescribe('cli --watch', function() {
     const testId = Date.now()
     const updatedTestId = testId + 100
     createNeverEndingTest(testFile, testId)
-    const mw = spawnMochaWebpack('--timeout', 0, '--watch', this.entryGlob)
+    const mw = spawnMochapack('--timeout', 0, '--watch', this.entryGlob)
 
     return Promise.resolve() // wait until the first async test start
       .then(() =>
@@ -514,7 +514,7 @@ xdescribe('cli --watch', function() {
     const testFile2 = 'test2.js'
     const testId2 = testId1 + 2
     createTest(testFile1, testId1, true)
-    const mw = spawnMochaWebpack('--watch', this.entryGlob)
+    const mw = spawnMochapack('--watch', this.entryGlob)
 
     return Promise.resolve() // wait until the output matches our condition
       .then(() =>
@@ -561,7 +561,7 @@ xdescribe('cli --watch', function() {
     const testFile3 = 'test3.js'
     const testId3 = testId2 + 3
     createTest(testFile1, testId1, true)
-    const mw = spawnMochaWebpack('--watch', this.entryGlob)
+    const mw = spawnMochapack('--watch', this.entryGlob)
 
     return Promise.resolve() // wait until the output matches our condition
       .then(() => waitFor(() => assert.include(mw.log, '1 passing'), 5000)) // output matched our condition
@@ -606,7 +606,7 @@ xdescribe('cli --watch', function() {
     const testId2 = Date.now() + 2
     createTest(testFile1, testId1, true)
     createTest(testFile2, testId2, true)
-    const mw = spawnMochaWebpack('--watch', this.entryGlob)
+    const mw = spawnMochapack('--watch', this.entryGlob)
 
     return Promise.resolve() // wait until the output matches our condition
       .then(() => waitFor(() => assert.include(mw.log, '2 passing'), 5000)) // output matched our condition
