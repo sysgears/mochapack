@@ -4,7 +4,7 @@ import spec from 'mocha/lib/reporters/spec'
 import progress from 'mocha/lib/reporters/progress'
 
 import customMochaReporter from '../../fixture/customMochaReporter'
-import getReporterConstructor from '../../../src/runner/getReporterConstructor'
+import getReporterConstructor from '../../../src/runner/runnerUtils/initMocha/getReporterConstructor'
 
 const customMochaReporterPath = require.resolve(
   '../../fixture/customMochaReporter'

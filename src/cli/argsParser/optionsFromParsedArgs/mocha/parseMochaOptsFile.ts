@@ -1,6 +1,6 @@
 import fs from 'fs'
-import { existsFileSync } from '../util/exists'
-import parseArgv from './parseArgv'
+import { existsFileSync } from '../../../../util/exists'
+import parseArgv from '../../parseArgv'
 
 const defaultConfig = 'mochapack.opts'
 
@@ -50,6 +50,6 @@ export default function parseMochaOptsFile(explicitConfig?: any) {
     .filter(Boolean)
     .map(value => value.replace(/%20/g, ' '))
     .map(removeSurroundingQuotes)
-  const defaultOptions = parseArgv(argv, true)
+  const defaultOptions = parseArgv(argv)
   return defaultOptions
 }

@@ -1,8 +1,8 @@
 import { cloneDeep as _cloneDeep } from 'lodash'
 import Mocha from 'mocha'
-import getReporterConstructor from '../../getReporterConstructor'
+import getReporterConstructor from './getReporterConstructor'
 import { MochapackMochaOptions } from '../../../cli/argsParser/optionsFromParsedArgs/types'
-import loadUI from '../../loadUI'
+import loadUI from './loadUI'
 
 /**
  * Uses the options set on the instance of Mocha to set its reporter for

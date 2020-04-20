@@ -3,7 +3,7 @@ import { merge as _merge, pick as _pick } from 'lodash'
 import { Configuration } from 'webpack'
 import { ParsedArgs } from '../../parseArgv/types'
 import { MochapackWebpackOptions } from '../types'
-import requireWebpackConfig from '../../../requireWebpackConfig'
+import requireWebpackConfig from './requireWebpackConfig'
 import { WebpackMode } from '../../parseArgv/webpack/types'
 import { existsFileSync } from '../../../../util/exists'
 

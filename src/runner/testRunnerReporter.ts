@@ -12,7 +12,7 @@ import {
   WEBPACK_READY_EVENT,
   WEBPACK_START_EVENT,
   UNCAUGHT_EXCEPTION_EVENT
-} from './newRunner/constants'
+} from '../util/constants'
 
 type ReporterOptions = {
   eventEmitter: EventEmitter

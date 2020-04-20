@@ -4,7 +4,7 @@ import MemoryFileSystem from 'memory-fs'
 import { Compiler, Stats } from 'webpack'
 import registerRequireHook from '../../util/registerRequireHook'
 import { ensureAbsolutePath } from '../../util/paths'
-import { MOCHAPACK_NAME } from '../../runner/newRunner/constants'
+import { MOCHAPACK_NAME } from '../../util/constants'
 
 type VoidFunction = () => void
 

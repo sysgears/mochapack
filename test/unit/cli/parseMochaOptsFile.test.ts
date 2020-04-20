@@ -3,7 +3,7 @@
 import path from 'path'
 import fs from 'fs-extra'
 import { assert } from 'chai'
-import parseMochaOptsFile from '../../../src/cli/parseMochaOptsFile'
+import parseMochaOptsFile from '../../../src/cli/argsParser/optionsFromParsedArgs/mocha/parseMochaOptsFile'
 
 const optsTestCasesPath = path.join(
   __dirname,

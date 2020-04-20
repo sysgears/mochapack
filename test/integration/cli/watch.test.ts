@@ -5,7 +5,7 @@ import path from 'path'
 import { spawn } from 'child_process'
 import del from 'del'
 import fs from 'fs-extra'
-import { MOCHAPACK_NAME } from '../../../src/runner/newRunner/constants'
+import { MOCHAPACK_NAME } from '../../../src/util/constants'
 
 const fixtureDir = path.join(process.cwd(), '.tmp/fixture')
 

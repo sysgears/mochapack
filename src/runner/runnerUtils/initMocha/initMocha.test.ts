@@ -16,9 +16,11 @@ describe('initMocha', () => {
   let reporterSpy: SinonSpy
   let uiSpy: SinonSpy
   const defaultExtensions = ['js', 'cjs', 'mjs']
+  const defaultFiles = ['./files']
   const defaultWatchIgnore = ['node_modules', '.git']
   const defaultCliInitOptions = {
     extension: defaultExtensions,
+    files: defaultFiles,
     watchIgnore: defaultWatchIgnore
   }
 
@@ -26,7 +28,9 @@ describe('initMocha', () => {
     sandbox = createSandbox()
     initOptions = {
       cli: defaultCliInitOptions,
-      constructor: {}
+      constructor: {
+        ui: 'bdd'
+      }
     }
     defaultOptions = {
       diff: true,

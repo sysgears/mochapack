@@ -13,7 +13,7 @@ import registerInMemoryCompiler from '../webpack/compiler/registerInMemoryCompil
 import registerReadyCallback from '../webpack/compiler/registerReadyCallback'
 import getBuildStats, { BuildStats } from '../webpack/util/getBuildStats'
 
-import createWebpackConfig from './newRunner/createWebpackConfig'
+import createWebpackConfig from './runnerUtils/createWebpackConfig'
 import {
   WEBPACK_START_EVENT,
   MOCHAPACK_NAME,
@@ -25,8 +25,8 @@ import {
   ENTRY_REMOVED_EVENT,
   ENTRY_ADDED_EVENT,
   UNCAUGHT_EXCEPTION_EVENT
-} from './newRunner/constants'
-import initMocha from './newRunner/initMocha'
+} from '../util/constants'
+import initMocha from './runnerUtils/initMocha'
 import { MochapackOptions } from '../cli/argsParser/optionsFromParsedArgs/types'
 
 const entryPath = path.resolve(__dirname, '../entry.js')

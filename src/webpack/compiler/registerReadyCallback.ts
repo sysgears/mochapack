@@ -1,5 +1,5 @@
 import { Compiler, Stats } from 'webpack'
-import { MOCHAPACK_NAME } from '../../runner/newRunner/constants'
+import { MOCHAPACK_NAME } from '../../util/constants'
 
 export default function registerReadyCallback(
   compiler: Compiler,

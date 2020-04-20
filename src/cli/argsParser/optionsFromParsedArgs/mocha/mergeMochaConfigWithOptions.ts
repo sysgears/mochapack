@@ -2,7 +2,7 @@ import { defaults as _defaults, omit as _omit, pick as _pick } from 'lodash'
 import { loadConfig } from 'mocha/lib/cli/config'
 import { MochaOptions } from 'mocha'
 import { mochaCliOptionArgs } from './mochaOptionsFromParsedArgs'
-import parseMochaOptsFile from '../../../parseMochaOptsFile'
+import parseMochaOptsFile from './parseMochaOptsFile'
 import { MochaCliOptions } from '../types'
 
 /**

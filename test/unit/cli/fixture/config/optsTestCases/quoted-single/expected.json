@@ -1,6 +1,21 @@
 {
-  "colors": true,
-  "webpackConfig": "webpack.config-test.js",
-  "glob": "*.test.js",
-  "files": ["test/**/.js"]
+  "mocha": {
+    "color": true,
+    "diff": true,
+    "extension": ["js", "cjs", "mjs"],
+    "files": ["test/**/.js"],
+    "reporter": "spec",
+    "slow": 75,
+    "timeout": 2000,
+    "ui": "bdd",
+    "watch-ignore": ["node_modules", ".git"]
+  },
+  "mochapack": {
+    "clear-terminal": false,
+    "glob": "*.test.js",
+    "interactive": true
+  },
+  "webpack": {
+    "webpack-config": "webpack.config-test.js"
+  }
 }

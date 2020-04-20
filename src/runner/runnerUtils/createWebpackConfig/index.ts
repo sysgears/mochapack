@@ -15,7 +15,7 @@ import {
   CreateWebpackConfigOptions,
   MochapackWebpackConfigs
 } from './types'
-import { MOCHAPACK_NAME } from '../constants'
+import { MOCHAPACK_NAME } from '../../../util/constants'
 
 const buildEntryConfig = async (
   entries: string[],
