@@ -8690,14 +8690,14 @@ fsevents@~2.1.1:
     strip-ansi: ^5.2.0
     tiny-worker: 2.3.0
     toposort: ^2.0.2
-    ts-mocha: ^6.0.0
+    ts-mocha: ^7.0.0
     typescript: ^3.8.3
     webpack: 4.41.0
     worker-loader: 2.0.0
     write-file-webpack-plugin: ^4.2.0
     yargs: 14.0.0
   peerDependencies:
-    mocha: ">=4 <=7"
+    mocha: ">=6 <=7"
     webpack: ^4.0.0
   bin:
     mochapack: ./bin/mochapack
@@ -12954,20 +12954,20 @@ fsevents@~2.1.1:
   languageName: node
   linkType: hard
 
-"ts-mocha@npm:^6.0.0":
-  version: 6.0.0
-  resolution: "ts-mocha@npm:6.0.0"
+"ts-mocha@npm:^7.0.0":
+  version: 7.0.0
+  resolution: "ts-mocha@npm:7.0.0"
   dependencies:
     ts-node: 7.0.1
     tsconfig-paths: ^3.5.0
   peerDependencies:
-    mocha: ^3.X.X || ^4.X.X || ^5.X.X || ^6.X.X
+    mocha: ^3.X.X || ^4.X.X || ^5.X.X || ^6.X.X || ^7.X.X
   dependenciesMeta:
     tsconfig-paths:
       optional: true
   bin:
     ts-mocha: ./bin/ts-mocha
-  checksum: 2/7af0c2ec8c46e275a79be87a1502efa69af822c7c428526fb216b0f915d1d11e3f5decb40b6f79893347293cc27706c81bd13d8e6fc56a5fddcda058e8827526
+  checksum: 2/9520b72c054972ddaeed9ed8adf44461f97bd003a9b0b3fd2980d6498e4b32470902e05320b1dd7ab66970262de7b4280080a11ea00b1984b3b0cef187b86784
   languageName: node
   linkType: hard
 
