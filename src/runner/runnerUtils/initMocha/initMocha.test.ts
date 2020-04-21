@@ -1,7 +1,7 @@
 import chai, { expect } from 'chai'
 import { SinonSandbox, SinonSpy, createSandbox } from 'sinon'
 import sinonChai from 'sinon-chai'
-import { merge as _merge } from 'lodash'
+import { merge as _merge, pick as _pick } from 'lodash'
 import Mocha from 'mocha'
 import initMocha from '.'
 import { MochapackMochaOptions } from '../../../cli/argsParser/optionsFromParsedArgs/types'
@@ -197,7 +197,9 @@ describe('initMocha', () => {
         defaultOptions,
         scenario.expectedMochaOptions
       )
-      expect(mocha.options).to.eql(expectedOptions)
+      expect(_pick(mocha.options, Object.keys(expectedOptions))).to.eql(
+        expectedOptions
+      )
     })
   })
 
