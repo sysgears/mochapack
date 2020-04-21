@@ -2,7 +2,7 @@ import defaults from 'mocha/lib/mocharc.json'
 import createInvalidArgumentValueError from 'mocha/lib/errors'
 import { list } from 'mocha/lib/cli/run-helpers'
 import { ONE_AND_DONE_ARGS } from 'mocha/lib/cli/one-and-dones'
-import { omit as _omit } from 'lodash'
+import { merge as _merge, omit as _omit } from 'lodash'
 import { Options } from 'yargs'
 
 /**
@@ -228,16 +228,27 @@ const mochaOptions: { [key: string]: Options } = {
  * Cleans up Mocha's Yargs options to provide only those that are relevant to
  *   running Mochapack
  */
-const mochaOptionsForMochapack = {
+const mochaOptionsForMochapack = _merge(
+  {},
   // Some options are irrelevant to actually running tests and should be run
   //   using Mocha from the command line directly
-  ..._omit(mochaOptions, 'list-interfaces', 'list-reporters'),
-  opts: {
-    type: 'string',
-    describe: 'Path to Mocha options file (no longer supported by Mocha)',
-    group: GROUPS.CONFIG,
-    requiresArg: true
-  } as Options
-}
+  _omit(mochaOptions, 'list-interfaces', 'list-reporters'),
+  {
+    opts: {
+      type: 'string',
+      describe: 'Path to Mocha options file (no longer supported by Mocha)',
+      group: GROUPS.CONFIG,
+      requiresArg: true
+    } as Options
+  },
+  // Some options need to be adjusted to provide support for different Mocha
+  //  versions
+  {
+    // Until Mocha 7.0.1, only js was included in extension
+    extension: { default: ['js', 'cjs', 'mjs'] },
+    // Not present until Mocha 6.2.0
+    'watch-ignore': { default: ['node_modules', '.git'] }
+  }
+)
 
 export default mochaOptionsForMochapack

@@ -8,7 +8,7 @@ import mochapackOptions, {
 } from './mochapack/mochapackOptions'
 import webpackOptions from './webpack/webpackOptions'
 
-describe('new parseArgv', () => {
+describe('parseArgv', () => {
   let argv: string[]
 
   const mochaDefaults = {

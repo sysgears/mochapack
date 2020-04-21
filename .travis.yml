@@ -20,7 +20,6 @@ install:
   - yarn install --immutable
 
 env:
-  - WEBPACK_VERSION=4 MOCHA_VERSION=5.2.0
   - WEBPACK_VERSION=4 MOCHA_VERSION=6
   - WEBPACK_VERSION=4 MOCHA_VERSION=7
 

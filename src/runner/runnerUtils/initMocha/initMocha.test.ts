@@ -3,19 +3,21 @@ import { SinonSandbox, SinonSpy, createSandbox } from 'sinon'
 import sinonChai from 'sinon-chai'
 import { merge as _merge, pick as _pick } from 'lodash'
 import Mocha from 'mocha'
-import initMocha from '.'
+import { installedMochaMajor } from '../../../../test/installedMochaVersion'
 import { MochapackMochaOptions } from '../../../cli/argsParser/optionsFromParsedArgs/types'
+import initMocha from '.'
 
 chai.use(sinonChai)
 
-describe('initMocha', () => {
+describe('initMocha', async () => {
+  const mochaMajorVersion = await installedMochaMajor
   let sandbox: SinonSandbox
   let initOptions: MochapackMochaOptions
   let defaultOptions: any
   let cwd: string
   let reporterSpy: SinonSpy
   let uiSpy: SinonSpy
-  const defaultExtensions = ['js', 'cjs', 'mjs']
+  let defaultExtensions = ['js']
   const defaultFiles = ['./files']
   const defaultWatchIgnore = ['node_modules', '.git']
   const defaultCliInitOptions = {
@@ -32,21 +34,32 @@ describe('initMocha', () => {
         ui: 'bdd'
       }
     }
+
+    if (mochaMajorVersion >= 7) {
+      defaultExtensions = ['js', 'cjs', 'mjs']
+    }
+
     defaultOptions = {
       diff: true,
       extension: defaultExtensions,
-      global: [],
       grep: undefined,
       opts: './test/mocha.opts',
       package: './package.json',
       reporter: 'spec',
-      reporterOption: undefined,
       reporterOptions: undefined,
       slow: 75,
       timeout: 2000,
-      ui: 'bdd',
-      'watch-ignore': defaultWatchIgnore
+      ui: 'bdd'
     }
+
+    if (mochaMajorVersion >= 7) {
+      defaultOptions = _merge({}, defaultOptions, {
+        global: [],
+        reporterOption: undefined,
+        'watch-ignore': defaultWatchIgnore
+      })
+    }
+
     cwd = process.cwd()
     // @ts-ignore
     sandbox.stub(Mocha.prototype, 'isGrowlCapable').returns(true)
@@ -137,11 +150,6 @@ describe('initMocha', () => {
       expectedMochaOptions: { growl: true }
     },
     {
-      optionName: 'hideDiff',
-      providedOptions: { constructor: { hideDiff: true } },
-      expectedMochaOptions: { hideDiff: true }
-    },
-    {
       optionName: 'ignoreLeaks',
       providedOptions: { constructor: { ignoreLeaks: true } },
       expectedMochaOptions: { ignoreLeaks: true }
@@ -162,14 +170,6 @@ describe('initMocha', () => {
       expectedMochaOptions: { reporter: 'min' }
     },
     {
-      optionName: 'reporterOptions',
-      providedOptions: { constructor: { reporterOptions: { hello: 'world' } } },
-      expectedMochaOptions: {
-        reporterOption: { hello: 'world' },
-        reporterOptions: { hello: 'world' }
-      }
-    },
-    {
       optionName: 'retries',
       providedOptions: { constructor: { retries: 27 } },
       expectedMochaOptions: { retries: 27 }
@@ -185,6 +185,38 @@ describe('initMocha', () => {
       expectedMochaOptions: { timeout: 7000 }
     }
   ]
+
+  if (mochaMajorVersion < 7) {
+    configurationScenarios.push({
+      optionName: 'reporterOptions',
+      providedOptions: {
+        constructor: { reporterOptions: { hello: 'world' } }
+      },
+      expectedMochaOptions: {
+        reporterOptions: { hello: 'world' }
+      }
+    })
+  }
+
+  if (mochaMajorVersion >= 7) {
+    configurationScenarios.push(
+      {
+        optionName: 'hideDiff',
+        providedOptions: { constructor: { hideDiff: true } },
+        expectedMochaOptions: { hideDiff: true }
+      },
+      {
+        optionName: 'reporterOptions',
+        providedOptions: {
+          constructor: { reporterOptions: { hello: 'world' } }
+        },
+        expectedMochaOptions: {
+          reporterOption: { hello: 'world' },
+          reporterOptions: { hello: 'world' }
+        }
+      }
+    )
+  }
 
   configurationScenarios.forEach(scenario => {
     it(`properly applies ${scenario.optionName}`, () => {

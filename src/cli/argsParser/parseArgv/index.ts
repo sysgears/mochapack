@@ -29,7 +29,7 @@ const parse = (argv: string[]): UndifferentiatedParsedArgs =>
     .help('help')
     .alias('help', 'h')
     .version()
-    .options({ ...webpackOptions, ...mochapackOptions, ...mochaOptions })
+    .options({ ...webpackOptions, ...mochapackOptions /* ...mochaOptions */ })
     .parse(argv) as unknown) as UndifferentiatedParsedArgs
 
 /**
