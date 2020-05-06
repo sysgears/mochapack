@@ -2,7 +2,7 @@ import chalk from 'chalk'
 import ProgressBar from 'progress'
 import { ProgressPlugin } from 'webpack'
 
-export default function buildProgressPlugin() {
+export const buildProgressPlugin = () => {
   const bar = new ProgressBar(
     `  [:bar] ${chalk.bold(':percent')} (${chalk.dim(':msg')})`,
     {

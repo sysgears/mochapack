@@ -1,16 +1,33 @@
-/* eslint-env node, mocha */
-
 /* eslint-disable func-names, prefer-arrow-callback */
 import { assert } from 'chai'
-import MochaWebpack from '../../src/MochaWebpack'
-import createMochaWebpack from '../../src/createMochaWebpack'
+import Mochapack from '../../src/Mochapack'
+import createMochapack from '../../src/createMochapack'
+import { MochapackOptions } from '../../src/cli/argsParser/optionsFromParsedArgs/types'
 
-describe('createMochaWebpack', function() {
-  it('should create a instance of MochaWebpack', function() {
-    assert.doesNotThrow(() => createMochaWebpack())
-    const mochaWebpack = createMochaWebpack()
+describe('createMochapack', function() {
+  it('should create a instance of Mochapack', function() {
+    const basicOptions: MochapackOptions = {
+      mocha: {
+        cli: {
+          extension: [],
+          files: [],
+          watchIgnore: []
+        },
+        constructor: {}
+      },
+      webpack: {
+        config: {}
+      },
+      mochapack: {
+        interactive: false,
+        clearTerminal: true
+      }
+    }
+
+    assert.doesNotThrow(() => createMochapack(basicOptions))
+    const mochaWebpack = createMochapack(basicOptions)
 
     assert.isNotNull(mochaWebpack)
-    assert.instanceOf(mochaWebpack, MochaWebpack)
+    assert.instanceOf(mochaWebpack, Mochapack)
   })
 })

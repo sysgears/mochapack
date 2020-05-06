@@ -1,9 +1,7 @@
-/* eslint-env node, mocha */
-
 import path from 'path'
 import { assert } from 'chai'
 import { rejects } from 'assert'
-import requireWebpackConfig from '../../../src/cli/requireWebpackConfig'
+import requireWebpackConfig from '../../../src/cli/argsParser/optionsFromParsedArgs/webpack/requireWebpackConfig'
 
 describe('requireWebpackConfig', () => {
   const getConfigPath = (extension, suffix = 'config-test') =>

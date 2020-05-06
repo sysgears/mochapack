@@ -6,7 +6,7 @@
   },
   "description": "mocha cli with webpack support",
   "bin": "./bin/mochapack",
-  "main": "./lib/createMochaWebpack.js",
+  "main": "./lib/createMochapack.js",
   "files": [
     "*.md",
     "bin",
@@ -21,7 +21,7 @@
     "build": "yarn run clean-lib && tsc",
     "format": "prettier '{src,test}/**/*' ./*.json --write --loglevel warn",
     "lint": "eslint src/**/*.ts test/**/*.ts --fix",
-    "test": "yarn run clean-tmp && yarn run build && ts-mocha --timeout 10000 --recursive --require @babel/register --exit \"test/**/*.test.ts\"",
+    "test": "yarn run clean-tmp && yarn run build && ts-mocha --timeout 10000 --recursive --require @babel/register --exit \"{test,src}/**/*.test.ts\"",
     "cover": "cross-env BABEL_ENV=coverage nyc --reporter=lcov --reporter=text npm test",
     "posttest": "yarn run format && yarn run lint",
     "docs:clean": "del-cli _book",
@@ -48,7 +48,7 @@
   "author": "Victor Vlasenko <victor.vlasenko@sysgears.com>",
   "license": "MIT",
   "peerDependencies": {
-    "mocha": ">=4 <=7",
+    "mocha": ">=6 <=7",
     "webpack": "^4.0.0"
   },
   "devDependencies": {
@@ -66,7 +66,10 @@
     "@types/lodash": "^4.14.149",
     "@types/mocha": "^5.2.7",
     "@types/node": "^12.12.17",
+    "@types/sinon": "^9.0.0",
+    "@types/sinon-chai": "^3.2.4",
     "@types/webpack": "^4.41.0",
+    "@types/yargs": "^15.0.4",
     "@typescript-eslint/eslint-plugin": "^2.11.0",
     "@typescript-eslint/parser": "^2.11.0",
     "anymatch": "3.1.1",
@@ -99,11 +102,12 @@
     "nyc": "14.1.1",
     "prettier": "^1.19.1",
     "sass-loader": "6.0.7",
-    "sinon": "7.5.0",
+    "sinon": "^9.0.2",
+    "sinon-chai": "^3.5.0",
     "strip-ansi": "^5.2.0",
     "tiny-worker": "2.3.0",
-    "ts-mocha": "^6.0.0",
-    "typescript": "^3.7.3",
+    "ts-mocha": "^7.0.0",
+    "typescript": "^3.8.3",
     "webpack": "4.41.0",
     "worker-loader": "2.0.0",
     "write-file-webpack-plugin": "^4.2.0"

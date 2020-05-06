@@ -1,11 +1,9 @@
-/* eslint-env node, mocha */
-
 /* eslint-disable func-names, prefer-arrow-callback */
 
 import path from 'path'
 import fs from 'fs-extra'
 import { assert } from 'chai'
-import parseConfig from '../../../src/cli/parseConfig'
+import parseMochaOptsFile from '../../../src/cli/argsParser/optionsFromParsedArgs/mocha/parseMochaOptsFile'
 
 const optsTestCasesPath = path.join(
   __dirname,
@@ -15,14 +13,14 @@ const optsTestCasesPath = path.join(
 )
 const optsTestCases = fs.readdirSync(optsTestCasesPath)
 
-describe('parseConfig', function() {
+describe('parseMochaOptsFile', function() {
   it('returns empty object when default config file is missing', function() {
-    assert.deepEqual(parseConfig(), {})
+    assert.deepEqual(parseMochaOptsFile(), {})
   })
 
   it('throws an error when explicitly-specified default config file is missing', function() {
     const fn = () => {
-      parseConfig('mochapack.opts')
+      parseMochaOptsFile('mochapack.opts')
     }
 
     // then
@@ -31,7 +29,7 @@ describe('parseConfig', function() {
 
   it('throws an error when specified config file is missing', function() {
     const fn = () => {
-      parseConfig('missing-config.opts')
+      parseMochaOptsFile('missing-config.opts')
     }
 
     // then
@@ -46,7 +44,7 @@ describe('parseConfig', function() {
     it(`parses '${testDirName}/mochapack.opts' and returns options`, function() {
       // eslint-disable-next-line global-require, import/no-dynamic-require
       const expectedResult = require(expectedResultsPath)
-      const parsedOptions = parseConfig(optsFilePath)
+      const parsedOptions = parseMochaOptsFile(optsFilePath)
 
       assert.deepEqual(parsedOptions, expectedResult)
     })

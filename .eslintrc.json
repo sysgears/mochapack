@@ -21,6 +21,7 @@
       "error",
       { "peerDependencies": true }
     ],
+    "import/prefer-default-export": "off",
     "no-duplicate-imports": "off",
     "no-restricted-syntax": "off",
     "no-unused-vars": "off"
@@ -31,5 +32,16 @@
         "extensions": [".js", ".ts"]
       }
     }
-  }
+  },
+  "overrides": [
+    {
+      "files": ["**/*.test.**"],
+      "env": {
+        "mocha": true
+      },
+      "rules": {
+        "no-unused-expressions": "off"
+      }
+    }
+  ]
 }

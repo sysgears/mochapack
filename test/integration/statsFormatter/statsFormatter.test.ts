@@ -1,5 +1,3 @@
-/* eslint-env node, mocha */
-
 /* eslint-disable func-names, prefer-arrow-callback */
 import fs from 'fs-extra'
 import path from 'path'
