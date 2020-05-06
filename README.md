@@ -38,7 +38,7 @@ If any build errors happens, they will be shown like below
 
 mochapack works with
 - webpack in version `4.x.x`
-- mocha in version `4.x.x`, `5.x.x`, `6.x.x`
+- mocha in version `5.x.x`, `6.x.x`, `7.x.x`
 
 ## Installation
 
