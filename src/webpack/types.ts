@@ -39,7 +39,7 @@ export type Chunk = {
   chunks: Array<Chunk>
   parents: Array<Chunk>
   files: Array<string>
-  isOnlyInitial: () => boolean
+  hasEntryModule: () => boolean
   getModules: () => Array<Module>
 }
 

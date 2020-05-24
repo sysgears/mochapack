@@ -26,7 +26,7 @@ export default function getBuildStats(
   sortedChunks.forEach((chunk: Chunk) => {
     const files = Array.isArray(chunk.files) ? chunk.files : [chunk.files]
 
-    if (chunk.isOnlyInitial()) {
+    if (chunk.hasEntryModule()) {
       // only entry files
       const entry = files[0]
       entries.push(entry)
