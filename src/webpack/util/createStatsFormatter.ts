@@ -2,8 +2,8 @@ import { EOL } from 'os'
 import chalk from 'chalk'
 import { Stats } from 'webpack'
 import RequestShortener from 'webpack/lib/RequestShortener'
+import WebpackError from 'webpack/lib/WebpackError'
 import { formatErrorMessage, stripLoaderFromPath } from './formatUtil'
-import { WebpackError } from '../types'
 
 const createGetFile = (requestShortener: RequestShortener) => (
   e: WebpackError
@@ -29,14 +29,7 @@ const createGetFile = (requestShortener: RequestShortener) => (
 const ensureWebpackErrors = (
   errors: Array<string | WebpackError>
 ): Array<WebpackError> =>
-  errors.map((e: string | WebpackError) => {
-    /* istanbul ignore if */
-    if (typeof e === 'string') {
-      // webpack does this also, so there must be case when this happens
-      return ({ message: e } as any) as WebpackError
-    }
-    return e
-  })
+  errors.map((e: WebpackError) => e.toString())
 
 const prependWarning = (message: string) =>
   `${chalk.yellow('Warning')} ${message}`
