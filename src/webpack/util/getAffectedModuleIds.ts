@@ -1,4 +1,5 @@
-import { Module, Chunk } from '../types'
+import Chunk from 'webpack/lib/Chunk'
+import Module from 'webpack/lib/Module'
 
 type ModuleMap = {
   [key: string]: Module
@@ -38,8 +39,8 @@ const affectedModules = (
  *   [moduleId]: Module
  * }
  */
-const buildModuleMap = (modules: Array<Module>): ModuleMap => {
-  const moduleMap = modules.reduce(
+const buildModuleMap = (modules: Set<Module>): ModuleMap => {
+  const moduleMap = Array.from(modules).reduce(
     (memo, module: Module) => ({ ...memo, [module.id]: module }),
     {}
   )
@@ -55,12 +56,13 @@ const buildModuleMap = (modules: Array<Module>): ModuleMap => {
  *  }
  * }
  *
- * @param modules Array<number>
+ * @param chunks Set<Chunk>
+ * @param modules Set<Module>
  * @return ModuleUsageMap
  */
 const buildModuleUsageMap = (
-  chunks: Array<Chunk>,
-  modules: Array<Module>
+  chunks: Set<Chunk>,
+  modules: Set<Module>
 ): ModuleUsageMap => {
   // build a map of all modules with their parent
   // {
@@ -69,7 +71,7 @@ const buildModuleUsageMap = (
   //    }
   // }
   //
-  const moduleUsageMap: ModuleUsageMap = modules.reduce(
+  const moduleUsageMap: ModuleUsageMap = Array.from(modules).reduce(
     (memo, module: Module) => {
       module.dependencies.forEach(dependency => {
         const dependentModule = dependency.module
@@ -93,12 +95,12 @@ const buildModuleUsageMap = (
   //      [moduleId]: Module
   //    }
   // }
-  const chunkModuleMap: ModuleUsageMap = chunks.reduce((memo, chunk: Chunk) => {
+  const chunkModuleMap: ModuleUsageMap = Array.from(chunks).reduce((memo, chunk: Chunk) => {
     // build chunk map first to get also empty chunks (without modules)
     memo[chunk.id] = {} // eslint-disable-line no-param-reassign
     return memo
   }, {})
-  modules.reduce((memo, module: Module) => {
+  Array.from(modules).reduce((memo, module: Module) => {
     module.getChunks().forEach((chunk: Chunk) => {
       memo[chunk.id][module.id] = module // eslint-disable-line no-param-reassign
     })
@@ -133,18 +135,18 @@ const buildModuleUsageMap = (
  *  - affected directly by a file change
  *  - affected indirectly by a change of it's dependencies and so on
  *
- * @param chunks Array<Chunk>
- * @param modules Array<Module>
+ * @param chunks Set<Chunk>
+ * @param modules Set<Module>
  * @return {Array.<number>}
  */
 export default function getAffectedModuleIds(
-  chunks: Array<Chunk>,
-  modules: Array<Module>
+  chunks: Set<Chunk>,
+  modules: Set<Module>
 ): Array<number | string> {
   const moduleMap: ModuleMap = buildModuleMap(modules)
   const moduleUsageMap: ModuleUsageMap = buildModuleUsageMap(chunks, modules)
 
-  const builtModules = modules.filter(isBuilt)
+  const builtModules = Array.from(modules).filter(isBuilt)
   const affectedMap: ModuleMap = {}
   builtModules.forEach((module: Module) =>
     affectedModules(moduleMap, moduleUsageMap, affectedMap, module.id)
