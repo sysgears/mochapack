@@ -1,5 +1,7 @@
 import Chunk from 'webpack/lib/Chunk'
+import ChunkGraph from 'webpack/lib/ChunkGraph'
 import Module from 'webpack/lib/Module'
+import ModuleGraph from 'webpack/lib/ModuleGraph'
 
 type ModuleMap = {
   [key: string]: Module
@@ -12,6 +14,7 @@ const isBuilt = (module: Module): boolean => module.built
 const getId = (module: any): number | string => module.id
 
 const affectedModules = (
+  chunkGraph: ChunkGraph,
   map: ModuleMap,
   usageMap: ModuleUsageMap,
   affected: ModuleMap,
@@ -23,13 +26,13 @@ const affectedModules = (
   }
   // module is identified as affected by this function call
   const module = map[moduleId]
-  affected[module.id] = module // eslint-disable-line no-param-reassign
+  affected[moduleId] = module // eslint-disable-line no-param-reassign
 
   // next we need to mark all usages aka parents also as affected
-  const usages = usageMap[module.id]
+  const usages = usageMap[moduleId]
   if (typeof usages !== 'undefined') {
     const ids = Object.keys(usages)
-    ids.forEach((id: string) => affectedModules(map, usageMap, affected, id))
+    ids.forEach((id: string) => affectedModules(chunkGraph, map, usageMap, affected, id))
   }
 }
 
@@ -39,9 +42,9 @@ const affectedModules = (
  *   [moduleId]: Module
  * }
  */
-const buildModuleMap = (modules: Set<Module>): ModuleMap => {
+const buildModuleMap = (chunkGraph: ChunkGraph, modules: Set<Module>): ModuleMap => {
   const moduleMap = Array.from(modules).reduce(
-    (memo, module: Module) => ({ ...memo, [module.id]: module }),
+    (memo, module: Module) => ({ ...memo, [chunkGraph.getModuleId(module)]: module }),
     {}
   )
   return moduleMap
@@ -62,7 +65,9 @@ const buildModuleMap = (modules: Set<Module>): ModuleMap => {
  */
 const buildModuleUsageMap = (
   chunks: Set<Chunk>,
-  modules: Set<Module>
+  chunkGraph: ChunkGraph,
+  modules: Set<Module>,
+  moduleGraph: ModuleGraph
 ): ModuleUsageMap => {
   // build a map of all modules with their parent
   // {
@@ -74,15 +79,17 @@ const buildModuleUsageMap = (
   const moduleUsageMap: ModuleUsageMap = Array.from(modules).reduce(
     (memo, module: Module) => {
       module.dependencies.forEach(dependency => {
-        const dependentModule = dependency.module
+        const dependentModule = moduleGraph.getModule(dependency)
 
         if (!dependentModule) {
           return
         }
-        if (typeof memo[dependentModule.id] === 'undefined') {
-          memo[dependentModule.id] = {} // eslint-disable-line no-param-reassign
+        const dependentModuleId = chunkGraph.getModuleId(dependentModule)
+        if (typeof memo[dependentModuleId] === 'undefined') {
+          memo[dependentModuleId] = {} // eslint-disable-line no-param-reassign
         }
-        memo[dependentModule.id][module.id] = module // eslint-disable-line no-param-reassign
+        const moduleId = chunkGraph.getModuleId(module)
+        memo[dependentModuleId][moduleId] = module // eslint-disable-line no-param-reassign
       })
       return memo
     },
@@ -101,8 +108,9 @@ const buildModuleUsageMap = (
     return memo
   }, {})
   Array.from(modules).reduce((memo, module: Module) => {
-    module.getChunks().forEach((chunk: Chunk) => {
-      memo[chunk.id][module.id] = module // eslint-disable-line no-param-reassign
+    chunkGraph.getModuleChunksIterable(module).forEach((chunk: Chunk) => {
+      const moduleId = chunkGraph.getModuleId(module)
+      memo[chunk.id][moduleId] = module // eslint-disable-line no-param-reassign
     })
     return memo
   }, chunkModuleMap)
@@ -117,10 +125,12 @@ const buildModuleUsageMap = (
           // and mark all modules of this chunk as a direct dependency of the original module
           Object.values(chunkModuleMap[chunkId] as ModuleMap).forEach(
             (childModule: any) => {
-              if (typeof moduleUsageMap[childModule.id] === 'undefined') {
-                moduleUsageMap[childModule.id] = {}
+              const childModuleId = chunkGraph.getModuleId(childModule)
+              if (typeof moduleUsageMap[childModuleId] === 'undefined') {
+                moduleUsageMap[childModuleId] = {}
               }
-              moduleUsageMap[childModule.id][module.id] = module
+              const moduleId = chunkGraph.getModuleId(module)
+              moduleUsageMap[childModuleId][moduleId] = module
             }
           )
         })
@@ -141,16 +151,19 @@ const buildModuleUsageMap = (
  */
 export default function getAffectedModuleIds(
   chunks: Set<Chunk>,
-  modules: Set<Module>
+  chunkGraph: ChunkGraph,
+  modules: Set<Module>,
+  moduleGraph: ModuleGraph
 ): Array<number | string> {
-  const moduleMap: ModuleMap = buildModuleMap(modules)
-  const moduleUsageMap: ModuleUsageMap = buildModuleUsageMap(chunks, modules)
+  const moduleMap: ModuleMap = buildModuleMap(chunkGraph, modules)
+  const moduleUsageMap: ModuleUsageMap = buildModuleUsageMap(chunks, chunkGraph, modules, moduleGraph)
 
   const builtModules = Array.from(modules).filter(isBuilt)
   const affectedMap: ModuleMap = {}
+  const moduleId: string = chunkGraph.getModuleId(module)
   builtModules.forEach((module: Module) =>
-    affectedModules(moduleMap, moduleUsageMap, affectedMap, module.id)
+    affectedModules(chunkGraph, moduleMap, moduleUsageMap, affectedMap, moduleId)
   )
 
-  return Object.values(affectedMap).map(getId)
+  return Object.values(affectedMap).map(chunkGraph.getModuleId)
 }

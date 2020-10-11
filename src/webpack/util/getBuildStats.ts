@@ -15,10 +15,10 @@ export default function getBuildStats(
   stats: Stats,
   outputPath: string
 ): BuildStats {
-  const { chunks, chunkGroups, modules } = stats.compilation
+  const { chunks, chunkGraph, chunkGroups, modules, moduleGraph } = stats.compilation
 
   const sortedChunks = sortChunks(chunks, chunkGroups)
-  const affectedModules = getAffectedModuleIds(chunks, modules)
+  const affectedModules = getAffectedModuleIds(chunks, chunkGraph, modules, moduleGraph)
 
   const entries = []
   const js = []
@@ -34,9 +34,9 @@ export default function getBuildStats(
     }
 
     if (
-      chunk
-        .getModules()
-        .some((module: Module) => affectedModules.indexOf(module.id) !== -1)
+      chunkGraph
+        .getChunkModules(chunk)
+        .some((module: Module) => affectedModules.indexOf(chunkGraph.getModuleId(module)) !== -1)
     ) {
       files.forEach(file => {
         if (/\.js$/.test(file)) {
