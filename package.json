@@ -1,6 +1,6 @@
 {
   "name": "mochapack",
-  "version": "2.0.3",
+  "version": "2.0.4",
   "pm": "yarn@2.1.1",
   "description": "mocha cli with webpack support",
   "bin": "./bin/mochapack",
