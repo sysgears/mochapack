@@ -4,6 +4,7 @@ import _ from 'lodash'
 import chokidar from 'chokidar'
 import minimatch from 'minimatch'
 import { Configuration as WebpackConfig, Compiler, Stats } from 'webpack'
+import Mocha from 'mocha'
 
 import createCompiler from '../webpack/compiler/createCompiler'
 import createWatchCompiler, {
@@ -49,9 +50,6 @@ type MochaRunner = {
     resetTimeout: (ms: number) => void
   }
 }
-type Mocha = {
-  run: (cb: (failures: number) => void) => MochaRunner
-}
 
 export default class TestRunner extends EventEmitter {
   entries: Array<string>
@@ -84,8 +82,12 @@ export default class TestRunner extends EventEmitter {
     buildStats.affectedFiles.forEach(filePath => {
       delete require.cache[filePath]
     })
-    // pass webpack's entry files to mocha
-    ;(mocha as any).files = buildStats.entries
+    // Pass webpack's entry files to mocha.
+    // Make sure to add them via `addFile` otherwise they blow away any other files
+    // that might have been added via `--file`
+    buildStats.entries.forEach(entry => {
+      mocha.addFile(entry)
+    })
     return mocha
   }
 
