@@ -1,6 +1,6 @@
 {
   "name": "mochapack",
-  "version": "2.0.3",
+  "version": "2.0.5",
   "pm": "yarn@2.1.1",
   "description": "mocha cli with webpack support",
   "bin": "./bin/mochapack",
@@ -27,7 +27,7 @@
     "docs:build": "yarn run docs:clean && yarn run docs:prepare && gitbook build",
     "docs:watch": "yarn run docs:prepare && gitbook serve --port 3000",
     "docs:deploy": "gh-pages -d _book",
-    "prepublishOnly": "yarn run build  && yarn run docs:build",
+    "prepack": "yarn run build",
     "postpublish": "yarn run docs:deploy",
     "release": "np",
     "watch": "tsc -w"
