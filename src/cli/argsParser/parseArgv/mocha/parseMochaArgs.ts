@@ -5,7 +5,7 @@ import {
   createUnsupportedError
 } from 'mocha/lib/errors'
 import { ONE_AND_DONES } from 'mocha/lib/cli/one-and-dones'
-import { handleRequires, validatePlugin } from 'mocha/lib/cli/run-helpers'
+import { handleRequires, validatePlugin, validateLegacyPlugin } from 'mocha/lib/cli/run-helpers'
 import { aliases, types } from 'mocha/lib/cli/run-option-metadata'
 import yargs, { Arguments } from 'yargs'
 
@@ -52,8 +52,16 @@ const mochaChecks = (yargsInstance: any, argv: Arguments) => {
 
   // load requires first, because it can impact "plugin" validation
   handleRequires(argv.require)
-  validatePlugin(argv, 'reporter', Mocha.reporters)
-  validatePlugin(argv, 'ui', Mocha.interfaces)
+
+  // necessary since mocha 8.2.0 version
+  if (validatePlugin) {
+    validatePlugin(argv, 'reporter', Mocha.reporters)
+    validatePlugin(argv, 'ui', Mocha.interfaces)
+  }
+  else {
+    validateLegacyPlugin(argv, 'reporter', Mocha.reporters)
+    validateLegacyPlugin(argv, 'ui', Mocha.interfaces)
+  }
 
   return true
 }
