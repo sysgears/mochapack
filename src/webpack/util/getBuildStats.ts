@@ -25,7 +25,7 @@ export default function getBuildStats(
   const pathHelper = f => path.join(outputPath, f)
 
   sortedChunks.forEach((chunk: Chunk) => {
-    const files = Array.isArray(chunk.files) ? chunk.files : [chunk.files]
+    const files = Array.from(chunk.files)
 
     if (chunk.isOnlyInitial()) {
       // only entry files
@@ -38,7 +38,7 @@ export default function getBuildStats(
         .getChunkModules(chunk)
         .some((module: Module) => affectedModules.indexOf(chunkGraph.getModuleId(module)) !== -1)
     ) {
-      files.forEach(file => {
+      files.forEach((file: string) => {
         if (/\.js$/.test(file)) {
           js.push(file)
         }
