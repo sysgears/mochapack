@@ -5983,17 +5983,10 @@ fsevents@~2.1.1:
   languageName: node
   linkType: hard
 
-"graceful-fs@npm:4.1.11, graceful-fs@npm:~4.1.11, graceful-fs@npm:~4.1.6":
-  version: 4.1.11
-  resolution: "graceful-fs@npm:4.1.11"
-  checksum: 1b26c0fd118a3d98e20c5676e04184c42e56a822afda5f24f333a1702139475e8afbff0232e61357c9442295e3c0d69b734599f244322cb2ed891e95cf19e5d0
-  languageName: node
-  linkType: hard
-
-"graceful-fs@npm:^4.1.11, graceful-fs@npm:^4.1.15, graceful-fs@npm:^4.1.2, graceful-fs@npm:^4.1.6, graceful-fs@npm:^4.2.2":
-  version: 4.2.3
-  resolution: "graceful-fs@npm:4.2.3"
-  checksum: 3e182a21ccb788e12e4d9a37e83c74217f37da836072df07829e62e63d5b7525e701a9ca7b91e6ccd3ec8a5ee6fff74a00267f23f11df77bf32d19d4e25677a7
+"graceful-fs@npm:4.2.4":
+  version: 4.2.4
+  resolution: "graceful-fs@npm:4.2.4"
+  checksum: d4b53e628f50d6639d92256a7b01a6f3206b9d8506b3139e2b353d3f1947780f36939cfe69d831b87de7ef189459ef0418acf7fa020be4826444b788cec8ebb7
   languageName: node
   linkType: hard
 

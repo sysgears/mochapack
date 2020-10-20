@@ -156,6 +156,7 @@
     "js-yaml": ">=3.13.0",
     "lodash.mergewith": ">=4.6.2",
     "bdd-lazy-var/mocha": ">=4.0.0",
+    "graceful-fs": "4.2.4",
     "fstream": ">=1.0.12",
     "tunnel-agent": ">=0.6.0",
     "hoek": "^4.2.1",
