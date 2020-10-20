@@ -60,6 +60,10 @@ describe('initMocha', async () => {
       })
     }
 
+    if (mochaMajorVersion >= 8) {
+      delete defaultOptions.opts;
+    }
+
     cwd = process.cwd()
     // @ts-ignore
     sandbox.stub(Mocha.prototype, 'isGrowlCapable').returns(true)
