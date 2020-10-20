@@ -1,6 +1,6 @@
 {
   "name": "mochapack",
-  "version": "2.0.5",
+  "version": "2.0.6",
   "pm": "yarn@2.1.1",
   "description": "mocha cli with webpack support",
   "bin": "./bin/mochapack",
@@ -46,7 +46,7 @@
   "author": "Victor Vlasenko <victor.vlasenko@sysgears.com>",
   "license": "MIT",
   "peerDependencies": {
-    "mocha": ">=6 <=7",
+    "mocha": ">=6 <9",
     "webpack": "^4.0.0"
   },
   "devDependencies": {
