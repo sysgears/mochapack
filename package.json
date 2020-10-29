@@ -1,7 +1,7 @@
 {
   "name": "mochapack",
-  "version": "2.0.5",
-  "pm": "yarn@2.1.1",
+  "version": "2.0.6",
+  "pm": "yarn@2.3.3",
   "description": "mocha cli with webpack support",
   "bin": "./bin/mochapack",
   "main": "./lib/createMochapack.js",
@@ -46,7 +46,7 @@
   "author": "Victor Vlasenko <victor.vlasenko@sysgears.com>",
   "license": "MIT",
   "peerDependencies": {
-    "mocha": ">=6 <=7",
+    "mocha": ">=6 <9",
     "webpack": "^5.0.0"
   },
   "devDependencies": {
@@ -155,6 +155,7 @@
     "js-yaml": ">=3.13.0",
     "lodash.mergewith": ">=4.6.2",
     "bdd-lazy-var/mocha": ">=4.0.0",
+    "graceful-fs": "4.2.4",
     "fstream": ">=1.0.12",
     "tunnel-agent": ">=0.6.0",
     "hoek": "^4.2.1",

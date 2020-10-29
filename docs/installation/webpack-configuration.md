@@ -39,6 +39,7 @@ So your webpack-config should look like
 var nodeExternals = require('webpack-node-externals');
 
 module.exports = {
+  mode: 'development',
   output: {
     // use absolute paths in sourcemaps (important for debugging via IDE)
     devtoolModuleFilenameTemplate: '[absolute-resource-path]',

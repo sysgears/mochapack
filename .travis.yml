@@ -21,6 +21,7 @@ install:
 
 env:
   - WEBPACK_VERSION=5 MOCHA_VERSION=7
+  - WEBPACK_VERSION=5 MOCHA_VERSION=8
 
 before_script:
   - "yarn add -D webpack@$WEBPACK_VERSION"
