@@ -58,7 +58,10 @@ export default function createStatsFormatter(rootPath: string) {
       lines.push('')
     }
 
-    lines.push(formatErrorMessage(err.message))
+    // Make sure we have a valid error message
+    if (err.message && typeof err.message === 'string') {
+      lines.push(formatErrorMessage(err.message))
+    }
 
     return lines.join(EOL)
   }
