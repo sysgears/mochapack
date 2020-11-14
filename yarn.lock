@@ -2151,6 +2151,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"array-filter@npm:^1.0.0":
+  version: 1.0.0
+  resolution: "array-filter@npm:1.0.0"
+  checksum: 50f98e35166b7421dcb7bf50502374bb670bc2d94ae3610edf269fdc3b7468192a49fe591355caf8e5f20839246b5475ddbb3c9cd10b9374a27d10730d0eb9bc
+  languageName: node
+  linkType: hard
+
 "array-find-index@npm:^1.0.1":
   version: 1.0.2
   resolution: "array-find-index@npm:1.0.2"
@@ -2253,6 +2260,18 @@ __metadata:
   languageName: node
   linkType: hard
 
+"assert@npm:^2.0.0":
+  version: 2.0.0
+  resolution: "assert@npm:2.0.0"
+  dependencies:
+    es6-object-assign: ^1.1.0
+    is-nan: ^1.2.1
+    object-is: ^1.0.1
+    util: ^0.12.0
+  checksum: ce8ae5a9e193f720f12523ac16010c8b9ce706bfbf70d3b66e3f8256fc241f065b2629245656b5e04283e789f928fd3868c1e54aaf7d5693c952b674a86ca088
+  languageName: node
+  linkType: hard
+
 "assertion-error@npm:^1.1.0":
   version: 1.1.0
   resolution: "assertion-error@npm:1.1.0"
@@ -2326,6 +2345,15 @@ __metadata:
   bin:
     atob: bin/atob.js
   checksum: c936d1f32c4bab5e6634df4559e48f8c0d7a9079e26ae3bf63cb76c54ad1767acbf95c04f88fc473ddd0d919591329c611ed74946680683f1f79f361d6c63f2c
+  languageName: node
+  linkType: hard
+
+"available-typed-arrays@npm:^1.0.0, available-typed-arrays@npm:^1.0.2":
+  version: 1.0.2
+  resolution: "available-typed-arrays@npm:1.0.2"
+  dependencies:
+    array-filter: ^1.0.0
+  checksum: 25b8dcfd62baa027fd38512f3c8a573ae0cf75a948d7dc4dd0497dc74753871b7b5ad6228e5e4c35ee028e1c61ad6031205b7f9204e764929793f569a8f84305
   languageName: node
   linkType: hard
 
@@ -4327,7 +4355,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"es-abstract@npm:^1.17.0, es-abstract@npm:^1.17.0-next.1, es-abstract@npm:^1.17.5":
+"es-abstract@npm:^1.17.0, es-abstract@npm:^1.17.0-next.1, es-abstract@npm:^1.17.4, es-abstract@npm:^1.17.5":
   version: 1.17.7
   resolution: "es-abstract@npm:1.17.7"
   dependencies:
@@ -4381,6 +4409,13 @@ __metadata:
   version: 4.1.1
   resolution: "es6-error@npm:4.1.1"
   checksum: 699a002099018474d23434fc50c9f229c6c8568ecb1a6bff52d000e9dc9a05551be1df546ae25a3406f6ddbe03babb13ec404e78d9fb45308d5d2aba43f921f4
+  languageName: node
+  linkType: hard
+
+"es6-object-assign@npm:^1.1.0":
+  version: 1.1.0
+  resolution: "es6-object-assign@npm:1.1.0"
+  checksum: 55ef44bdddb41f92c34f9ea4dcc64be819837df19c02eed9cc068f4ae5ed2425f358756d9dd1d562cb78e58bddb343d035e8a66bb35658a9b89239ca187e0c85
   languageName: node
   linkType: hard
 
@@ -5071,6 +5106,13 @@ __metadata:
   dependencies:
     for-in: ^1.0.1
   checksum: 27a2f9678b39efd2e737f8c54cace1e6aa1850a509f866720d4c59f4123c30911f2ea1cb873d57280f3f485d307baec43692115ab965efc9a2a1d5a0ff14bfa7
+  languageName: node
+  linkType: hard
+
+"foreach@npm:^2.0.5":
+  version: 2.0.5
+  resolution: "foreach@npm:2.0.5"
+  checksum: 511e32be15abbc65931d6e4346551c874a7560c2b5fbdb6e393a06149ab4f49b5acd8f3d32de023389730db8c61b32aba22564aa49344fe82da39053f8d5764c
   languageName: node
   linkType: hard
 
@@ -6383,6 +6425,13 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
+"is-arguments@npm:^1.0.4":
+  version: 1.0.4
+  resolution: "is-arguments@npm:1.0.4"
+  checksum: 278eb20b45b74039bb9b60ae54e3aaccb5fdc09ccd984adaa4ea3fa87c6eeb840493e024bf350e73aba7eeabc9fd8b74a90351d614fd8511041303b8a30f80d5
+  languageName: node
+  linkType: hard
+
 "is-arrayish@npm:^0.2.1":
   version: 0.2.1
   resolution: "is-arrayish@npm:0.2.1"
@@ -6588,6 +6637,13 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
+"is-generator-function@npm:^1.0.7":
+  version: 1.0.7
+  resolution: "is-generator-function@npm:1.0.7"
+  checksum: c14880c823e722ceef0a9a9894f34eaf196155b0adb6158d833b5da1b30d0ae0930bc1a220227d12543a84a6dad88e66215084255fd446b1069d2dc2cc24bbfb
+  languageName: node
+  linkType: hard
+
 "is-glob@npm:^2.0.0, is-glob@npm:^2.0.1":
   version: 2.0.1
   resolution: "is-glob@npm:2.0.1"
@@ -6652,6 +6708,15 @@ fsevents@^1.2.7:
     jsonpointer: ^4.0.0
     xtend: ^4.0.0
   checksum: 0c492a04d37bb4ab6c62dfb61af0deeb5e9b3a8b36cdd0ea15a3a125847cd276362d651cc91861b004b95e2bbda95677c7b82b6de218d9ae79d3326474876600
+  languageName: node
+  linkType: hard
+
+"is-nan@npm:^1.2.1":
+  version: 1.3.0
+  resolution: "is-nan@npm:1.3.0"
+  dependencies:
+    define-properties: ^1.1.3
+  checksum: cc42db95709d6b1e4316219ed47bd0d479e4256b55a670b330bd94bf7109ac9c9129808fb083d25869ccc34c3d1a14a44c73f863a9b2b75dbf935ab1fdba86bd
   languageName: node
   linkType: hard
 
@@ -6868,6 +6933,18 @@ fsevents@^1.2.7:
   dependencies:
     has-symbols: ^1.0.1
   checksum: 9f2d046ea4b2a5ad90e21829e1fb0e43276365b757e52b612eda7b7621477bf41c8a67a92ee39cd0640b168288904433a8f96eaabeb4d7943434c4eae8f44c60
+  languageName: node
+  linkType: hard
+
+"is-typed-array@npm:^1.1.3":
+  version: 1.1.3
+  resolution: "is-typed-array@npm:1.1.3"
+  dependencies:
+    available-typed-arrays: ^1.0.0
+    es-abstract: ^1.17.4
+    foreach: ^2.0.5
+    has-symbols: ^1.0.1
+  checksum: b426157993d2e75cb83d9caff4c8e0e32fff664cad3ce885e3334d7a52f5de2a87a91a11a9c73c9026d40dcfafad4a8f52808b7750b43866d4a5160768fa3c61
   languageName: node
   linkType: hard
 
@@ -8374,6 +8451,7 @@ fsevents@^1.2.7:
     "@typescript-eslint/eslint-plugin": ^2.11.0
     "@typescript-eslint/parser": ^2.11.0
     anymatch: 3.1.1
+    assert: ^2.0.0
     babel-eslint: ^9.0.0
     babel-loader: ^8.0.0
     babel-plugin-istanbul: 4.1.6
@@ -9315,6 +9393,16 @@ fsevents@^1.2.7:
   version: 1.8.0
   resolution: "object-inspect@npm:1.8.0"
   checksum: 48a9e882d3f939e5a774a4bb99bbf0c87c11f4aef16fb946e410eba22fcf65224ba901f94b521e93077f74cd96c40f92935784ce062d21ad762dfce6d7ef2a8a
+  languageName: node
+  linkType: hard
+
+"object-is@npm:^1.0.1":
+  version: 1.1.3
+  resolution: "object-is@npm:1.1.3"
+  dependencies:
+    define-properties: ^1.1.3
+    es-abstract: ^1.18.0-next.1
+  checksum: f453856abb761679bd259e03cfdc9c415370015d5f0afb0dda2bb22008bc9409d782f2c3b168a6a4b28c12555debdba37a84dbdbe309c002a2a066416b34d20e
   languageName: node
   linkType: hard
 
@@ -12845,6 +12933,20 @@ typescript@^3.8.3:
   languageName: node
   linkType: hard
 
+"util@npm:^0.12.0":
+  version: 0.12.3
+  resolution: "util@npm:0.12.3"
+  dependencies:
+    inherits: ^2.0.3
+    is-arguments: ^1.0.4
+    is-generator-function: ^1.0.7
+    is-typed-array: ^1.1.3
+    safe-buffer: ^5.1.2
+    which-typed-array: ^1.1.2
+  checksum: 1e2d9f8f0997e9902e3260dd7533ff3d71ef1eec4c0f6c9fc16355f6228b7a35f0b64fee086298d55dcedf99d75dcc19fa02418c2403c2ab9c25212a1f3c3ffe
+  languageName: node
+  linkType: hard
+
 "uuid@npm:^3.0.0, uuid@npm:^3.3.2":
   version: 3.4.0
   resolution: "uuid@npm:3.4.0"
@@ -12989,6 +13091,20 @@ typescript@^3.8.3:
   version: 2.0.0
   resolution: "which-module@npm:2.0.0"
   checksum: 60d833d03fa83ff05b51c38bbdce2b06d9ee5d3610e3bf9d6db668783e73ddf8d7df6c3f83dccd49638f0694d0929e8d5106b969c7b854170eef14ca0fe91669
+  languageName: node
+  linkType: hard
+
+"which-typed-array@npm:^1.1.2":
+  version: 1.1.2
+  resolution: "which-typed-array@npm:1.1.2"
+  dependencies:
+    available-typed-arrays: ^1.0.2
+    es-abstract: ^1.17.5
+    foreach: ^2.0.5
+    function-bind: ^1.1.1
+    has-symbols: ^1.0.1
+    is-typed-array: ^1.1.3
+  checksum: 398f304e538ab2678f57a4b46c1860f9262214f301b608b6b4faa80ffc85cf410c4572aaea479a1603343f8be2b624d5f63dc91b67f868dd0a55b6156b7ea629
   languageName: node
   linkType: hard
 
