@@ -3076,7 +3076,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"chalk@npm:^2.0.0, chalk@npm:^2.0.1, chalk@npm:^2.1.0, chalk@npm:^2.3.0, chalk@npm:^2.4.0, chalk@npm:^2.4.1, chalk@npm:^2.4.2":
+"chalk@npm:^2.0.0, chalk@npm:^2.0.1, chalk@npm:^2.1.0, chalk@npm:^2.3.0, chalk@npm:^2.4.1, chalk@npm:^2.4.2":
   version: 2.4.2
   resolution: "chalk@npm:2.4.2"
   dependencies:
@@ -4922,13 +4922,6 @@ __metadata:
     strip-outer: ^1.0.0
     trim-repeated: ^1.0.0
   checksum: d6102f1d0cef8de03ca80c43c3718733701a4a42cdf95f54c5c7af803ec4cf5aecf349f940004a5ca8ac45e432bfb7bf6156f625a8eae06d7e9ec8be36c82189
-  languageName: node
-  linkType: hard
-
-"filesize@npm:^3.6.1":
-  version: 3.6.1
-  resolution: "filesize@npm:3.6.1"
-  checksum: 206390a572596fb3672acc6efafb7c8084997e129e9627e0e6088b5fbbdd74acbd08d5da5aa3ca4dbdd21646ff4da73424d5df0afe5e34c8f02640a4188f0960
   languageName: node
   linkType: hard
 
@@ -7779,7 +7772,7 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
-"lodash@npm:^4.0.0, lodash@npm:^4.17.10, lodash@npm:^4.17.13, lodash@npm:^4.17.14, lodash@npm:^4.17.15, lodash@npm:^4.17.19, lodash@npm:^4.17.4, lodash@npm:^4.3.0, lodash@npm:~4.17.10":
+"lodash@npm:^4.0.0, lodash@npm:^4.17.10, lodash@npm:^4.17.14, lodash@npm:^4.17.15, lodash@npm:^4.17.19, lodash@npm:^4.17.4, lodash@npm:^4.3.0, lodash@npm:~4.17.10":
   version: 4.17.20
   resolution: "lodash@npm:4.17.20"
   checksum: 4448e0047c0026a0491bf49b3a6912356a87c5b0a63b3837389f7f9846ccd72f7acdce8829191c896e8ea97b1a756615d06f8ff9da1eda32d60f39cebece7e9f
@@ -8433,7 +8426,6 @@ fsevents@^1.2.7:
     typescript: ^3.8.3
     webpack: 5.0.0
     worker-loader: ^3.0.5
-    write-file-webpack-plugin: ^4.2.0
     yargs: 14.0.0
   peerDependencies:
     mocha: ">=6 <9"
@@ -8442,13 +8434,6 @@ fsevents@^1.2.7:
     mochapack: ./bin/mochapack
   languageName: unknown
   linkType: soft
-
-"moment@npm:^2.22.1":
-  version: 2.29.1
-  resolution: "moment@npm:2.29.1"
-  checksum: fc85063af628f36cf0d51d22d11d44c0da116b2c9109d4a08656e4cdfafb4917729f3e688eac904fa222acb2347a6fa51cb5a159c0dc00af28892962c9640a5c
-  languageName: node
-  linkType: hard
 
 "move-concurrently@npm:^1.0.1, move-concurrently@npm:~1.0.1":
   version: 1.0.1
@@ -13122,7 +13107,7 @@ typescript@^3.8.3:
   languageName: node
   linkType: hard
 
-"write-file-atomic@npm:^2.0.0, write-file-atomic@npm:^2.3.0, write-file-atomic@npm:^2.4.2":
+"write-file-atomic@npm:^2.0.0, write-file-atomic@npm:^2.4.2":
   version: 2.4.3
   resolution: "write-file-atomic@npm:2.4.3"
   dependencies:
@@ -13152,21 +13137,6 @@ typescript@^3.8.3:
     imurmurhash: ^0.1.4
     slide: ^1.1.5
   checksum: 9f94b879c9380978907be4575138ea2a83ff7c07bdfa1ecb437a20fc2ed05dd59fec092e151574f12614008e06d3952fa7d4bf908eb6d83bdae1ab9e4bc4b434
-  languageName: node
-  linkType: hard
-
-"write-file-webpack-plugin@npm:^4.2.0":
-  version: 4.5.1
-  resolution: "write-file-webpack-plugin@npm:4.5.1"
-  dependencies:
-    chalk: ^2.4.0
-    debug: ^3.1.0
-    filesize: ^3.6.1
-    lodash: ^4.17.13
-    mkdirp: ^0.5.1
-    moment: ^2.22.1
-    write-file-atomic: ^2.3.0
-  checksum: 49ea6ea2715495d18277c1dab72279dc1fe31a1d10fbdfd214ead36170dd78a0d478fbd670fced65044e391410d8617d1a58e0b68ca65083cbc4a5479ef199e9
   languageName: node
   linkType: hard
 

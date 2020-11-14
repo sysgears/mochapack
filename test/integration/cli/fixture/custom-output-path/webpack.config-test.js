@@ -1,6 +1,5 @@
 /* eslint-disable */
 const path = require('path');
-const WriteFilePlugin = require('write-file-webpack-plugin');
 
 module.exports = {
   mode: 'development',
@@ -10,7 +9,7 @@ module.exports = {
     path: path.join(__dirname,  '../../fixtureTmp'),
     publicPath: ''
   },
-  plugins: [
-    new WriteFilePlugin(),
-  ],
+  devServer: {
+    writeToDisk: true,
+  }
 };

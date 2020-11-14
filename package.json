@@ -106,8 +106,7 @@
     "ts-mocha": "^7.0.0",
     "typescript": "^3.8.3",
     "webpack": "5.0.0",
-    "worker-loader": "^3.0.5",
-    "write-file-webpack-plugin": "^4.2.0"
+    "worker-loader": "^3.0.5"
   },
   "dependencies": {
     "@babel/runtime-corejs2": "^7.0.0",
