@@ -160,10 +160,10 @@ export default function getAffectedModuleIds(
 
   const builtModules = Array.from(modules).filter(isBuilt)
   const affectedMap: ModuleMap = {}
-  const moduleId: string = chunkGraph.getModuleId(module)
-  builtModules.forEach((module: Module) =>
+  builtModules.forEach((module: Module) => {
+    const moduleId: string = chunkGraph.getModuleId(module)
     affectedModules(chunkGraph, moduleMap, moduleUsageMap, affectedMap, moduleId)
-  )
+  })
 
   return Object.values(affectedMap).map(chunkGraph.getModuleId)
 }
