@@ -106,8 +106,8 @@ export default class TestRunner extends EventEmitter {
       failures = await new Promise((resolve, reject) => {
         registerReadyCallback(
           compiler,
-          (err: (Error | string) | null, webpackStats: Stats | null) => {
-            this.emit(WEBPACK_READY_EVENT, err, webpackStats)
+          (err: Error, webpackStats: Stats) => {
+            this.emit(WEBPACK_READY_EVENT, err)
             if (err || !webpackStats) {
               reject()
               return
@@ -216,8 +216,8 @@ export default class TestRunner extends EventEmitter {
     // register webpack ready callback
     registerReadyCallback(
       compiler,
-      (err: (Error | string) | null, webpackStats: Stats | null) => {
-        this.emit(WEBPACK_READY_EVENT, err, webpackStats)
+      (err: Error, webpackStats: Stats) => {
+        this.emit(WEBPACK_READY_EVENT, err, null)
         if (err) {
           // wait for fixed tests
           return
