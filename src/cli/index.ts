@@ -43,8 +43,8 @@ async function cli() {
       }
       return mochaWebpack.run()
     })
-    .then(() => {
-      exit(cliOptions.mocha.cli.exit, 0)
+    .then((failures: number | void) => {
+      exit(cliOptions.mocha.cli.exit, failures || 0)
     })
     .catch((e: Error) => {
       if (e) console.error(e.stack) // eslint-disable-line
