@@ -25,8 +25,8 @@ env:
   - WEBPACK_VERSION=4 MOCHA_VERSION=8
 
 before_script:
-  - yarn add -D webpack@${WEBPACK_VERSION}
-  - yarn add -D mocha@${MOCHA_VERSION}
+  - "yarn add -D webpack@$WEBPACK_VERSION"
+  - "yarn add -D mocha@$MOCHA_VERSION"
 
 script:
   - yarn run cover
