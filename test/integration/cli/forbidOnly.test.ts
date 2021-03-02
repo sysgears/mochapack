@@ -12,6 +12,8 @@ describe('cli --forbid-only', function() {
   it('gets really angry if there is an only in the test', function(done) {
     exec(`node ${binPath} --mode development --forbid-only "${test}"`, err => {
       assert.isNotNull(err)
+      assert.include(err.message, 'only')
+      assert.include(err.message, 'forbidden')
       done()
     })
   })
