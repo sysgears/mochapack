@@ -171,5 +171,5 @@ export default function getAffectedModuleIds(
     affectedModules(chunkGraph, moduleMap, moduleUsageMap, affectedMap, moduleId)
   })
 
-  return Object.values(affectedMap).map(chunkGraph.getModuleId)
+  return Object.values(affectedMap).map(m => chunkGraph.getModuleId(m))
 }
