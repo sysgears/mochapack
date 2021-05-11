@@ -10,7 +10,12 @@ type ModuleUsageMap = {
   // child id
   [key: string]: ModuleMap
 }
-const isBuilt = (module: Module): boolean => module.built
+const isBuilt = (module: Module, webpackBuiltModules: WeakSet<Module>): boolean => {
+  if (webpackBuiltModules) {
+    return webpackBuiltModules.has(module)
+  }
+  return module.built
+}
 const getId = (module: any): number | string => module.id
 
 const affectedModules = (
@@ -121,7 +126,7 @@ const buildModuleUsageMap = (
       .filter(block => block.chunkGroup != null)
       .forEach(block => {
         // loop through all generated chunks by this module
-        block.chunkGroup.chunks.map(getId).forEach(chunkId => {
+        Array.from(block.chunkGroup.chunks).map(getId).forEach(chunkId => {
           // and mark all modules of this chunk as a direct dependency of the original module
           Object.values(chunkModuleMap[chunkId] as ModuleMap).forEach(
             (childModule: any) => {
@@ -153,12 +158,13 @@ export default function getAffectedModuleIds(
   chunks: Set<Chunk>,
   chunkGraph: ChunkGraph,
   modules: Set<Module>,
-  moduleGraph: ModuleGraph
+  moduleGraph: ModuleGraph,
+  webpackBuiltModules?: WeakSet<Module>
 ): Array<number | string> {
   const moduleMap: ModuleMap = buildModuleMap(chunkGraph, modules)
   const moduleUsageMap: ModuleUsageMap = buildModuleUsageMap(chunks, chunkGraph, modules, moduleGraph)
 
-  const builtModules = Array.from(modules).filter(isBuilt)
+  const builtModules = Array.from(modules).filter(m => isBuilt(m, webpackBuiltModules))
   const affectedMap: ModuleMap = {}
   builtModules.forEach((module: Module) => {
     const moduleId: string = chunkGraph.getModuleId(module)

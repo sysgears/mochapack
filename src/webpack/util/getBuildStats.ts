@@ -15,10 +15,10 @@ export default function getBuildStats(
   stats: Stats,
   outputPath: string
 ): BuildStats {
-  const { chunks, chunkGraph, chunkGroups, modules, moduleGraph } = stats.compilation
+  const { chunks, chunkGraph, chunkGroups, modules, moduleGraph, builtModules } = stats.compilation
 
   const sortedChunks = sortChunks(chunks, chunkGroups)
-  const affectedModules = getAffectedModuleIds(chunks, chunkGraph, modules, moduleGraph)
+  const affectedModules = getAffectedModuleIds(chunks, chunkGraph, modules, moduleGraph, builtModules)
 
   const entries = []
   const js = []

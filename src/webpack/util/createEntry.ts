@@ -8,7 +8,6 @@ export default function createEntry(filePaths: Array<string>): string {
     'var ids = [',
     filePaths.map(path => `require.resolve(${path})`).join(','),
     '];',
-    '',
     'ids.filter(inManifest).forEach(run)'
   ].join('\n')
 }
