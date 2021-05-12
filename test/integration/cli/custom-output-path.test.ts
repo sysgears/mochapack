@@ -21,6 +21,7 @@ describe('custom output path', function() {
   })
 
   beforeEach(function() {
+    process.env.MOCHAPACK_WRITE_TO_DISK = 'true'
     return del(this.webpackConfig.output.path)
   })
 
@@ -44,6 +45,7 @@ describe('custom output path', function() {
   })
 
   afterEach(function() {
+    delete process.env.MOCHAPACK_WRITE_TO_DISK
     return del(this.webpackConfig.output.path)
   })
 })
