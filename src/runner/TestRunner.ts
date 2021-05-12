@@ -3,7 +3,7 @@ import EventEmitter from 'events'
 import _ from 'lodash'
 import chokidar from 'chokidar'
 import minimatch from 'minimatch'
-import { Configuration as WebpackConfig, Compiler, Stats } from 'webpack'
+import webpack, { Configuration as WebpackConfig, Compiler, Stats } from 'webpack'
 import Mocha from 'mocha'
 
 import createCompiler from '../webpack/compiler/createCompiler'
@@ -14,7 +14,6 @@ import registerInMemoryCompiler from '../webpack/compiler/registerInMemoryCompil
 import registerReadyCallback from '../webpack/compiler/registerReadyCallback'
 import getBuildStats, { BuildStats } from '../webpack/util/getBuildStats'
 import webpack4GetBuildStats from '../webpack/util/webpack4GetBuildStats'
-import webpack from 'webpack'
 
 import createWebpackConfig from './runnerUtils/createWebpackConfig'
 import {
@@ -55,8 +54,11 @@ type MochaRunner = {
 
 export default class TestRunner extends EventEmitter {
   entries: Array<string>
+
   includes: Array<string>
+
   options: MochapackOptions
+
   cwd: string
 
   constructor(
