@@ -29,7 +29,10 @@ before_script:
   - "yarn add -D webpack@$WEBPACK_VERSION"
   - "yarn add -D mocha@$MOCHA_VERSION"
   # Need to skip ts check for getAffectedModuleIds in webpack 4
-  - test WEBPACK_VERSION = 4 && echo -e "// @ts-nocheck\n$(cat src/webpack/util/getAffectedModuleIds.ts)" > src/webpack/util/getAffectedModuleIds.ts
+  - |
+    if [ $WEBPACK_VERSION == 4 ]; then
+      echo -e "// @ts-nocheck\n$(cat src/webpack/util/getAffectedModuleIds.ts)" > src/webpack/util/getAffectedModuleIds.ts;
+    fi
 
 script:
   - yarn run cover
