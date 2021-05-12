@@ -23,10 +23,22 @@ env:
   - WEBPACK_VERSION=4 MOCHA_VERSION=6
   - WEBPACK_VERSION=4 MOCHA_VERSION=7
   - WEBPACK_VERSION=4 MOCHA_VERSION=8
+  - WEBPACK_VERSION=5 MOCHA_VERSION=7
+  - WEBPACK_VERSION=5 MOCHA_VERSION=8
 
 before_script:
   - "yarn add -D webpack@$WEBPACK_VERSION"
   - "yarn add -D mocha@$MOCHA_VERSION"
+
+  # Need to skip ts check for getAffectedModuleIds in webpack 4
+  - |
+    if [ $WEBPACK_VERSION == 4 ]; then
+      echo -e "// @ts-nocheck\n/*eslint-disable*/\n$(cat src/webpack/util/getAffectedModuleIds.ts)" > src/webpack/util/getAffectedModuleIds.ts;
+    fi
+  - |
+    if [ $WEBPACK_VERSION == 5 ]; then
+      echo -e "// @ts-nocheck\n$(cat src/webpack/util/webpack4GetBuildStats.ts)" > src/webpack/util/webpack4GetBuildStats.ts;
+    fi
 
 script:
   - yarn run cover

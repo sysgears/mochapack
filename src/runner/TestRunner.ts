@@ -13,6 +13,8 @@ import createWatchCompiler, {
 import registerInMemoryCompiler from '../webpack/compiler/registerInMemoryCompiler'
 import registerReadyCallback from '../webpack/compiler/registerReadyCallback'
 import getBuildStats, { BuildStats } from '../webpack/util/getBuildStats'
+import webpack4GetBuildStats from '../webpack/util/webpack4GetBuildStats'
+import webpack from 'webpack'
 
 import createWebpackConfig from './runnerUtils/createWebpackConfig'
 import {
@@ -73,7 +75,13 @@ export default class TestRunner extends EventEmitter {
   prepareMocha(webpackConfig: WebpackConfig, stats: Stats): Mocha {
     const mocha: Mocha = initMocha(this.options.mocha, this.cwd)
     const outputPath = webpackConfig.output.path
-    const buildStats: BuildStats = getBuildStats(stats, outputPath)
+
+    let buildStats: BuildStats
+    if (webpack.version[0] === '4') {
+      buildStats = webpack4GetBuildStats(stats, outputPath)
+    } else {
+      buildStats = getBuildStats(stats, outputPath)
+    }
 
     // @ts-ignore
     global.__webpackManifest__ = buildStats.affectedModules // eslint-disable-line
@@ -106,7 +114,7 @@ export default class TestRunner extends EventEmitter {
       failures = await new Promise((resolve, reject) => {
         registerReadyCallback(
           compiler,
-          (err: (Error | string) | null, webpackStats: Stats | null) => {
+          (err: Error, webpackStats: Stats) => {
             this.emit(WEBPACK_READY_EVENT, err, webpackStats)
             if (err || !webpackStats) {
               reject()
@@ -216,7 +224,7 @@ export default class TestRunner extends EventEmitter {
     // register webpack ready callback
     registerReadyCallback(
       compiler,
-      (err: (Error | string) | null, webpackStats: Stats | null) => {
+      (err: Error, webpackStats: Stats) => {
         this.emit(WEBPACK_READY_EVENT, err, webpackStats)
         if (err) {
           // wait for fixed tests

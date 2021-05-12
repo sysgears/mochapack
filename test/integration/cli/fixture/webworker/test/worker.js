@@ -1,5 +1,5 @@
 const assert = require('assert');
-const MyWorker = require('worker-loader!../src/worker');
+const MyWorker = require('worker-loader!../src/worker').default;
 
 describe('worker', function () {
 

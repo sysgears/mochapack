@@ -2,8 +2,8 @@ import { EOL } from 'os'
 import chalk from 'chalk'
 import { Stats } from 'webpack'
 import RequestShortener from 'webpack/lib/RequestShortener'
+import WebpackError from 'webpack/lib/WebpackError'
 import { formatErrorMessage, stripLoaderFromPath } from './formatUtil'
-import { WebpackError } from '../types'
 
 const createGetFile = (requestShortener: RequestShortener) => (
   e: WebpackError

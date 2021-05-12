@@ -17,11 +17,13 @@ describe('webworker', function() {
     )
   })
   it('runs test successfully', function(done) {
+    process.env.MOCHAPACK_WRITE_TO_DISK = 'true'
     exec(
       `node ${binPath}  --webpack-config "${this.webpackConfig}" "${this.passingTest}"`,
       (err, output) => {
         assert.isNull(err)
         assert.include(output, '1 passing')
+        delete process.env.MOCHAPACK_WRITE_TO_DISK
         done()
       }
     )

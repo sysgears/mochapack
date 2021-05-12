@@ -31,14 +31,15 @@ export const entryLoader = function entryLoader() {
   // Remove all dependencies of the loader result
   this.clearDependencies()
 
-  const dependencies: Array<string> = config
-    .getFiles()
-    .map(file => loaderUtils.stringifyRequest(this, file))
+
+  const entries = config.getFiles()
 
   // add all entries as dependencies
-  dependencies.forEach(this.addDependency.bind(this))
+  // note this.addDependency requires an absolute path
+  entries.forEach(e => this.addDependency(e))
 
   // build source code
+  const dependencies = entries.map(file => loaderUtils.stringifyRequest(this, file))
   const sourceCode: string = createEntry(dependencies)
 
   this.callback(null, sourceCode, null)

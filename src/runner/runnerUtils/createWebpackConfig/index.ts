@@ -5,7 +5,7 @@ import {
   has as _has,
   merge as _merge
 } from 'lodash'
-import { Configuration, Plugin, RuleSetRule } from 'webpack'
+import { Configuration, WebpackPluginInstance, RuleSetRule } from 'webpack'
 import { glob } from '../../../util/glob'
 import { EntryConfig } from '../../../webpack/loader/entryLoader'
 import { buildProgressPlugin } from '../../../webpack/plugin/buildProgressPlugin'
@@ -48,7 +48,7 @@ const getPublicPath = (
 const buildPluginsArray = (
   webpackConfig: Configuration,
   interactive: boolean
-): Plugin[] => {
+): WebpackPluginInstance[] => {
   const plugins = webpackConfig.plugins || []
 
   if (interactive) {

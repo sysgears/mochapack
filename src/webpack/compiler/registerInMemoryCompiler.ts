@@ -1,3 +1,4 @@
+import fs from 'fs'
 import path from 'path'
 import sourceMapSupport from 'source-map-support'
 import MemoryFileSystem from 'memory-fs'
@@ -13,7 +14,10 @@ export default function registerInMemoryCompiler(
 ): VoidFunction {
   // register memory fs to webpack
   const memoryFs = new MemoryFileSystem()
-  compiler.outputFileSystem = memoryFs // eslint-disable-line no-param-reassign
+  // the flag is used for integration tests that need to read compiled files
+  if (!process.env.MOCHAPACK_WRITE_TO_DISK) {
+    compiler.outputFileSystem = memoryFs // eslint-disable-line no-param-reassign
+  }
 
   // build asset map to allow fast checks for file existence
   const assetMap = new Map()

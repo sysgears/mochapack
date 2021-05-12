@@ -1,9 +1,8 @@
 import path from 'path'
 import { Stats } from 'webpack'
-import Chunk from 'webpack/lib/Chunk'
-import Module from 'webpack/lib/Module'
 import sortChunks from './sortChunks'
-import getAffectedModuleIds from './getAffectedModuleIds'
+import getAffectedModuleIds from './webpack4GetAffectedModuleIds'
+import { Chunk, Module } from '../types'
 
 export type BuildStats = {
   affectedModules: Array<number | string>
@@ -15,17 +14,17 @@ export default function getBuildStats(
   stats: Stats,
   outputPath: string
 ): BuildStats {
-  const { chunks, chunkGraph, chunkGroups, modules, moduleGraph, builtModules } = stats.compilation
+  const { chunks, chunkGroups, modules } = stats.compilation
 
   const sortedChunks = sortChunks(chunks, chunkGroups)
-  const affectedModules = getAffectedModuleIds(chunks, chunkGraph, modules, moduleGraph, builtModules)
+  const affectedModules = getAffectedModuleIds(chunks, modules)
 
   const entries = []
   const js = []
   const pathHelper = f => path.join(outputPath, f)
 
   sortedChunks.forEach((chunk: Chunk) => {
-    const files = Array.from(chunk.files)
+    const files = Array.isArray(chunk.files) ? chunk.files : [chunk.files]
 
     if (chunk.isOnlyInitial()) {
       // only entry files
@@ -34,11 +33,11 @@ export default function getBuildStats(
     }
 
     if (
-      chunkGraph
-        .getChunkModules(chunk)
-        .some((module: Module) => affectedModules.indexOf(chunkGraph.getModuleId(module)) !== -1)
+      chunk
+        .getModules()
+        .some((module: Module) => affectedModules.indexOf(module.id) !== -1)
     ) {
-      files.forEach((file: string) => {
+      files.forEach(file => {
         if (/\.js$/.test(file)) {
           js.push(file)
         }
