@@ -8507,7 +8507,7 @@ fsevents@^1.2.7:
     yargs: 14.0.0
   peerDependencies:
     mocha: ">=6 <9"
-    webpack: ^5.0.0
+    webpack: ^4.0.0 || ^5.0.0
   bin:
     mochapack: ./bin/mochapack
   languageName: unknown
