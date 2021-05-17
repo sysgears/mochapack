@@ -1,4 +1,4 @@
-import { join, resolve, sep } from 'path'
+import { join, resolve, sep, normalize } from 'path'
 import { expect } from 'chai'
 import { merge as _merge } from 'lodash'
 import { SinonSandbox, createSandbox } from 'sinon'
@@ -74,7 +74,9 @@ describe('createWebpackConfig', () => {
     })
 
     it('uses the existing output path', () => {
-      expect(createdConfig.webpackConfig.output.path).to.eql('existing/path')
+      expect(createdConfig.webpackConfig.output.path).to.eql(
+        normalize('existing/path')
+      )
     })
 
     context('when a public path is not provided', () => {

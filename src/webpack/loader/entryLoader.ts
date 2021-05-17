@@ -1,5 +1,5 @@
+import { normalize } from 'path'
 import loaderUtils from 'loader-utils'
-import normalizePath from 'normalize-path'
 import createEntry from '../util/createEntry'
 
 export class EntryConfig {
@@ -10,12 +10,12 @@ export class EntryConfig {
   }
 
   addFile(file: string): void {
-    const normalizedFile = normalizePath(file)
+    const normalizedFile = normalize(file)
     this.files.push(normalizedFile)
   }
 
   removeFile(file: string): void {
-    const normalizedFile = normalizePath(file)
+    const normalizedFile = normalize(file)
     this.files = this.files.filter(f => f !== normalizedFile)
   }
 
