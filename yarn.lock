@@ -3184,7 +3184,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"chokidar@npm:2.1.8, chokidar@npm:^2.0.0":
+"chokidar@npm:2.1.8":
   version: 2.1.8
   resolution: "chokidar@npm:2.1.8"
   dependencies:
@@ -3242,6 +3242,25 @@ __metadata:
     fsevents:
       optional: true
   checksum: d13cdf1535f94aaf2c03a91128ec0e70ae2dd70bc8bd1d25439005f79e4d111ee4dfe1bc32bcc7c7d4afe95db85ff1971f03b83e145f1cf131a790065d70a8de
+  languageName: node
+  linkType: hard
+
+"chokidar@npm:^3.5.1":
+  version: 3.5.1
+  resolution: "chokidar@npm:3.5.1"
+  dependencies:
+    anymatch: ~3.1.1
+    braces: ~3.0.2
+    fsevents: ~2.3.1
+    glob-parent: ~5.1.0
+    is-binary-path: ~2.1.0
+    is-glob: ~4.0.1
+    normalize-path: ~3.0.0
+    readdirp: ~3.5.0
+  dependenciesMeta:
+    fsevents:
+      optional: true
+  checksum: 30f87c47a30e94abe5fcda2c5a9d743044c18da73b7c0e62a66c84fb65758c328e61297cc872bb202aa318f9d8e63cec62fff07823aa7ac3c4bdf2199c7973db
   languageName: node
   linkType: hard
 
@@ -5299,12 +5318,30 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
+"fsevents@patch:fsevents@~2.3.1#builtin<compat/fsevents>":
+  version: 2.3.2
+  resolution: "fsevents@patch:fsevents@npm%3A2.3.2#builtin<compat/fsevents>::version=2.3.2&hash=11e9ea"
+  dependencies:
+    node-gyp: latest
+  checksum: fdca80842918ea0c5d586010f946caa34927e38fa0baffd42c2a751c8b44953743f303748d8821fb199e00398921dcb31e23143338b7830699fe5d6f55721b74
+  languageName: node
+  linkType: hard
+
 "fsevents@~2.1.1, fsevents@~2.1.2":
   version: 2.1.3
   resolution: "fsevents@npm:2.1.3"
   dependencies:
     node-gyp: latest
   checksum: 7f5534c0bab201742c11b3b242f72f0f2677f9c52bf93d787ab87ef9dbca8976a5f788514751b1de51788e35572202e252a6b892d8d1b2e4c2c2e3d03f9ff9e1
+  languageName: node
+  linkType: hard
+
+fsevents@~2.3.1:
+  version: 2.3.2
+  resolution: "fsevents@npm:2.3.2"
+  dependencies:
+    node-gyp: latest
+  checksum: 98cf17ace359e805efe75ce80b1380ffa7814af917e5bbe8be2dec8d55686b02211488b83a05b096a627a0edbc30dc4a267ba50684d41c09b9b1cc04ae9cb75d
   languageName: node
   linkType: hard
 
@@ -8459,7 +8496,7 @@ fsevents@^1.2.7:
     bdd-lazy-var: ^2.5.0
     chai: ^4.1.0
     chalk: ^2.4.2
-    chokidar: ^2.0.0
+    chokidar: ^3.5.1
     coffee-script: ^1.11.1
     cross-env: 6.0.3
     css-loader: ^5.0.1
