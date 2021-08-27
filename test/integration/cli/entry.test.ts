@@ -245,11 +245,11 @@ describe('cli - entry', function() {
         if (parseInt(x / 10, 10) === 0) {
           if (x <= 4) {
             return path.join(fixtureDirTmp, `passing-test-${x}.js`)
-          } else if (x <= 8) {
+          } if (x <= 8) {
             return path.join(fixtureDirTmp, `failing-test-${x}.js`)
           }
           return path.join(fixtureDirTmp, `corrupted-test-${x}.js`)
-        } else if (parseInt(x / 10, 10) === 1) {
+        } if (parseInt(x / 10, 10) === 1) {
           return path.join(fixtureDirTmp, 'sub1', `passing-test-${x}.js`)
         }
         return path.join(fixtureDirTmp, 'sub2', `passing-test-${x}.js`)
