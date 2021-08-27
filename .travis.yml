@@ -4,12 +4,6 @@ dist: bionic
 
 cache: false
 
-# Build only master & PRs
-branches:
-  only:
-    - master
-    - /^greenkeeper/.*$/
-
 language: node_js
 
 node_js:
