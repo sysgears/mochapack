@@ -4,11 +4,11 @@ dist: bionic
 
 cache: false
 
-# Build only master & PRs
+# Build all branches
 branches:
   only:
-    - master
-    - /^greenkeeper/.*$/
+  - gh-pages
+  - /.*/
 
 language: node_js
 
