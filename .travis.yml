@@ -4,6 +4,12 @@ dist: bionic
 
 cache: false
 
+# Build all branches
+branches:
+  only:
+  - gh-pages
+  - /.*/
+
 language: node_js
 
 node_js:
