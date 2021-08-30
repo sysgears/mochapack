@@ -33,7 +33,7 @@ jobs:
         node-version: ${{matrix.node}}.x
 
     - name: Install
-      run:
+      run: |
         yarn add -D webpack@${{ matrix.webpack }} mocha@${{ matrix.mocha }}
 
     - name: Prepare for tests
@@ -42,9 +42,9 @@ jobs:
         if [ ${{ matrix.webpack }} == 5 ]; then echo -e "// @ts-nocheck\n$(cat src/webpack/util/webpack4GetBuildStats.ts)" > src/webpack/util/webpack4GetBuildStats.ts; fi
 
     - name: Run tests
-      run:
+      run: |
         yarn cover
 
     - name: Check coverage:
-      run:
+      run: |
         bash <(curl -s https://codecov.io/bash)
