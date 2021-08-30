@@ -1,0 +1,44 @@
+name: Build and test mochapack
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+
+jobs:
+  build:
+    strategy:
+      matrix:
+        node: [12, 14, 16]
+        mocha: [7, 8]
+        webpack: [4, 5]
+
+    name: 'Mocha ${{matrix.mocha}} w/ Webpack ${{matrix.webpack}} w/ Node.js ${{matrix.node}}.x'
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - uses: actions/cache@v2
+      with:
+        path: |
+          ./node_modules
+          ./.yarn/releases
+          ~/.yarn
+        key: ${{ runner.os }}-install-${{ hashFiles('yarn.lock') }}-v4
+
+    - name: 'Use Node.js ${{matrix.node}}'
+      uses: actions/setup-node@master
+      with:
+        node-version: ${{matrix.node}}.x
+
+    - name: Install
+      run: |
+        yarn --immutable
+        yarn add -D webpack@${{ matrix.webpack-version }}
+        yarn add -D mocha@${{ matrix.mocha-version }}
+
+    - name: Run tests
+      run: |
+        yarn cover
+        bash <(curl -s https://codecov.io/bash)
