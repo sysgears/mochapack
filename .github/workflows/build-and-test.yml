@@ -45,6 +45,6 @@ jobs:
       run: |
         yarn cover
 
-    - name: Check coverage:
+    - name: Check coverage
       run: |
         bash <(curl -s https://codecov.io/bash)
