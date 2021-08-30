@@ -20,7 +20,7 @@ export const ensureGlob = (
 
   if (isGlob(normalized)) {
     return normalized
-  } else if (isDirectory(normalized)) {
+  } if (isDirectory(normalized)) {
     if (!isGlob(pattern)) {
       throw new Error(`Provided Glob ${pattern} is not a valid glob pattern`)
     }
@@ -44,7 +44,7 @@ export const extensionsToGlob = (extensions: Array<string>) => {
 
   if (filtered.length === 0) {
     return '*.js'
-  } else if (filtered.length === 1) {
+  } if (filtered.length === 1) {
     return `*${filtered[0]}`
   }
   return `*{${filtered.join(',')}}`

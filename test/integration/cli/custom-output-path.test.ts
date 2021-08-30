@@ -17,7 +17,7 @@ describe('custom output path', function() {
     this.webpackConfigPath = normalizePath(
       path.join(fixtureDir, 'custom-output-path/webpack.config-test.js')
     )
-    this.webpackConfig = require('./fixture/custom-output-path/webpack.config-test.js') // eslint-disable-line global-require
+    this.webpackConfig = require('./fixture/custom-output-path/webpack.config-test') // eslint-disable-line global-require
   })
 
   beforeEach(function() {

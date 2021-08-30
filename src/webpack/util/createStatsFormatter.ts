@@ -12,7 +12,7 @@ const createGetFile = (requestShortener: RequestShortener) => (
   if (e.file) {
     // webpack does this also, so there must be case when this happens
     return e.file
-  } else if (
+  } if (
     e.module &&
     e.module.readableIdentifier &&
     typeof e.module.readableIdentifier === 'function'

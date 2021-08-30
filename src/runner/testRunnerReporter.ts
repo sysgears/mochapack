@@ -33,8 +33,11 @@ const formatTitleError = title => chalk.white.bold.bgRed('', title, '')
 
 class Reporter {
   added: Array<string>
+
   removed: Array<string>
+
   options: ReporterOptions
+
   formatStats: (
     stats: Stats
   ) => { warnings: Array<string>; errors: Array<string> }
