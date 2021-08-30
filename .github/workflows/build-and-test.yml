@@ -22,10 +22,10 @@ jobs:
     - uses: actions/cache@v2
       with:
         path: |
+          ~/.yarn/berry
+          ./.yarn
           ./node_modules
-          ./.yarn/releases
-          '~/.yarn/berry'
-        key: ${{ runner.os }}-install-${{ hashFiles('yarn.lock') }}-v4
+        key: ${{ runner.os }}-install-${{ hashFiles('yarn.lock') }}-v1
 
     - name: 'Use Node.js ${{matrix.node}}'
       uses: actions/setup-node@master

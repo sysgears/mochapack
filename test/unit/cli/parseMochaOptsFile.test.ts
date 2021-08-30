@@ -45,6 +45,8 @@ describe('parseMochaOptsFile', function() {
       // eslint-disable-next-line global-require, import/no-dynamic-require
       const expectedResult = require(expectedResultsPath)
       const parsedOptions = parseMochaOptsFile(optsFilePath)
+      // Ignore interactive value
+      expectedResult.mochapack.interactive = (parsedOptions as any).mochapack.interactive;
 
       assert.deepEqual(parsedOptions, expectedResult)
     })
