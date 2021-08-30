@@ -24,7 +24,7 @@ jobs:
         path: |
           ./node_modules
           ./.yarn/releases
-          ~/.yarn
+          '~/.yarn/berry'
         key: ${{ runner.os }}-install-${{ hashFiles('yarn.lock') }}-v4
 
     - name: 'Use Node.js ${{matrix.node}}'
