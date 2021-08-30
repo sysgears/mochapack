@@ -34,11 +34,13 @@ jobs:
 
     - name: Install
       run: |
-        yarn --immutable
-        yarn add -D webpack@${{ matrix.webpack }}
+        YARN_ENABLE_SCRIPTS=false yarn --immutable
+        YARN_ENABLE_SCRIPTS=false yarn add -D webpack@${{ matrix.webpack }}
         yarn add -D mocha@${{ matrix.mocha }}
 
     - name: Run tests
       run: |
+        if [ ${{ matrix.webpack }} == 4 ]; then echo -e "// @ts-nocheck\n/*eslint-disable*/\n$(cat src/webpack/util/getAffectedModuleIds.ts)" > src/webpack/util/getAffectedModuleIds.ts; fi
+        if [ ${{ matrix.webpack }} == 5 ]; then echo -e "// @ts-nocheck\n$(cat src/webpack/util/webpack4GetBuildStats.ts)" > src/webpack/util/webpack4GetBuildStats.ts; fi
         yarn cover
         bash <(curl -s https://codecov.io/bash)
