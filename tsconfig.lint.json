@@ -3,6 +3,6 @@
   "compilerOptions": {
     "allowJs": true
   },
-  "include": ["bin/**/*", "src/**/*", "test/**/*"],
+  "include": ["bin/**/*", "src/**/*", "test/**/*", "*.js"],
   "exclude": ["node_modules"]
 }

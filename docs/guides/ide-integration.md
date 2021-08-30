@@ -83,10 +83,3 @@ It's recommended to specify only a single test file to reduce start-up time.
 1. start the debugger with *F5*
 1. happy testing
   ![VS Code Debugger](../media/vscode-debug.png)
-
-## Example project with mochapack and debugging setup
-
-See the example project with mochapack and debugging set up [here](../../examples/debug-webpack4)
-
-Run `yarn` to install dependencies and then `yarn test:debug:watch` to start mochapack with debugging enabled in watch mode.
-
