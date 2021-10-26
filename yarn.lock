@@ -3418,7 +3418,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"chokidar@npm:^3.4.0, chokidar@npm:^3.5.1":
+"chokidar@npm:^3.4.0, chokidar@npm:^3.5.2":
   version: 3.5.2
   resolution: "chokidar@npm:3.5.2"
   dependencies:
@@ -9295,7 +9295,7 @@ fsevents@~2.3.2:
     bdd-lazy-var: ^2.5.0
     chai: ^4.1.0
     chalk: ^2.4.2
-    chokidar: ^3.5.1
+    chokidar: ^3.5.2
     coffee-script: ^1.11.1
     commander: 2.11.0
     cross-env: 6.0.3
