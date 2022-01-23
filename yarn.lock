@@ -6274,12 +6274,12 @@ fsevents@~2.3.2:
   languageName: node
   linkType: hard
 
-"glob-parent@npm:6.0.2":
-  version: 6.0.2
-  resolution: "glob-parent@npm:6.0.2"
+"glob-parent@npm:5.1.2, glob-parent@npm:^5.0.0, glob-parent@npm:^5.1.2, glob-parent@npm:~5.1.2":
+  version: 5.1.2
+  resolution: "glob-parent@npm:5.1.2"
   dependencies:
-    is-glob: ^4.0.3
-  checksum: 317034d88654730230b3f43bb7ad4f7c90257a426e872ea0bf157473ac61c99bf5d205fad8f0185f989be8d2fa6d3c7dce1645d99d545b6ea9089c39f838e7f8
+    is-glob: ^4.0.1
+  checksum: cab87638e2112bee3f839ef5f6e0765057163d39c66be8ec1602f3823da4692297ad4e972de876ea17c44d652978638d2fd583c6713d0eb6591706825020c9ee
   languageName: node
   linkType: hard
 
@@ -6289,15 +6289,6 @@ fsevents@~2.3.2:
   dependencies:
     is-glob: ^2.0.0
   checksum: b9d59dc532d47aaaa4841046ff631b325a707f738445300b83b7a1ee603dd060c041a378e8a195c887d479bb703685cee4725c8f54b8dacef65355375f57d32a
-  languageName: node
-  linkType: hard
-
-"glob-parent@npm:^5.0.0, glob-parent@npm:^5.1.2, glob-parent@npm:~5.1.2":
-  version: 5.1.2
-  resolution: "glob-parent@npm:5.1.2"
-  dependencies:
-    is-glob: ^4.0.1
-  checksum: cab87638e2112bee3f839ef5f6e0765057163d39c66be8ec1602f3823da4692297ad4e972de876ea17c44d652978638d2fd583c6713d0eb6591706825020c9ee
   languageName: node
   linkType: hard
 
@@ -7383,15 +7374,6 @@ fsevents@~2.3.2:
   dependencies:
     is-extglob: ^2.1.1
   checksum: a8414252499e4381756c36fe52ed778e090dd21d8cb81053384eafd5bc4fc36a6232ef528156ec98dce561f589d1d16659b7f9679b8c86864ac3c6acd5da6f66
-  languageName: node
-  linkType: hard
-
-"is-glob@npm:^4.0.3":
-  version: 4.0.3
-  resolution: "is-glob@npm:4.0.3"
-  dependencies:
-    is-extglob: ^2.1.1
-  checksum: 17fb4014e22be3bbecea9b2e3a76e9e34ff645466be702f1693e8f1ee1adac84710d0be0bd9f967d6354036fd51ab7c2741d954d6e91dae6bb69714de92c197a
   languageName: node
   linkType: hard
 
@@ -9350,7 +9332,7 @@ fsevents@~2.3.2:
     gitbook-plugin-github: ^2.0.0
     gitbook-plugin-prism: ^2.0.0
     glob: 7.1.4
-    glob-parent: 6.0.2
+    glob-parent: 5.1.2
     globby: ^10.0.1
     interpret: ^1.2.0
     is-glob: ^4.0.1

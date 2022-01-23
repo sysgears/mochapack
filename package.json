@@ -114,7 +114,7 @@
     "@babel/runtime-corejs2": "^7.0.0",
     "chalk": "^2.4.2",
     "chokidar": "^3.5.2",
-    "glob-parent": "6.0.2",
+    "glob-parent": "5.1.2",
     "globby": "^10.0.1",
     "interpret": "^1.2.0",
     "is-glob": "^4.0.1",
