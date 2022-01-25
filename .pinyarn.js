@@ -21,7 +21,7 @@ const config = {
       "7dvv4UhJhdhbXSKkcGnjCNtUBFznY1vDhx4"
     ]
   ],
-  "yarnUrl": "https://raw.githubusercontent.com/yarnpkg/berry/%40yarnpkg/cli/3.1.1/packages/yarnpkg-cli/bin/yarn.js"
+  "yarnUrl": "https://raw.githubusercontent.com/yarnpkg/berry/%40yarnpkg/cli/3.2.0-rc.12/packages/yarnpkg-cli/bin/yarn.js"
 };
 
 const getUrlHash = url => crypto.createHash('sha256').update(url).digest('hex').substring(0, 8);
@@ -93,10 +93,9 @@ const downloadFile = (filePath, url) => {
             .on('error', err => {
               reject(err);
             })
-            .on('end', () => {
-              file.end();
-              resolve();
-            });
+            .on('end', () => file.end());
+          file
+            .on('finish', resolve);
         }
       }
     }).on('error', reject)
@@ -123,11 +122,13 @@ if (CURRENT_YARN_URL_HASH !== YARN_URL_HASH) {
 }
 
 for (const plugin of PLUGIN_LIST) {
-  const pluginUrl = config.pluginUrls[plugin];
-  const pluginPath = path.join(PLUGIN_DIR, '@yarnpkg', `plugin-${plugin}-${getUrlHash(pluginUrl)}.cjs`)
-  if (!fs.existsSync(pluginPath)) {
-    fs.mkdirSync(path.join(PLUGIN_DIR, '@yarnpkg'), { recursive: true });
-    promises.push(downloadFile(pluginPath, pluginUrl));
+  const pluginUrl = (config.pluginUrls || {})[plugin];
+  if (pluginUrl) {
+    const pluginPath = path.join(PLUGIN_DIR, '@yarnpkg', `plugin-${plugin}-${getUrlHash(pluginUrl)}.cjs`)
+    if (!fs.existsSync(pluginPath)) {
+      fs.mkdirSync(path.join(PLUGIN_DIR, '@yarnpkg'), { recursive: true });
+      promises.push(downloadFile(pluginPath, pluginUrl));
+    }
   }
 }
 
@@ -138,8 +139,8 @@ if (PLUGIN_LIST.length === 0) {
   const entries = fs.readdirSync(path.join(PLUGIN_DIR, '@yarnpkg'));
   for (const entry of entries) {
     const [,plugin, pluginHash] = entry.match(/plugin-(.*?)(?:-)?([0-9a-f]{8})?\.cjs/);
-    const pluginUrl = config.pluginUrls[plugin];
-    if (!PLUGIN_LIST.includes(plugin) || getUrlHash(pluginUrl) !== pluginHash)
+    const pluginUrl = (config.pluginUrls || {})[plugin];
+    if (pluginUrl && (!PLUGIN_LIST.includes(plugin) || getUrlHash(pluginUrl) !== pluginHash))
       fs.unlinkSync(path.join(PLUGIN_DIR, '@yarnpkg', entry));
   }
 }
