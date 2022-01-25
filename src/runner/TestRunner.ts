@@ -46,7 +46,6 @@ type MochaRunner = {
   abort: () => void
   currentRunnable?: {
     retries: (count: number) => void
-    enableTimeouts: (enabled: boolean) => void
     timeout: (ms: number) => void
     resetTimeout: (ms: number) => void
   }
@@ -214,7 +213,6 @@ export default class TestRunner extends EventEmitter {
         if (mochaRunner.currentRunnable) {
           const runnable = mochaRunner.currentRunnable
           runnable.retries(0)
-          runnable.enableTimeouts(true)
           runnable.timeout(1)
           runnable.resetTimeout(1)
         }

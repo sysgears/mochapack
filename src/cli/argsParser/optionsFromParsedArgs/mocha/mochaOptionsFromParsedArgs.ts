@@ -115,10 +115,7 @@ const translateObjectIntoMochaOptions = (
     }
   )
 
-  const mochaOptions = ensureNumericOptionsAreNumbers<MochaOptions>(options)
-  if (mochaOptions.timeout === 0) mochaOptions.enableTimeouts = false
-
-  return mochaOptions
+  return ensureNumericOptionsAreNumbers<MochaOptions>(options)
 }
 
 /**
