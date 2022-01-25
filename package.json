@@ -44,7 +44,7 @@
   "author": "Victor Vlasenko <victor.vlasenko@sysgears.com>",
   "license": "MIT",
   "peerDependencies": {
-    "mocha": ">=6 <9",
+    "mocha": ">=6",
     "webpack": "^4.0.0 || ^5.0.0"
   },
   "devDependencies": {
@@ -60,7 +60,7 @@
     "@babel/runtime": "^7.7.6",
     "@types/chai": "^4.2.7",
     "@types/lodash": "^4.14.149",
-    "@types/mocha": "^5.2.7",
+    "@types/mocha": "^9.1.0",
     "@types/node": "^12.12.17",
     "@types/sinon": "^9.0.0",
     "@types/sinon-chai": "^3.2.4",
@@ -94,7 +94,7 @@
     "gitbook-plugin-github": "^2.0.0",
     "gitbook-plugin-prism": "^2.0.0",
     "glob": "7.1.4",
-    "mocha": "7.1.1",
+    "mocha": "9.2.0",
     "node-sass": "^4.11.0",
     "np": "5.1.0",
     "nyc": "14.1.1",

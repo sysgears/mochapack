@@ -111,11 +111,6 @@ describe('initMocha', async () => {
       expectedMochaOptions: { delay: true }
     },
     {
-      optionName: 'enableTimeouts',
-      providedOptions: { constructor: { enableTimeouts: true } },
-      expectedMochaOptions: { enableTimeouts: true }
-    },
-    {
       optionName: 'forbidOnly',
       providedOptions: { constructor: { forbidOnly: true } },
       expectedMochaOptions: { forbidOnly: true }

@@ -183,7 +183,7 @@ describe('optionsFromParsedArgs', () => {
           argName: 'timeout',
           optionName: 'timeout',
           providedArgs: { timeout: '0' },
-          expectedOptions: { timeout: 0, enableTimeouts: false }
+          expectedOptions: { timeout: 0 }
         },
         {
           argName: 'ui',
