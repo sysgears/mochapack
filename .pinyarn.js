@@ -93,10 +93,9 @@ const downloadFile = (filePath, url) => {
             .on('error', err => {
               reject(err);
             })
-            .on('end', () => {
-              file.end();
-              resolve();
-            });
+            .on('end', () => file.end());
+          file
+            .on('finish', resolve);
         }
       }
     }).on('error', reject)
