@@ -1,6 +1,6 @@
 {
   "name": "mochapack",
-  "version": "2.1.3",
+  "version": "2.1.4",
   "description": "mocha cli with webpack support",
   "bin": "./bin/mochapack",
   "main": "./lib/createMochapack.js",
