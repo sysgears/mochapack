@@ -21,7 +21,7 @@ const config = {
       "7dvv4UhJhdhbXSKkcGnjCNtUBFznY1vDhx4"
     ]
   ],
-  "yarnUrl": "https://api.github.com/repos/yarnpkg/berry/actions/artifacts/87004054/zip"
+  "yarnUrl": "https://raw.githubusercontent.com/yarnpkg/berry/%40yarnpkg/cli/3.1.1/packages/yarnpkg-cli/bin/yarn.js"
 };
 
 const getUrlHash = url => crypto.createHash('sha256').update(url).digest('hex').substring(0, 8);
