@@ -23,16 +23,18 @@ jobs:
       with:
         path: |
           ~/.yarn/berry
-        key: global-cache
+        key: yarn-global-${{ runner.os }}-${{ hashFiles('yarn.lock') }}-v1
+        restore-keys: |
+          yarn-global-
 
     - uses: actions/cache@v3
       with:
         path: |
           ./.yarn/install-state.gz
           ./node_modules
-        key: ${{ runner.os }}-install-${{ hashFiles('yarn.lock') }}-v1
+        key: yarn-${{ runner.os }}-${{ hashFiles('yarn.lock') }}-v1
         restore-keys: |
-          ${{ runner.os }}-install-
+          yarn-${{ runner.os }}-install-
 
     - name: 'Use Node.js ${{matrix.node}}'
       uses: actions/setup-node@master
