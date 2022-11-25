@@ -19,13 +19,20 @@ jobs:
     steps:
     - uses: actions/checkout@v2
 
-    - uses: actions/cache@v2
+    - uses: actions/cache@v3
       with:
         path: |
           ~/.yarn/berry
-          ./.yarn
+        key: global-cache
+
+    - uses: actions/cache@v3
+      with:
+        path: |
+          ./.yarn/install-state.gz
           ./node_modules
         key: ${{ runner.os }}-install-${{ hashFiles('yarn.lock') }}-v1
+        restore-keys: |
+          ${{ runner.os }}-install-
 
     - name: 'Use Node.js ${{matrix.node}}'
       uses: actions/setup-node@master

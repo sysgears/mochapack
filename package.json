@@ -95,7 +95,6 @@
     "gitbook-plugin-prism": "^2.0.0",
     "glob": "7.1.4",
     "mocha": "9.2.0",
-    "node-sass": "^4.11.0",
     "np": "5.1.0",
     "nyc": "14.1.1",
     "optimist": "0.6.1",
