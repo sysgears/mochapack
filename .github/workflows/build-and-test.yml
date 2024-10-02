@@ -26,6 +26,7 @@ jobs:
 
       - name: Install
         run: |
+          npm i -g nari
           nari
 
       - name: Change webpack and mocha versions
