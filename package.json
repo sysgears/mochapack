@@ -15,18 +15,18 @@
   "scripts": {
     "clean-lib": "del-cli \"lib/**\" \"!lib\" \"!lib/reporters\" \"!lib/utils.js\" \"!lib/entry.js\" \"!lib/reporters/base.js\"",
     "clean-tmp": "del-cli \".tmp/**\"",
-    "build": "yarn clean-lib && tsc",
+    "build": "nari clean-lib && tsc",
     "format": "prettier '{src,test}/**/*' ./*.json --write --loglevel warn",
     "lint": "eslint src/**/*.ts test/**/*.ts --fix",
-    "test": "yarn clean-tmp && yarn build && ts-mocha --timeout 10000 --recursive --require @babel/register --exit \"{test,src}/**/*.test.ts\"",
-    "cover": "cross-env BABEL_ENV=coverage nyc --reporter=lcov --reporter=text yarn test",
-    "posttest": "yarn format && yarn lint",
+    "test": "nari clean-tmp && nari build && ts-mocha --timeout 10000 --recursive --require @babel/register --exit \"{test,src}/**/*.test.ts\"",
+    "cover": "cross-env BABEL_ENV=coverage nyc --reporter=lcov --reporter=text nari test",
+    "posttest": "nari format && nari lint",
     "docs:clean": "del-cli _book",
-    "docs:build": "yarn docs:clean && node ./gitbook-cli build",
+    "docs:build": "nari docs:clean && node ./gitbook-cli build",
     "docs:watch": "node ./gitbook-cli serve --port 3000",
     "docs:deploy": "gh-pages -d _book",
-    "prepack": "yarn build",
-    "postpublish": "yarn docs:deploy",
+    "prepack": "nari build",
+    "postpublish": "nari docs:deploy",
     "release": "np",
     "watch": "tsc -w"
   },
@@ -61,7 +61,7 @@
     "@types/chai": "^4.2.7",
     "@types/lodash": "^4.14.149",
     "@types/mocha": "^9.1.0",
-    "@types/node": "^12.12.17",
+    "@types/node": "^22.7.4",
     "@types/sinon": "^9.0.0",
     "@types/sinon-chai": "^3.2.4",
     "@types/yargs": "^15.0.4",
@@ -160,5 +160,6 @@
     "tunnel-agent": ">=0.6.0",
     "hoek": "^4.2.1",
     "cryptiles": "^4.1.3"
-  }
+  },
+  "lockTime": "2024-10-02T13:05:25.268Z"
 }

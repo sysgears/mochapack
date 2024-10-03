@@ -1,4 +1,9 @@
-import { Configuration, WebpackPluginInstance, RuleSetRule } from 'webpack'
+import {
+  Configuration,
+  WebpackPluginInstance,
+  Compiler,
+  RuleSetRule
+} from 'webpack'
 import { EntryConfig } from '../../../webpack/loader/entryLoader'
 
 export interface CreateWebpackConfigOptions {
@@ -19,7 +24,13 @@ export interface BuildLoaderRulesOptions extends CreateWebpackConfigOptions {
 export interface BuildWebpackConfigOptions extends BuildLoaderRulesOptions {
   loaderRules: RuleSetRule[]
   outputPath: string
-  plugins: WebpackPluginInstance[]
+  plugins: (
+    | false
+    | ''
+    | 0
+    | WebpackPluginInstance
+    | ((this: Compiler, compiler: Compiler) => void)
+  )[]
   publicPath: string
 }
 

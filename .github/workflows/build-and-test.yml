@@ -2,41 +2,46 @@ name: Build and test mochapack
 
 on:
   push:
-    branches: [ master ]
+    branches: [master]
   pull_request:
 
 jobs:
   build:
     strategy:
       matrix:
-        node: [12, 14]
+        node: [18, 20]
         mocha: [7, 8, 9]
         webpack: [4, 5]
 
-    name: 'Mocha ${{matrix.mocha}} w/ Webpack ${{matrix.webpack}} w/ Node.js ${{matrix.node}}.x'
+    name: "Mocha ${{matrix.mocha}} w/ Webpack ${{matrix.webpack}} w/ Node.js ${{matrix.node}}.x"
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v2
+      - uses: actions/checkout@v2
 
-    - name: 'Use Node.js ${{matrix.node}}'
-      uses: actions/setup-node@master
-      with:
-        node-version: ${{matrix.node}}.x
+      - name: "Use Node.js ${{matrix.node}}"
+        uses: actions/setup-node@master
+        with:
+          node-version: ${{matrix.node}}.x
 
-    - name: Install
-      run: |
-        yarn add -D webpack@${{ matrix.webpack }} mocha@${{ matrix.mocha }}
+      - name: Install
+        run: |
+          npm i -g nari
+          nari
 
-    - name: Prepare for tests
-      run: |
-        if [ ${{ matrix.webpack }} == 4 ]; then echo -e "// @ts-nocheck\n/*eslint-disable*/\n$(cat src/webpack/util/getAffectedModuleIds.ts)" > src/webpack/util/getAffectedModuleIds.ts; fi
-        if [ ${{ matrix.webpack }} == 5 ]; then echo -e "// @ts-nocheck\n$(cat src/webpack/util/webpack4GetBuildStats.ts)" > src/webpack/util/webpack4GetBuildStats.ts; fi
+      - name: Change webpack and mocha versions
+        run: |
+          nari add -D webpack@${{ matrix.webpack }} mocha@${{ matrix.mocha }}
 
-    - name: Run tests
-      run: |
-        yarn cover
+      - name: Prepare for tests
+        run: |
+          if [ ${{ matrix.webpack }} == 4 ]; then echo -e "// @ts-nocheck\n/*eslint-disable*/\n$(cat src/webpack/util/getAffectedModuleIds.ts)" > src/webpack/util/getAffectedModuleIds.ts; fi
+          if [ ${{ matrix.webpack }} == 5 ]; then echo -e "// @ts-nocheck\n$(cat src/webpack/util/webpack4GetBuildStats.ts)" > src/webpack/util/webpack4GetBuildStats.ts; fi
 
-    - name: Check coverage
-      run: |
-        bash <(curl -s https://codecov.io/bash)
+      - name: Run tests
+        run: |
+          nari cover
+
+      - name: Check coverage
+        run: |
+          bash <(curl -s https://codecov.io/bash)
