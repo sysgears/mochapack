@@ -12873,7 +12873,13 @@ var resolve = async (opts) => {
   } catch {}
   const script = resolveScript(
     pkg,
-    { autoInstallPeers: true, resolutionOptimization: true, receivedMetadata: options.metadata, prod: options.prod },
+    {
+      autoInstallPeers: true,
+      resolutionOptimization: true,
+      receivedMetadata: options.metadata,
+      prod: options.prod,
+      verbose: options.verbose,
+    },
     prevState,
   );
   const promises = /* @__PURE__ */ new Map();
