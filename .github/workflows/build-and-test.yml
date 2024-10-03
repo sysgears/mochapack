@@ -27,11 +27,11 @@ jobs:
       - name: Install
         run: |
           npm i -g nari
-          ./nari/nari
+          nari
 
       - name: Change webpack and mocha versions
         run: |
-          ./nari/nari add -D webpack@${{ matrix.webpack }} mocha@${{ matrix.mocha }}
+          nari add -D webpack@${{ matrix.webpack }} mocha@${{ matrix.mocha }}
 
       - name: Prepare for tests
         run: |
