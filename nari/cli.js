@@ -12439,7 +12439,7 @@ var getMetadataMapFromStateAndOptions = ({ state, options }) => {
     for (const [name, { meta }] of state.resolutions) {
       receivedMetadata.set(name, { metadata: meta, fresh: false });
       if (options.verbose) {
-        console.log('from state', JSON.stringify(meta));
+        console.log(`state>${name}`, JSON.stringify(meta));
       }
     }
   }
@@ -12447,7 +12447,7 @@ var getMetadataMapFromStateAndOptions = ({ state, options }) => {
     for (const [name, metadata] of options.receivedMetadata) {
       receivedMetadata.set(name, { metadata, fresh: true });
       if (options.verbose) {
-        console.log('from opts', JSON.stringify(metadata));
+        console.log(`opts>${name}`, JSON.stringify(metadata));
       }
     }
   }
@@ -12489,7 +12489,7 @@ var resolveScript = function* (pkg, opts, prevState) {
     }
     receivedMetadata.set(depName, packageMetadata);
     if (options.verbose) {
-      console.log('from net', JSON.stringify(packageMetadata));
+      console.log(`net>${packageMetadata.name}`, JSON.stringify(packageMetadata.metadata));
     }
     const unresolvedRanges = unresolvedPackageRanges.get(depName);
     let resolvedRanges = resolvedPackageRanges.get(depName);
