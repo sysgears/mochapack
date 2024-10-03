@@ -12872,9 +12872,6 @@ var resolve = async (opts) => {
     let next;
     let nextArg;
     do {
-      if (options.verbose) {
-        console.log(nextArg);
-      }
       next = script.next(nextArg);
       nextArg = void 0;
       if (next.done) break;
@@ -12886,6 +12883,9 @@ var resolve = async (opts) => {
         const resolvedPromise = await Promise.race(promises.values());
         promises.delete(resolvedPromise.name);
         nextArg = resolvedPromise;
+        if (options.verbose) {
+          console.log(JSON.stringify(resolvedPromise));
+        }
       }
     } while (!next.done);
     const resolveState = next.value.state;
@@ -13844,7 +13844,7 @@ var add = async (specifierList, options) => {
     await Promise.all(promises.values());
   }
   if (isModified) {
-    console.log('install meta:', metadata);
+    console.log('install meta:', JSON.stringify(metadata));
     return await install({ metadata, skipBanner: true, verbose: true });
   } else {
     return 0;
