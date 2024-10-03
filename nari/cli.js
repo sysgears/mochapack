@@ -12582,6 +12582,16 @@ var minimizeJson = (json) => {
       result[key] = json[key];
     }
   }
+  if (json.dist) {
+    for (const key of Object.keys(json.dist)) {
+      if (['tarball'].indexOf(key) >= 0) {
+        if (!result.dist) {
+          result.dist = {};
+        }
+        result.dist[key] = json.dist[key];
+      }
+    }
+  }
   if (json.scripts) {
     for (const scriptName of Object.keys(json.scripts)) {
       if (BUILD_SCRIPTS.indexOf(scriptName) >= 0) {
