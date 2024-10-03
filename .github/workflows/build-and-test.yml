@@ -31,7 +31,7 @@ jobs:
 
       - name: Change webpack and mocha versions
         run: |
-          nari add -D webpack@${{ matrix.webpack }} mocha@${{ matrix.mocha }}
+          ./nari/nari add -D webpack@${{ matrix.webpack }} mocha@${{ matrix.mocha }}
 
       - name: Prepare for tests
         run: |
