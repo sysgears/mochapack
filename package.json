@@ -87,7 +87,7 @@
     "eslint-config-prettier": "^6.7.0",
     "eslint-plugin-import": "^2.24.2",
     "fs-extra": "5.0.0",
-    "gh-pages": "1.2.0",
+    "gh-pages": "5.0.0",
     "gitbook": "3.2.2",
     "gitbook-plugin-anchors": "^0.7.1",
     "gitbook-plugin-edit-link": "^2.0.2",
