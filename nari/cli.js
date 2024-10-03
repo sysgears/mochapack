@@ -12438,11 +12438,17 @@ var getMetadataMapFromStateAndOptions = ({ state, options }) => {
   if (state) {
     for (const [name, { meta }] of state.resolutions) {
       receivedMetadata.set(name, { metadata: meta, fresh: false });
+      if (options.verbose) {
+        console.log('from state', JSON.stringify(meta));
+      }
     }
   }
   if (options.receivedMetadata) {
     for (const [name, metadata] of options.receivedMetadata) {
       receivedMetadata.set(name, { metadata, fresh: true });
+      if (options.verbose) {
+        console.log('from opts', JSON.stringify(metadata));
+      }
     }
   }
   return receivedMetadata;
@@ -12482,6 +12488,9 @@ var resolveScript = function* (pkg, opts, prevState) {
       requestedMetadata.set(depName, { fresh: true });
     }
     receivedMetadata.set(depName, packageMetadata);
+    if (options.verbose) {
+      console.log('from net', JSON.stringify(packageMetadata));
+    }
     const unresolvedRanges = unresolvedPackageRanges.get(depName);
     let resolvedRanges = resolvedPackageRanges.get(depName);
     if (!resolvedRanges) {
@@ -12883,9 +12892,6 @@ var resolve = async (opts) => {
         const resolvedPromise = await Promise.race(promises.values());
         promises.delete(resolvedPromise.name);
         nextArg = resolvedPromise;
-        if (options.verbose) {
-          console.log(JSON.stringify(resolvedPromise));
-        }
       }
     } while (!next.done);
     const resolveState = next.value.state;
@@ -13844,7 +13850,6 @@ var add = async (specifierList, options) => {
     await Promise.all(promises.values());
   }
   if (isModified) {
-    console.log('install meta:', JSON.stringify(metadata));
     return await install({ metadata, skipBanner: true, verbose: true });
   } else {
     return 0;
