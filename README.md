@@ -1,4 +1,4 @@
-# mochapack [![Join the chat at https://gitter.im/sysgears/mochapack](https://badges.gitter.im/sysgears/mochapack.svg)](https://gitter.im/sysgears/mochapack?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge) [![npm package][npm-badge]][npm] [![Build Status Linux][build-badge]][build] [![Build Status Windows][build-badge-windows]][build-windows] [![codecov][codecov-badge]][codecov] [![Twitter Follow](https://img.shields.io/twitter/follow/sysgears.svg?style=social)](https://twitter.com/sysgears)
+# mochapack [![Join the chat at https://gitter.im/sysgears/mochapack](https://badges.gitter.im/sysgears/mochapack.svg)](https://gitter.im/sysgears/mochapack?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge) [![npm package][npm-badge]][npm] [![Build Status][build-badge]][build]  [![Twitter Follow](https://img.shields.io/twitter/follow/sysgears.svg?style=social)](https://twitter.com/sysgears)
 
 This project is a fork of [mocha-webpack](https://github.com/zinserjan/mocha-webpack). We have created this fork since there is no visible activity from original author for a long time.
 
@@ -101,10 +101,8 @@ This source code is licensed under the [MIT] license.<br/>
 Copyright &copy; 2016-2017 Jan-André Zinser<br/>
 Copyright &copy; 2018 [SysGears (Cyprus) Limited].
 
-[build-badge]: https://travis-ci.com/sysgears/mochapack.svg?branch=master
-[build]: https://travis-ci.com/sysgears/mochapack
-[build-badge-windows]: https://ci.appveyor.com/api/projects/status/pnik85hfqesxy7y9/branch/master?svg=true
-[build-windows]: https://ci.appveyor.com/project/sysgears/mochapack
+[build-badge]: https://github.com/sysgears/mochapack/actions/workflows/build-and-test.yml/badge.svg
+[build]: https://github.com/sysgears/mochapack/actions/workflows/build-and-test.yml
 [npm-badge]: https://img.shields.io/npm/v/mochapack.svg?style=flat-square
 [npm]: https://www.npmjs.org/package/mochapack
 [codecov-badge]: https://codecov.io/gh/sysgears/mochapack/branch/master/graph/badge.svg
