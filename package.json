@@ -78,6 +78,7 @@
     "chai": "^4.1.0",
     "coffee-script": "^1.11.1",
     "commander": "2.11.0",
+    "core-js": "^3.0.0",
     "cross-env": "6.0.3",
     "css-loader": "^5.0.1",
     "del": "5.1.0",
@@ -109,7 +110,7 @@
     "worker-loader": "^3.0.5"
   },
   "dependencies": {
-    "@babel/runtime-corejs2": "^7.0.0",
+    "@babel/runtime-corejs3": "^7.0.0",
     "chalk": "^2.4.2",
     "chokidar": "^3.5.2",
     "glob-parent": "5.1.2",
