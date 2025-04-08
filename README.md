@@ -86,7 +86,7 @@ mochapack --watch test
 
 ## Contributing
 
-This project uses `nari` package manager to have reproducible builds without resorting to lockfiles, it uses `lockTime` field in `package.json` instead.
+This project uses [nari] package manager to have reproducible builds without resorting to lockfiles, it uses `lockTime` field in `package.json` instead.
 
 To install `nari` execute:
 `npm i -g nari`
@@ -101,6 +101,7 @@ This source code is licensed under the [MIT] license.<br/>
 Copyright &copy; 2016-2017 Jan-André Zinser<br/>
 Copyright &copy; 2018 [SysGears (Cyprus) Limited].
 
+[nari]: https://github.com/narijs/nari
 [build-badge]: https://github.com/sysgears/mochapack/actions/workflows/build-and-test.yml/badge.svg
 [build]: https://github.com/sysgears/mochapack/actions/workflows/build-and-test.yml
 [npm-badge]: https://img.shields.io/npm/v/mochapack.svg?style=flat-square
